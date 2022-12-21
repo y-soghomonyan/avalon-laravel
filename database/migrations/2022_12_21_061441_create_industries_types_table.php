@@ -15,6 +15,7 @@ class CreateIndustriesTypesTable extends Migration
     {
         Schema::create('industries_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->timestamps();
         });
     }

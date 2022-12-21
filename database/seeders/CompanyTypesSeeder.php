@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\CompanyTypes;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class CompanyTypesSeeder extends Seeder
 {
@@ -14,6 +16,9 @@ class CompanyTypesSeeder extends Seeder
      */
     public function run()
     {
-        CompanyTypes::factroy()->count(20)->create();
+        DB::table('company_types')->insert([
+            'name' => Str::random(10),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
     }
 }

@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\IndustriesTypes;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class IndustriesTypesSeeder extends Seeder
 {
@@ -14,6 +16,9 @@ class IndustriesTypesSeeder extends Seeder
      */
     public function run()
     {
-        IndustriesTypes::factroy()->count(20)->create();
+        DB::table('industries_types')->insert([
+            'name'=>Str::random('10'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
     }
 }
