@@ -23,45 +23,19 @@
                 <th>Paren Company</th>
                 <th>Type</th>
                 <th>Industry</th>
-                <th>Acoount phone</th>
-                <th>Additional phone</th>
-                <th>Employees</th>
-                <th>Website</th>
-                <th>Address_1 Country</th>
-                <th>Address_1 City</th>
-                <th>Address_1 State</th>
-                <th>Address_1 Street</th>
-                <th>Address_1 zip code</th>
-                <th>Address_2  Country</th>
-                <th>Address_2  City</th>
-                <th>Address_2  State</th>
-                <th>Address_2  Street</th>
-                <th>Address_2  zip code</th>
-                <th>Description</th>
+                <th>Company phone</th>
+                <th>Company owner</th>
             </tr>
             </thead>
             <tbody>
                 @foreach($companies as  $value)
                 <tr id="" data-toggle="modal" data-target="#edit_account_{{$value->id}}">
                     <td>{{$value->name}}</td>
-                    <td>{{$value->parentCompany->name}}</td>
+                    <td>{{!empty($value->parentCompany->name) ? $value->parentCompany->name : ""}}</td>
                     <td>{{$value->companyTypes->name}}</td>
                     <td>{{$value->industriesTypes->name}}</td>
                     <td>{{$value->company_phone}}</td>
-                    <td>{{$value->additional_phone}}</td>
-                    <td>{{$value->employees}}</td>
-                    <td>{{$value->website}}</td>
-                    <td>{{$value->address_1_country}}</td>
-                    <td>{{$value->address_1_city}}</td>
-                    <td>{{$value->address_1_state}}</td>
-                    <td>{{$value->address_1_street}}</td>
-                    <td>{{$value->address_1_zip_code}}</td>
-                    <td>{{$value->address_2_country}}</td>
-                    <td>{{$value->address_2_city}}</td>
-                    <td>{{$value->address_2_state}}</td>
-                    <td>{{$value->address_2_street}}</td>
-                    <td>{{$value->address_2_zip_code}}</td>
-                    <td>{{$value->description}}</td>
+                    <td>User123</td>
                 </tr>
               @endforeach
             </tbody>
@@ -131,7 +105,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Website:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="Website" value="" name="website" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="Website" value="" name="website" >
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Phone:</label>
@@ -141,7 +115,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Description:</label>
-                                <textarea required class="form-control" id="" rows="3" name="description"></textarea>
+                                <textarea  class="form-control" id="" rows="3" name="description"></textarea>
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Employees:</label>
@@ -151,51 +125,51 @@
                         <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address_1 Street:</label>
-                                <textarea required class="form-control" id="" rows="3" name="address_1_street"></textarea>
+                                <textarea  class="form-control" id="" rows="3" name="address_1_street"></textarea>
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address_2 Street:</label>
-                                <textarea required class="form-control" id="" rows="3" name="address_2_street"></textarea>
+                                <textarea  class="form-control" id="" rows="3" name="address_2_street"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address_1 Country:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_country" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_country" >
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address_2 Country:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_country" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_country" >
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address_1 City:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_city" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_city" >
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address_2 City:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_city" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_city" >
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address_1 State:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_state" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_state" >
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address_2 State:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_state" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_state" >
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address_1 zip code:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_zip_code" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_zip_code" >
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address_2 zip code:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_zip_code" >
+                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_zip_code" >
                             </div>
                         </div>
                         <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
@@ -243,7 +217,7 @@
                                         <option selected>Select Parent Company</option>
                                         @foreach($all_companies as $comp)
                                             <option value="{{$comp->id}}"
-                                            @if($comp->id == $value->parentCompany->id) {{'selected'}} @else {{""}} @endif >{{$comp->name}}</option>
+                                            @if(!empty($value->parentCompany->id) && $comp->id == $value->parentCompany->id) {{'selected'}} @else {{""}} @endif >{{$comp->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -279,7 +253,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Website:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" required placeholder="Website" value="{{$value->website}}" name="website" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2"  placeholder="Website" value="{{$value->website}}" name="website" >
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Phone:</label>
@@ -289,7 +263,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Description:</label>
-                                    <textarea class="form-control" id="" rows="3" required name="description">{{$value->description}}</textarea>
+                                    <textarea class="form-control" id="" rows="3"  name="description">{{$value->description}}</textarea>
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Employees:</label>
@@ -299,51 +273,51 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_1 Street:</label>
-                                    <textarea class="form-control" id="" rows="3" name="address_1_street" required>{{$value->address_1_street}}</textarea>
+                                    <textarea class="form-control" id="" rows="3" name="address_1_street" >{{$value->address_1_street}}</textarea>
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_2 Street:</label>
-                                    <textarea class="form-control" id="" rows="3" name="address_2_street" required>{{$value->address_2_street}}</textarea>
+                                    <textarea class="form-control" id="" rows="3" name="address_2_street" >{{$value->address_2_street}}</textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_1 Country:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_1_country}}" name="address_1_country"required >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_1_country}}" name="address_1_country" >
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_2 Country:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_2_country}}" name="address_2_country" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_2_country}}" name="address_2_country" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_1 City:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_1_city}}" name="address_1_city" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_1_city}}" name="address_1_city" >
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_2 City:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_2_city}}" name="address_2_city" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_2_city}}" name="address_2_city" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_1 State:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_1_state}}" name="address_1_state" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_1_state}}" name="address_1_state" >
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_2 State:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_2_state}}" name="address_2_state" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_2_state}}" name="address_2_state" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_1 zip code:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_1_zip_code}}" name="address_1_zip_code" required >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_1_zip_code}}" name="address_1_zip_code"  >
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_2 zip code:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_2_zip_code}}" name="address_2_zip_code" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_2_zip_code}}" name="address_2_zip_code" >
                                 </div>
                             </div>
                             <div class="modal-footer bg-light d-flex align-items-center justify-content-center">

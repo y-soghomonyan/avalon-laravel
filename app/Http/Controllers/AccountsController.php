@@ -30,13 +30,13 @@ class AccountsController extends Controller
 
         $data = new Companies();
 
-      //  dd($req);
+       //dd($req);
 
         $data->name = $req->input('name');
         $data->user_id = Auth::user()->id;
         $data->company_type = 1;//$req->input('company_type');
         $data->company_id = $req->input('company_id');
-        $data->parent_id = $req->input('parent_id');
+        $data->parent_id = $req->input('parent_id') !== "Select Parent Company" ? $req->input('parent_id') : 0 ;
         $data->industry_id = $req->input('industry_id');
         $data->company_phone = $req->input('company_phone');
         $data->website = $req->input('website');
@@ -54,7 +54,6 @@ class AccountsController extends Controller
         $data->address_2_state = $req->input('address_2_state');
         $data->address_2_zip_code = $req->input('address_2_zip_code');
 
-        
         if($data->save()){
             return redirect()->route('accounts')->with('success', $req->input('name').' - Add');
         }
@@ -68,7 +67,7 @@ class AccountsController extends Controller
             $data->user_id = Auth::user()->id;
             $data->company_type = 1;//$req->input('company_type');
             $data->company_id = $req->input('company_id');
-            $data->parent_id = $req->input('parent_id');
+            $data->parent_id = $req->input('parent_id') !== "Select Parent Company" ? $req->input('parent_id') : 0 ;
             $data->industry_id = $req->input('industry_id');
             $data->company_phone = $req->input('company_phone');
             $data->website = $req->input('website');
