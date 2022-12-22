@@ -19,7 +19,7 @@ class Companies extends Model
         return $this->hasOne(IndustriesTypes::class, 'id', 'industry_id');
     }
 
-    public function parentAccount()
+    public function parentCompany()
     {
         return $this->hasOne(Companies::class, 'id', 'parent_id');
     }

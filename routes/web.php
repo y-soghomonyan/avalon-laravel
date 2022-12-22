@@ -14,6 +14,8 @@ Route::get('/accounts', [App\Http\Controllers\AccountsController::class, 'index'
 
 Route::post('/add_account', [App\Http\Controllers\AccountsController::class, 'add_account'])->name('add_account');
 
+Route::post('/edit_account/{id}', [App\Http\Controllers\AccountsController::class, 'edit_account'])->name('edit_account');
+
 Route::post('/get_parent_account_ajax', [App\Http\Controllers\AccountsController::class, 'get_parent_account_ajax'])->name('get_parent_account_ajax');
 
 

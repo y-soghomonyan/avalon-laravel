@@ -32,32 +32,61 @@ class AccountsController extends Controller
         $data->company_id = $req->input('company_id');
         $data->parent_id = 1;//$req->input('parent_id');
         $data->industry_id = $req->input('industry_id');
-        $data->account_phone = $req->input('account_phone');
+        $data->company_phone = $req->input('company_phone');
         $data->website = $req->input('website');
         $data->additional_phone = $req->input('additional_phone');
         $data->employees = $req->input('employees');
         $data->description = $req->input('description');
-        $data->biling_street = $req->input('billing_street');
-        $data->biling_country = $req->input('billing_country');
-        $data->biling_city = $req->input('billing_city');
-        $data->biling_state = $req->input('billing_state');
-        $data->biling_zip_code = $req->input('billing_zip_code');
-        $data->shipping_street = $req->input('shipping_street');
-        $data->shipping_country = $req->input('shipping_country');
-        $data->shipping_city = $req->input('shipping_city');
-        $data->shipping_state = $req->input('shipping_state');
-        $data->shipping_zip_code = $req->input('shipping_zip_code');
+        $data->address_1_street = $req->input('address_1_street');
+        $data->address_1_country = $req->input('address_1_country');
+        $data->address_1_city = $req->input('address_1_city');
+        $data->address_1_state = $req->input('address_1_state');
+        $data->address_1_zip_code = $req->input('address_1_zip_code');
+        $data->address_2_street = $req->input('address_2_street');
+        $data->address_2_country = $req->input('address_2_country');
+        $data->address_2_city = $req->input('address_2_city');
+        $data->address_2_state = $req->input('address_2_state');
+        $data->address_2_zip_code = $req->input('address_2_zip_code');
 
         
         if($data->save()){
             return redirect()->route('accounts')->with('success', $req->input('name').' - Add');
-
         }
-      
+    }
 
-        dd($req);
+    public function edit_account(Request $req, $id){
+        $data = Companies::find($id);
+
+        if($data->user_id == Auth::user()->id){
+            $data->name = $req->input('name');
+            $data->user_id = Auth::user()->id;
+            $data->company_type = 1;//$req->input('company_type');
+            $data->company_id = $req->input('company_id');
+            $data->parent_id = 1;//$req->input('parent_id');
+            $data->industry_id = $req->input('industry_id');
+            $data->company_phone = $req->input('company_phone');
+            $data->website = $req->input('website');
+            $data->additional_phone = $req->input('additional_phone');
+            $data->employees = $req->input('employees');
+            $data->description = $req->input('description');
+            $data->address_1_street = $req->input('address_1_street');
+            $data->address_1_country = $req->input('address_1_country');
+            $data->address_1_city = $req->input('address_1_city');
+            $data->address_1_state = $req->input('address_1_state');
+            $data->address_1_zip_code = $req->input('address_1_zip_code');
+            $data->address_2_street = $req->input('address_2_street');
+            $data->address_2_country = $req->input('address_2_country');
+            $data->address_2_city = $req->input('address_2_city');
+            $data->address_2_state = $req->input('address_2_state');
+            $data->address_2_zip_code = $req->input('address_2_zip_code');
+
+            if($data->save()){
+                return redirect()->route('accounts')->with('success', $req->input('name').' - Add');
+            }
+        }
 
     }
+    
 
     public function get_parent_account_ajax (Request $req) {
       
