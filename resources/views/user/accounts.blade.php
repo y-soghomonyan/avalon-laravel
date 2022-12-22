@@ -175,7 +175,7 @@
                                                         <label  class="mr-sm-2">Address_2 Country:</label>
                                                         <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$value->address_2_country}}" name="address_2_country" >
                                                     </div>
-                                                </div>
+                                                </div> 
                             
                                                 <div class="row">
                                                     <div class="col-6">
