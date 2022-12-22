@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\CompanyTypes;
 use App\Models\IndustriesTypes;
 use App\Models\Companies;
+use App\Models\User;
 use Auth;
 
 class AccountsController extends Controller
@@ -14,16 +15,17 @@ class AccountsController extends Controller
     {
         $id = Auth::user()->id;
         $companies = new Companies;
-
         $company_types = new CompanyTypes;
-
         $industries_types = new IndustriesTypes;
+        $users = new User;
 
         return view('user/accounts', [
             'company_types' => CompanyTypes::all(),
             'industries_types' => IndustriesTypes::all(),
             'companies' => Companies::where('user_id', $id)->get(),
-        'all_companies' =>Companies::all( 'id', 'name' )]);
+            'all_companies' =>Companies::all( 'id', 'name' ),
+            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name']),
+            ]);
     }
 
     public function add_account(Request $req){
@@ -34,7 +36,7 @@ class AccountsController extends Controller
 
         $data->name = $req->input('name');
         $data->user_id = Auth::user()->id;
-        $data->company_type = 1;//$req->input('company_type');
+        $data->owner_id = $req->input('owner_id');
         $data->company_id = $req->input('company_id');
         $data->parent_id = $req->input('parent_id') !== "Select Parent Company" ? $req->input('parent_id') : 0 ;
         $data->industry_id = $req->input('industry_id');
@@ -65,7 +67,7 @@ class AccountsController extends Controller
         if($data->user_id == Auth::user()->id){
             $data->name = $req->input('name');
             $data->user_id = Auth::user()->id;
-            $data->company_type = 1;//$req->input('company_type');
+            $data->owner_id = $req->input('owner_id');
             $data->company_id = $req->input('company_id');
             $data->parent_id = $req->input('parent_id') !== "Select Parent Company" ? $req->input('parent_id') : 0 ;
             $data->industry_id = $req->input('industry_id');
@@ -92,7 +94,6 @@ class AccountsController extends Controller
     }
 
     public function get_parent_account_ajax (Request $req) {
-      
         if($req->ajax()){
            $data = Companies::query()->where('name', 'like', '%'. $req->parent_account .'%')->get();
             return  $data;
