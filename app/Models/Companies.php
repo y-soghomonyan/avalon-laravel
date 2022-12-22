@@ -23,4 +23,9 @@ class Companies extends Model
     {
         return $this->hasOne(Companies::class, 'id', 'parent_id');
     }
+
+//    public function ow()
+//    {
+//        return $this->hasOne(Companies::class, 'id', 'parent_id');
+//    }
 }

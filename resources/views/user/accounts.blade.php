@@ -62,12 +62,13 @@
                             <div class="col-6">
                                 <label for="personal_name" class="mr-sm-2">Company name:</label>
                                 <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="Company name" name="name" value="" id="">
-                                <input type="hidden" value="{{ Auth::user()->name }}" id=""  class="">
+                                {{--<input type="hidden" value="{{ Auth::user()->name }}" id=""  class="">--}}
+
                             </div>
                             <div class="col-6">
                                 <label for="parent_account" class="mr-sm-2">Parent account:</label>
-                                <select class="select2" name="parent_id">
-                                    <option selected>Select Parent Company</option>
+                                <select class="select2 form-control" name="parent_id">
+                                    <option selected value="0">Select Parent Company</option>
                                     @foreach($all_companies as $comp)
                                         <option value="{{$comp->id}}"  >{{$comp->name}}</option>
                                     @endforeach
@@ -77,11 +78,17 @@
                         <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Account owner:</label>
-                                <div> {{ Auth::user()->name }}</div>
+                                <select required class="custom-select form-control" name="owner_id">
+                                    @if($users)
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Type:</label>
-                                <select required class="custom-select" name="company_id">
+                                <select required class="custom-select form-control" name="company_id">
                                     @foreach($company_types as  $company_type)
                                         <option value="{{$company_type->id}}" >{{$company_type->name}}</option>
                                     @endforeach
@@ -95,7 +102,7 @@
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Industry:</label>
-                                <select required class="custom-select" name="industry_id">
+                                <select required class="custom-select form-control" name="industry_id">
                                     @foreach($industries_types as  $industries_type)
                                         <option value="{{$industries_type->id}}">{{$industries_type->name}}</option>
                                     @endforeach
@@ -196,8 +203,8 @@
                 <div class="modal-body" id="modal-body">
                     <div class="row">
 
-                        <button class="btn btn-light mb-2" id="">Personal</button>
-                        <button  class="btn btn-light mb-2" id="">Bissnes</button>
+                        {{--<button class="btn btn-light mb-2" id="">Personal</button>--}}
+                        {{--<button  class="btn btn-light mb-2" id="">Bissnes</button>--}}
                     </div>
                     <form class="" action="{{ route('edit_account', [$value->id]) }}" method="POST">
                         @csrf
