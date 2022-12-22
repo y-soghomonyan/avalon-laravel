@@ -16,9 +16,13 @@ class CompanyTypesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('company_types')->insert([
-            'name' => Str::random(10),
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
+        for($i = 0; $i<=10; $i++){
+            DB::table('company_types')->insert([
+                'name' => Str::random(10),
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            ]);
+        }
+       
     }
 }

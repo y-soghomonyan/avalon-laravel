@@ -2,16 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +10,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/accounts', [App\Http\Controllers\AccountsController::class, 'index'])->name('accounts');
+
+Route::post('/add_account', [App\Http\Controllers\AccountsController::class, 'add_account'])->name('add_account');
+
+Route::post('/get_parent_account_ajax', [App\Http\Controllers\AccountsController::class, 'get_parent_account_ajax'])->name('get_parent_account_ajax');
 
 
 Route::group(['prefix' => 'admin'], function () {
