@@ -17,12 +17,12 @@
 
 
     <div id="page_items" class="collapse py-3" style="padding:30px;">fhgh
-    
-    
-    
+
+
+
         <table class="table table-hover">
             <thead>
-              <tr>
+            <tr>
                 <th>Account name</th>
                 <th>Paren account</th>
                 <th>Type</th>
@@ -42,251 +42,269 @@
                 <th>Shipping  Street</th>
                 <th>Shipping  zip code</th>
                 <th>Description</th>
-              </tr>
+            </tr>
             </thead>
             <tbody>
-                @foreach($companies as  $value) 
+            <?php $__currentLoopData = $companies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-        {{$value->companyTypes->name}}
+            <?php echo e($value->companyTypes->name); ?>
 
 
-        {{$value->parentAccount->name}}
-              <tr>
-                <td>{{$value->name}}</td>
-                <td>{{$value->parentAccount->name}}</td>
-                <td>{{$value->companyTypes->name}}</td>
-                <td>{{$value->industriesTypes->name}}</td>
-                <td>{{$value->account_phone}}</td>
-                <td>{{$value->additional_phone}}</td>
-                <td>{{$value->employees}}</td>
-                <td>{{$value->website}}</td>
-                <td>{{$value->biling_country}}</td>
-                <td>{{$value->biling_city}}</td>
-                <td>{{$value->biling_state}}</td>
-                <td>{{$value->biling_street}}</td>
-                <td>{{$value->biling_zip_code}}</td>
-                <td>{{$value->shipping_country}}</td>
-                <td>{{$value->shipping_city}}</td>
-                <td>{{$value->shipping_state}}</td>
-                <td>{{$value->shipping_street}}</td>
-                <td>{{$value->shipping_zip_code}}</td>
-                <td>{{$value->description}}</td>
-              </tr>
-              @endforeach
+
+            <?php echo e($value->parentAccount->name); ?>
+
+            <tr>
+                <td><?php echo e($value->name); ?></td>
+                <td><?php echo e($value->parentAccount->name); ?></td>
+                <td><?php echo e($value->companyTypes->name); ?></td>
+                <td><?php echo e($value->industriesTypes->name); ?></td>
+                <td><?php echo e($value->account_phone); ?></td>
+                <td><?php echo e($value->additional_phone); ?></td>
+                <td><?php echo e($value->employees); ?></td>
+                <td><?php echo e($value->website); ?></td>
+                <td><?php echo e($value->biling_country); ?></td>
+                <td><?php echo e($value->biling_city); ?></td>
+                <td><?php echo e($value->biling_state); ?></td>
+                <td><?php echo e($value->biling_street); ?></td>
+                <td><?php echo e($value->biling_zip_code); ?></td>
+                <td><?php echo e($value->shipping_country); ?></td>
+                <td><?php echo e($value->shipping_city); ?></td>
+                <td><?php echo e($value->shipping_state); ?></td>
+                <td><?php echo e($value->shipping_street); ?></td>
+                <td><?php echo e($value->shipping_zip_code); ?></td>
+                <td><?php echo e($value->description); ?></td>
+            </tr>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>
-          </table>
+        </table>
 
-        
-      
+
+
     </div>
 
 </div>
 
- 
+
 
 
 <div class="modal" id="open_account">
     <div class="modal-dialog">
         <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-      <div class="modal-content">
-      
-        <div class="">
-          <h4 class="modal-title text-center">New Account</h4>
-         
-        </div>
-  
-        <div class="modal-body">
-            <div class="row">
+        <div class="modal-content">
 
-                <button class="btn btn-light mb-2" id="personal">Personal</button>
-                <button  class="btn btn-light mb-2" id="bissnes">Bissnes</button>
+            <div class="">
+                <h4 class="modal-title text-center">New Account</h4>
+
             </div>
-            <form class="form-inline" action="{{ route('add_account') }}" method="POST">
-                @csrf
-                <div class="container">
-            
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="personal_name" class="mr-sm-2">Account name:</label>
-                        
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Account name" name="name" id="personal_name">
 
-                            <input type="hidden" value="{{ Auth::user()->name }}" id="bissnes_name"  class="">
-                           
+            <div class="modal-body">
+                <form class="form-inline" action="<?php echo e(route('add_account')); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-12 bg-light mb-3 h5 p-1">Company Information</div>
+                            <div class="col-12">
+                                <button class="btn btn-light mb-2" id="personal">Individual</button>
+                                <button  class="btn btn-light mb-2" id="bissnes">Business</button>
+                            </div>
+                            <div class="col-6 d-flex flex-row align-items-start justify-content-between w-100">
+                                <label for="personal_name" class="mr-sm-2 w-25">Account name:</label>
+
+                                <input type="text" class="form-control mb-2 w-75" placeholder="Account name" name="name" id="personal_name">
+
+                                <input type="hidden" value="<?php echo e(Auth::user()->name); ?>" id="bissnes_name"  class="">
+
+                            </div>
+                            <div class="col-6 mb-1 d-flex flex-row align-items-start justify-content-between w-100">
+                                <label for="parent_account" class="mr-sm-2 w-25">Parent account:</label>
+                                <input type="text" class="form-control mb-2 w-75" placeholder="name" value="1"  name="parent_account" id="parent_account">
+                                <select class="select2" name="state">
+                                    <option selected>Select Parent Company</option>
+                                    <option value="sadf" >Select Parent Company</option>
+                                    <option value="sadf" >Select Parent Company</option>
+                                    <option value="sadf">Select Parent Company</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <label for="parent_account" class="mr-sm-2">Parent account:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="name" value="1"  name="parent_account" id="parent_account">
-                            {{-- <input type="hidden"  name="parent_account" value="1"  id="parent_account_val"> --}}
+
+
+                        <div class="row">
+                            <div class="col-6 mb-1 d-flex flex-row align-items-start justify-content-between w-100">
+                                <label  class="mr-sm-2 w-25">Account owner:</label>
+                                <div class="d-flex flex-row justify-content-start w-75"> <?php echo e(Auth::user()->name); ?></div>
+                            </div>
+                            <div class="col-6 mb-1 d-flex flex-row align-items-start justify-content-between w-100">
+                                <label  class="mr-sm-2 w-25 d-flex align-items-start justify-content-start">Type:</label>
+                                <select  class="custom-select w-75" name="company_id">
+                                    <?php $__currentLoopData = $company_types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($value->id); ?>"><?php echo e($value->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-1 d-flex flex-row align-items-start justify-content-between w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-25">Phone:</label>
+                                <input type="text" class="form-control mb-2 w-75    " placeholder="phone" name="account_phone" >
+                            </div>
+                            <div class="col-6 mb-1 d-flex flex-row align-items-start justify-content-between w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-25">Industry:</label>
+                                <select  class="custom-select w-75" name="industry_id">
+                                    <?php $__currentLoopData = $industries_types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($value->id); ?>"><?php echo e($value->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--                    <div class="bg-secondary">-->
+                        <!--                        <div class="col-5">Additional Information</div>-->
+                        <!--                    </div>-->
+
+                        <div class="row">
+                            <div class="col-12 bg-light mb-3 h5 p-1">Additional Information</div>
+                            <div class="col-6 mb-1 d-flex flex-row align-items-start justify-content-between w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-25">Website:</label>
+                                <input type="text" class="form-control mb-2 w-75" placeholder="Website" name="website" >
+                            </div>
+                            <div class="col-6 mb-1 d-flex flex-row align-items-start justify-content-between w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-25">Phone:</label>
+                                <input type="text" class="form-control mb-2 w-75" placeholder="Phone" name="additional_phone" >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-1 d-flex flex-row align-items-start justify-content-between w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-25">Description:</label>
+                                <textarea class="form-control w-75" id="" rows="3" name="description"></textarea>
+                            </div>
+                            <div class="col-6 mb-1 d-flex flex-row align-items-start justify-content-between w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-25">Employees:</label>
+                                <input type="text" class="form-control mb-2 w-75" placeholder="Employees" name="employees" >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 bg-light mb-3 mt-3 h5 p-1">Address Information</div>
+                            <div class="col-6 mb-1 d-flex flex-column justify-content-start w-100">
+                                <div class="font-weight-bold">Address 1</div>
+                                <label  class="mr-sm-2 d-flex justify-content-start w-100">Address 1 Street:</label>
+                                <textarea class="form-control w-100" id="" rows="3" name="address1_street"></textarea>
+                            </div>
+                            <div class="col-6 mb-1 d-flex flex-column justify-content-start w-100">
+                                <div class="font-weight-bold">Address 2</div>
+                                <label  class="mr-sm-2 d-flex justify-content-start w-100">Address 2 Street:</label>
+                                <textarea class="form-control w-100" id="" rows="3" name="address2_street"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-1 d-flex flex-column justify-content-start w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-100">Address 1 Country:</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2 w-100" placeholder="" name="address1_country" >
+                            </div>
+                            <div class="col-6 mb-1 d-flex flex-column justify-content-start w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-100">Address 2 Country:</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2 w-100" placeholder="" name="address2_country" >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-1 d-flex flex-column justify-content-start w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-100">Address 1 City:</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2 w-100" placeholder="" name="address1_city" >
+                            </div>
+                            <div class="col-6 mb-1 d-flex flex-column justify-content-start w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-100">Address 2 City:</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2 w-100" placeholder="" name="address2_city" >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-1 d-flex flex-column justify-content-start w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-100">Address 1 State:</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2 w-100" placeholder="" name="address1_state" >
+                            </div>
+                            <div class="col-6 mb-1 d-flex flex-column justify-content-start w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-100">Address 2 State:</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2 w-100" placeholder="" name="address2_state" >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-1 d-flex flex-column justify-content-start w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-100">Billing zip code:</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2 w-100" placeholder="" name="billing_zip_code" >
+                            </div>
+                            <div class="col-6 mb-1 d-flex flex-column justify-content-start w-100">
+                                <label  class="mr-sm-2 d-flex justify-content-start w-100">Shipping zip code:</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2 w-100" placeholder="" name="shipping_zip_code" >
+                            </div>
+                        </div>
+
+                        <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
                     </div>
-
-
-                    <div class="row">
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Account owner:</label>
-                            <div> {{ Auth::user()->name }}</div>
-                        </div>
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Type:</label>
-                            <select  class="custom-select" name="company_id">
-                                @foreach($company_types as  $value) 
-                                    <option value="{{$value->id}}">{{$value->name}}</option>
-                                @endforeach
-                              </select>
-                        </div>
-                    </div>
-               
-                    <div class="row">
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Phone:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="phone" name="account_phone" >
-                        </div>
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Industry:</label>
-                            <select  class="custom-select" name="industry_id">
-                                @foreach($industries_types as  $value) 
-                                    <option value="{{$value->id}}">{{$value->name}}</option>
-                                @endforeach
-                              </select>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Website:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Website" name="website" >
-                        </div>
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Phone:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Phone" name="additional_phone" >
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Description:</label>
-                            <textarea class="form-control" id="" rows="3" name="description"></textarea>
-                        </div>
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Employees:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Employees" name="employees" >
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Billing Street:</label>
-                            <textarea class="form-control" id="" rows="3" name="billing_street"></textarea>
-                        </div>
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Shipping Street:</label>
-                            <textarea class="form-control" id="" rows="3" name="shipping_street"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Billing Country:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="billing_country" >
-                        </div>
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Shipping Country:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="shipping_country" >
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Billing City:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="billing_city" >
-                        </div>
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Shipping City:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="shipping_city" >
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Billing State:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="billing_state" >
-                        </div>
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Shipping State:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="shipping_state" >
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Billing zip code:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="billing_zip_code" >
-                        </div>
-                        <div class="col-6">
-                            <label  class="mr-sm-2">Shipping zip code:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="shipping_zip_code" >
-                        </div>
-                    </div>
-               
-               
-                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </form>
             </div>
-              </form>
+
+            <!-- Modal footer -->
+
         </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-  
-      </div>
     </div>
-  </div>
-
-  <script>
+</div>
+@section('js')
+<script>
     $(document).ready(function(){
-       $('#bissnes').click(function(){
-        $('#personal_name').removeAttr('name');
-        $('#personal_name').hide();
-        $('#bissnes_name').attr('name', 'name');
-       })
+        $('#bissnes').click(function(){
+            $('#personal_name').removeAttr('name');
+            $('#personal_name').hide();
+            $('#bissnes_name').attr('name', 'name');
+        })
 
-       $('#personal').click(function(){
-        $('#personal_name').show();
-        $('#personal_name').attr('name', 'name');
-        $('#bissnes_name').removeAttr('name');
-       })
+        $('#personal').click(function(){
+            $('#personal_name').show();
+            $('#personal_name').attr('name', 'name');
+            $('#bissnes_name').removeAttr('name');
+        })
 
 
-       $('#parent_account').on('change',function(){
-      
-      let parent_account = $(this).val();
-      $.ajax({
-            url:'get_parent_account_ajax',
-            type:"post",
-            datatType : 'json',
-            data: {"parent_account" : parent_account, "_token": "{{ csrf_token() }}"},
-           
-          success: function(resonse){
-          
-            if(resonse !== null){
-              //  console.log(resonse.length);
-                for(let i = 0; i<=resonse.length; i++){
-              //  console.log(resonse[i].name);
-            }
-            // for (let prop of resonse) {
-            
-            //    // for (let res  in prop) {
-            //     console.log(prop.id);
-            //  //   }
-            // // $('#parent_account_val').val(resonse.id);
-            //   }
-            }
-          },
-       })
+        $('#parent_account').on('change',function(){
+
+            let parent_account = $(this).val();
+            $.ajax({
+                url:'get_parent_account_ajax',
+                type:"post",
+                datatType : 'json',
+                data: {"parent_account" : parent_account, "_token": "<?php echo e(csrf_token()); ?>"},
+
+                success: function(resonse){
+
+                    if(resonse !== null){
+                        //  console.log(resonse.length);
+                        for(let i = 0; i<=resonse.length; i++){
+                            //  console.log(resonse[i].name);
+                        }
+                        // for (let prop of resonse) {
+
+                        //    // for (let res  in prop) {
+                        //     console.log(prop.id);
+                        //  //   }
+                        // // $('#parent_account_val').val(resonse.id);
+                        //   }
+                    }
+                },
+            })
+        })
     })
-    })
-  </script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            dropdownParent: $('#open_account')
+        });
+    });
+</script>
 @endsection
