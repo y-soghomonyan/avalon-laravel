@@ -18,11 +18,15 @@
             <div class="container">
                 @include('user.menu.menu')
             </div>
-        
-         
-                @yield('contents')
+         <div class="container-fluid">
+             <div class="container mt-5">
+                 @include('messages')
+             </div>
+             @yield('contents')
+         </div>
+
            
     
         </main>
    
-        @include('user.config.footer')
+@include('user.config.footer')

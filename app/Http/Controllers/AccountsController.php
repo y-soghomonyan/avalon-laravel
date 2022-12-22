@@ -19,18 +19,24 @@ class AccountsController extends Controller
 
         $industries_types = new IndustriesTypes;
 
-        return view('user/accounts', ['company_types' => CompanyTypes::all(), 'industries_types' => IndustriesTypes::all(), 'companies' => Companies::where('user_id', $id)->get()]);
+        return view('user/accounts', [
+            'company_types' => CompanyTypes::all(),
+            'industries_types' => IndustriesTypes::all(),
+            'companies' => Companies::where('user_id', $id)->get(),
+        'all_companies' =>Companies::all( 'id', 'name' )]);
     }
 
     public function add_account(Request $req){
 
         $data = new Companies();
 
+      //  dd($req);
+
         $data->name = $req->input('name');
         $data->user_id = Auth::user()->id;
         $data->company_type = 1;//$req->input('company_type');
         $data->company_id = $req->input('company_id');
-        $data->parent_id = 1;//$req->input('parent_id');
+        $data->parent_id = $req->input('parent_id');
         $data->industry_id = $req->input('industry_id');
         $data->company_phone = $req->input('company_phone');
         $data->website = $req->input('website');
@@ -62,7 +68,7 @@ class AccountsController extends Controller
             $data->user_id = Auth::user()->id;
             $data->company_type = 1;//$req->input('company_type');
             $data->company_id = $req->input('company_id');
-            $data->parent_id = 1;//$req->input('parent_id');
+            $data->parent_id = $req->input('parent_id');
             $data->industry_id = $req->input('industry_id');
             $data->company_phone = $req->input('company_phone');
             $data->website = $req->input('website');
@@ -81,12 +87,10 @@ class AccountsController extends Controller
             $data->address_2_zip_code = $req->input('address_2_zip_code');
 
             if($data->save()){
-                return redirect()->route('accounts')->with('success', $req->input('name').' - Add');
+                return redirect()->route('accounts')->with('success', $req->input('name').' - Edit');
             }
         }
-
     }
-    
 
     public function get_parent_account_ajax (Request $req) {
       

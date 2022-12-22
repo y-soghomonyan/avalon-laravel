@@ -75,7 +75,6 @@
             </div>
         </nav>
         @guest
-        
         @endguest
 
         <main class="py-4">
