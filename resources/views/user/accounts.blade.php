@@ -67,14 +67,17 @@
                     @csrf
                     <div class="">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12 mb-2">
+                                <div class="bg-light p-3 h6">Company Information</div>
+                            </div>
+                            <div class="col-6 ">
                                 <label for="personal_name" class="mr-sm-2">Company name:</label>
                                 <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="Company name" name="name" value="" id="">
                                 {{--<input type="hidden" value="{{ Auth::user()->name }}" id=""  class="">--}}
 
                             </div>
-                            <div class="col-6">
-                                <label for="parent_account" class="mr-sm-2">Parent account:</label>
+                            <div class="col-6 d-flex flex-column">
+                                <label for="parent_account w-100" class="mr-sm-2">Parent account:</label>
                                 <select class="select2 form-control" name="parent_id">
                                     <option selected value="0">Select Parent Company</option>
                                     @foreach($all_companies as $comp)
@@ -104,6 +107,9 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-12 mb-2 mt-2">
+                                <div class="bg-light p-3 h6">Additional Information</div>
+                            </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Phone:</label>
                                 <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="phone" value="" name="company_phone" >
@@ -138,52 +144,57 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-12 mb-2 mt-2">
+                                <div class="bg-light p-3 h6">Address Information</div>
+                            </div>
                             <div class="col-6">
-                                <label  class="mr-sm-2">Address_1 Street:</label>
+                                <div class="w-100 fw-bold mb-2">Address</div>
+                                <label  class="mr-sm-2">Address Street:</label>
                                 <textarea  class="form-control" id="" rows="3" name="address_1_street"></textarea>
                             </div>
                             <div class="col-6">
-                                <label  class="mr-sm-2">Address_2 Street:</label>
+                                <div class="w-100 fw-bold mb-2">Additional Address</div>
+                                <label  class="mr-sm-2">Additional Address Street:</label>
                                 <textarea  class="form-control" id="" rows="3" name="address_2_street"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label  class="mr-sm-2">Address_1 Country:</label>
+                                <label  class="mr-sm-2">Address Country:</label>
                                 <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_country" >
                             </div>
                             <div class="col-6">
-                                <label  class="mr-sm-2">Address_2 Country:</label>
+                                <label  class="mr-sm-2">Additional Address Country:</label>
                                 <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_country" >
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label  class="mr-sm-2">Address_1 City:</label>
+                                <label  class="mr-sm-2">Address City:</label>
                                 <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_city" >
                             </div>
                             <div class="col-6">
-                                <label  class="mr-sm-2">Address_2 City:</label>
+                                <label  class="mr-sm-2">Additional Address City:</label>
                                 <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_city" >
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label  class="mr-sm-2">Address_1 State:</label>
+                                <label  class="mr-sm-2">Address State:</label>
                                 <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_state" >
                             </div>
                             <div class="col-6">
-                                <label  class="mr-sm-2">Address_2 State:</label>
+                                <label  class="mr-sm-2">Additional Address State:</label>
                                 <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_state" >
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label  class="mr-sm-2">Address_1 zip code:</label>
+                                <label  class="mr-sm-2">Address zip code:</label>
                                 <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_zip_code" >
                             </div>
                             <div class="col-6">
-                                <label  class="mr-sm-2">Address_2 zip code:</label>
+                                <label  class="mr-sm-2">Additional Address zip code:</label>
                                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_zip_code" >
                             </div>
                         </div>
