@@ -10,12 +10,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/accounts', [App\Http\Controllers\AccountsController::class, 'index'])->name('accounts');
 
+
+
+Route::get('/companies', [App\Http\Controllers\AccountsController::class, 'index'])->name('companies');
 Route::post('/add_account', [App\Http\Controllers\AccountsController::class, 'add_account'])->name('add_account');
-
-Route::post('/edit_account/{id}', [App\Http\Controllers\AccountsController::class, 'edit_account'])->name('edit_account');
-
+Route::match(['post', 'get'],'/edit_company/{id}', [App\Http\Controllers\AccountsController::class, 'edit_company'])->name('edit_company');
+Route::get('/delete_company/{id}', [App\Http\Controllers\AccountsController::class, 'delete_company'])->name('delete_company');
 Route::post('/get_parent_account_ajax', [App\Http\Controllers\AccountsController::class, 'get_parent_account_ajax'])->name('get_parent_account_ajax');
 
 

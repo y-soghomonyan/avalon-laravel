@@ -1,5 +1,5 @@
 @extends('user.config.app')
-@section('title')Accounts @endsection
+@section('title')Companies @endsection
 @section('contents')
 
 <div class="container-fluid mt-5">
@@ -25,17 +25,25 @@
                 <th>Industry</th>
                 <th>Company phone</th>
                 <th>Company owner</th>
+                  <th></th>
             </tr>
             </thead>
             <tbody>
                 @foreach($companies as  $value)
-                <tr id="" data-toggle="modal" data-target="#edit_account_{{$value->id}}">
-                    <td>{{$value->name}}</td>
+                <tr{{--id="" data-toggle="modal" data-target="#edit_account_{{$value->id}}"--}} >
+                    <td><a href="{{ route('edit_company', [$value->id]) }}">{{$value->name}}</a></td>
                     <td>{{!empty($value->parentCompany->name) ? $value->parentCompany->name : ""}}</td>
                     <td>{{$value->companyTypes->name}}</td>
                     <td>{{$value->industriesTypes->name}}</td>
                     <td>{{$value->company_phone}}</td>
-                    <td>User123</td>
+                    <td>{{$value->ownerUser->name}}</td>
+                    <td>
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Edit</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item text-primary" href="{{ route('edit_company', [$value->id]) }}">Edit</a>
+                            <a class="dropdown-item text-danger" href="{{ route('delete_company', [$value->id]) }}">Delete</a>
+                        </div>
+                    </td>
                 </tr>
               @endforeach
             </tbody>
@@ -77,7 +85,7 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label  class="mr-sm-2">Account owner:</label>
+                                <label  class="mr-sm-2">Company owner:</label>
                                 <select required class="custom-select form-control" name="owner_id">
                                     @if($users)
                                         @foreach($users as $user)
@@ -206,7 +214,7 @@
                         {{--<button class="btn btn-light mb-2" id="">Personal</button>--}}
                         {{--<button  class="btn btn-light mb-2" id="">Bissnes</button>--}}
                     </div>
-                    <form class="" action="{{ route('edit_account', [$value->id]) }}" method="POST">
+                    <form class="" action="" method="POST">
                         @csrf
                         <div class="">
                             <div class="row">
@@ -390,12 +398,7 @@
         });
 
     });
-    $(document).ready(function() {
 
-        $('.select2_2').select2({
-            dropdownParent: $('.edit_account')
-        });
-    });
 </script>
 @endsection
 
