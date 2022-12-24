@@ -147,7 +147,7 @@
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Reports to</label>
-                                                    <div>{{$contact->reportsTo->email}}</div>
+                                                    <div>{{$contact->reportsTo && $contact->reportsTo->email ? $contact->reportsTo->email:"" }}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Department</label>
@@ -164,7 +164,7 @@
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Meiling Address:</label>
-                                                    <div>{{$contact->mailingAddress->email}}</div>
+                                                    <div>{{$contact->mailingAddress && $contact->mailingAddress->email ? $contact->mailingAddress->email : '' }}</div>
                                                 </div>
                                             </div>
                                         </div>
