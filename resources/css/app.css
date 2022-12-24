@@ -7,3 +7,44 @@
 
     /*}*/
 /*}*/
+body{
+    height: 100vh;
+}
+
+.company_info_btn, .contact_info_btn{
+    width: 100%;
+    background-color: lightgrey;
+    height: 40px;
+    cursor: pointer;
+    color: #41464b;
+    text-align: center;
+    line-height: 40px;
+    border-radius:5px;
+}
+
+.drop_logout{
+    left: -65px;
+    top: 35px;
+}
+
+
+.center_nav_active_style .nav-link {
+    border: none;
+}
+
+.center_nav_active_style .nav-link.active, .nav-tabs .nav-item.show .nav-link, .center_nav_active_style .nav-link:hover {
+    border: unset!important;
+    border-bottom: 3px solid blue!important;
+}
+
+.main_menu>.nav-item>nav-link.activ{
+    border: unset!important;
+    border-radius: unset;
+    border-top: 3px solid blue!important;
+}
+
+.main_menu .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    border: unset!important;
+    border-radius: unset;
+    border-top: 3px solid blue!important;
+}

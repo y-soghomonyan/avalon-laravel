@@ -1,4 +1,4 @@
-@extends('user.config.app')
+@extends('user.layout.app')
 @section('title')Home @endsection
 @section('contents')
 

@@ -1,36 +1,31 @@
-@include('user.config.header')
+@include('user.layout.header')
+<style>
+    .select_span_style {
+        width: 100%!important;
+        height: 100%!important;
+    }
+    .select_span_style span {
+        height: 37px!important;
+    }
+</style>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm d-flex flex-column pb-0">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                    Avalon
                 </a>
-
-
                 <div class="dropdown">
-                    <div  class=" dropdown-toggle" data-toggle="dropdown" style="cursor: pointer">
-                        <img src="{{ url('image/avatar.png') }}" style="height: 25px; width: 25px; ">
+                    <div  class=" dropdown-toggle dropdown-menu-left" data-toggle="dropdown" style="cursor: pointer">
+                        <img src="{{ Auth::user()->avatarUrl }}" style="height: 25px; width: 25px; ">
                        </div>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu dropdown-menu-start dropdown-menu-left drop_logout">
                         <p class="text-center">{{ Auth::user()->name }}</p>
                         <a class="dropdown-item" href="#">
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="">
                                 @csrf
-                                <input class="btn btn-link" type="submit" value="loguot">
+                                <input class="btn btn-link" type="submit" value="Logout">
                             </form></a>
-                        {{--<a class="dropdown-item" href="#">Link 2</a>--}}
-                        {{--<a class="dropdown-item" href="#">Link 3</a>--}}
                     </div>
                 </div>
-
-                {{--<div class="nav-profile">--}}
-                    {{--<h4>{{ Auth::user()->name }}</h4>--}}
-                    {{--<div class="logout-container">--}}
-                        {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" class="">--}}
-                            {{--@csrf--}}
-                            {{--<input class="btn btn-danger" type="submit" value="loguot">--}}
-                        {{--</form>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
             </div>
             <div class="container mt-3">
                 @include('user.menu.menu')
@@ -49,7 +44,7 @@
     
         </main>
    
-@include('user.config.footer')
+@include('user.layout.footer')
 
 <style>
     /*.nav-profile{*/
@@ -66,6 +61,10 @@
     /*}*/
 </style>
 <script>
+    $(document).ready(function() {
+        $('.select2').parent().find('.select2-container').addClass('select_span_style')
+
+    });
     // $('.nav-profile').on('click', function(){
     //     $('.logout-container').toggleClass('active');
     // })

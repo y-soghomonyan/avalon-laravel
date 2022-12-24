@@ -33,6 +33,8 @@ class User extends \TCG\Voyager\Models\User
         'remember_token',
     ];
 
+    protected $appends = ['avatarUrl'];
+
     /**
      * The attributes that should be cast.
      *
@@ -41,4 +43,9 @@ class User extends \TCG\Voyager\Models\User
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getAvatarUrlAttribute()
+    {
+        return $this->avatar && file_exists(public_path($this->avatar)) ? asset($this->avatar) : url('image/avatar.png');
+    }
 }

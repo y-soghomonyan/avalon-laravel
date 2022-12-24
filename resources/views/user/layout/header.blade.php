@@ -19,4 +19,10 @@
     <link href="{{ asset('css/app.css') }}?v={{time()}}" rel="stylesheet">
 </head>
 <body>
+<style>
+    #app{
+        height:100%;
+        background-image: linear-gradient(to bottom, #76d2e4, #0f2d59);
+    }
+</style>
     <div id="app">
