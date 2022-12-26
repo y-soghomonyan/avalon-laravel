@@ -27,10 +27,10 @@
 
                 <tr{{--id="" data-toggle="modal" data-target="#edit_account_{{$value->id}}"--}}>
                     <td><a href="{{ route('edit_contact', [$value->id]) }}">{{$value->title}}</a></td>
-                    <td>{{!empty($value->parentCompany->name) ? $value->parentCompany->name : ""}}</td>
-                    <td>{{$value->phone}}</td>
-                    <td>{{$value->email}}</td>
-                    <td>{{$value->ownerUser->name}}</td>
+                    <td>{{ $value->parentCompany->name ?? '' }}</td>
+                    <td>{{ $value->phone }}</td>
+                    <td>{{ $value->email }}</td>
+                    <td>{{ $value->ownerUser->name ?? '' }}</td>
                     <td>
                         <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Edit</button>
                         <div class="dropdown-menu">
@@ -69,8 +69,8 @@
                                     <div>
                                         <label for="" class="mr-sm-2">Company Name:</label>
                                         <div>
-                                            <select class="select2 select_company form-control" name="company_id">
-                                                <option selected value="0">Select Company</option>
+                                            <select class="select2 select_company form-control" name="company_id" required>
+                                                <option selected value="">Select Company</option>
                                                 @foreach($all_companies as $comp)
                                                     <option value="{{$comp->id}}"  >{{$comp->name}}</option>
                                                 @endforeach
@@ -82,7 +82,7 @@
                                         <label for="" class="mr-sm-2">Contact Owner:</label>
                                         <div>
                                             <select class="select2 select_owner form-control" required name="owner_id">
-                                                <option selected value="0">Select Contact Owner</option>
+                                                <option selected value="">Select Contact Owner</option>
                                                 @foreach($users as $user)
                                                     <option value="{{$user->id}}"  >{{$user->name}}</option>
                                                 @endforeach
@@ -92,7 +92,7 @@
                                     </div>
                                     <label for="" class="mr-sm-2">Solution:</label>
                                     <select class=" form-control" name="solution">
-                                        <option selected value="0">Select Solution</option>
+                                        <option selected value="">Select Solution</option>
                                         <option  value="Mr">Mr.</option>
                                         <option  value="Ms">Ms.</option>
                                         <option  value="Mrs">Mrs.</option>
@@ -136,7 +136,7 @@
                                     <label for="personal_name" class="mr-sm-2">Reports To:</label>
                                     <div>
                                         <select class="select2 select_reports_emails form-control" required name="reports">
-                                            <option selected value="0">Select Reports address</option>
+                                            <option selected value="">Select Reports address</option>
                                             @foreach($users as $user)
                                                 <option value="{{$user->id}}"  >{{$user->email}}</option>
                                             @endforeach
@@ -157,35 +157,35 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div>
-                                        <label for="" class="mr-sm-2">Meiling address:</label>
+                                        <label for="" class="mr-sm-2">Mailing address:</label>
                                         <div>
                                             <select class="select2 select_emails form-control" name="mailing_address">
-                                                <option selected value="0">Select Meiling address</option>
+                                                <option selected value="">Select Mailing address</option>
                                                 @foreach($users as $user)
                                                     <option value="{{$user->id}}"  >{{$user->email}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <label  class="mr-sm-2">Meiling Street:</label>
+                                    <label  class="mr-sm-2">Mailing Street:</label>
                                     <textarea  class="form-control" id="" rows="3" name="mailing_street"></textarea>
                                     <div class="row">
                                         <div class="col-8">
-                                            <label for="personal_name" class="mr-sm-2">Meiling City:</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing City:</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_city" value="" id="" >
                                         </div>
                                         <div class="col-4">
-                                            <label for="personal_name" class="mr-sm-2">Meiling State:</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing State:</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_state" value="" id="" >
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-8">
-                                            <label for="personal_name" class="mr-sm-2">Meiling Country:</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing Country:</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_country" value="" id="" >
                                         </div>
                                         <div class="col-4">
-                                            <label for="personal_name" class="mr-sm-2">Meiling Zip :</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing Zip :</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing__zip_code" value="" id="" >
                                         </div>
                                     </div>

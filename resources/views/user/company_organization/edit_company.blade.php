@@ -28,11 +28,11 @@
             <div class="col-3">
                 <div class="col-12 rounded bg-white py-3 px-3">
                     <div style="border-bottom: 1px solid lightgrey" class="pb-2">
-                        <h4>Total Enterprise</h4>
+                        <h4>{{$company_organization->name}}</h4>
                     </div>
                     <div class="mt-3">
                         <a class="btn btn-light text-primary"  data-toggle="modal" data-target="#edit_account">Edit</a>
-                        <a class="btn btn-outline-danger" href="{{ route('delete_company', [$company->id]) }}">Delete</a>
+                        <a class="btn btn-outline-danger" href="{{ route('delete_company', [$company_organization->id]) }}">Delete</a>
                     </div>
                 </div>
                 <div class="col-12 mt-3 rounded bg-white py-3 px-3">
@@ -40,26 +40,26 @@
                     <div id="company_info_btn" class="collapse show">
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label for="personal_name" class="mr-sm-2">Company name:</label>
-                            <div>{{$company->name}}</div>
+                            <div>{{$company_organization->name}}</div>
                         </div>
 
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label  class="mr-sm-2">Company owner:</label>
-                            <div>{{$company->ownerUser->name}}</div>
+                            <div>{{$company_organization->ownerUser->name}}</div>
                         </div>
 
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label  class="mr-sm-2">Phone:</label>
-                            <div>{{$company->company_phone}}</div>
+                            <div>{{$company_organization->company_phone}}</div>
                         </div>
 
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label for="parent_account" class="mr-sm-2">Parent account:</label>
-                            <div>{{$company->companyTypes->name}}}</div>
+                            <div>{{$company_organization->companyTypes->name}}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label  class="mr-sm-2">Industry:</label>
-                            <div>{{$company->industriesTypes->name}}</div>
+                            <div>{{$company_organization->industriesTypes->name}}</div>
                         </div>
                     </div>
                 </div>
@@ -142,21 +142,21 @@
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Website:</label>
-                                                    <div>{{$company->website}}</div>
+                                                    <div>{{$company_organization->website}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Description:</label>
-                                                    <div>{{$company->description}}</div>
+                                                    <div>{{$company_organization->description}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Phone</label>
-                                                    <div>{{$company->additional_phone}}</div>
+                                                    <div>{{$company_organization->additional_phone}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Employees:</label>
-                                                    <div>{{$company->employees}}</div>
+                                                    <div>{{$company_organization->employees}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -169,13 +169,13 @@
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Address 1:</label>
-                                                    <div>{{$company->address_1_country}}</div>
+                                                    <div>{{$company_organization->address_1_country}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Address 2</label>
-                                                    <div>{{$company->address_2_country}}</div>
+                                                    <div>{{$company_organization->address_2_country}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -189,12 +189,12 @@
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
 
-                                                    <div> Created By: {{ Auth::user()->name }}. {{$company->created_at}}</div>
+                                                    <div> Created By: {{ Auth::user()->name }}. {{$company_organization->created_at}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <div>Last Modified By: {{ Auth::user()->name }}. {{$company->updated_at}}</div>
+                                                    <div>Last Modified By: {{ Auth::user()->name }}. {{$company_organization->updated_at}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -206,7 +206,7 @@
 
                             <div class="row mt-3 px-3">
                                 <div class="col-12 sales_blocks">
-                                    <span>Contacts ({{ $company->contacts_count }})</span>
+                                    <span>Contacts ({{ $company_organization->contacts_count }})</span>
                                     <div>
                                         <button class="btn btn-outline-primary" data-toggle="modal" data-target="#create-contact">New</button>
                                     </div>
@@ -245,34 +245,6 @@
         </div>
     </div>
 
-    {{--<div class="container-fluid mt-5">--}}
-    {{--<table class="table table-hover">--}}
-    {{--<thead>--}}
-    {{--<tr>--}}
-    {{--<th>Company name</th>--}}
-    {{--<th>Paren Company</th>--}}
-    {{--<th>Type</th>--}}
-    {{--<th>Industry</th>--}}
-    {{--<th>Company phone</th>--}}
-    {{--<th>Company owner</th>--}}
-    {{--<th></th>--}}
-    {{--</tr>--}}
-    {{--</thead>--}}
-    {{--<tbody>--}}
-    {{--<tr id="" data-toggle="modal" data-target="#edit_account">--}}
-    {{--<td>{{$company->name}}</td>--}}
-    {{--<td>{{!empty($company->parentCompany->name) ? $company->parentCompany->name : ""}}</td>--}}
-    {{--<td>{{$company->companyTypes->name}}</td>--}}
-    {{--<td>{{$company->industriesTypes->name}}</td>--}}
-    {{--<td>{{$company->company_phone}}</td>--}}
-    {{--<td>{{$company->ownerUser->name}}</td>--}}
-    {{--<td><a class="text-danger" href="{{ route('delete_company', [$company->id]) }}">Delete</a></td>--}}
-    {{--</tr>--}}
-
-    {{--</tbody>--}}
-    {{--</table>--}}
-    {{--</div>--}}
-
     <div class="modal edit_account" id="edit_account">
         <div class="modal-dialog  mt-5 modal-xl">
             <div class="modal-content">
@@ -285,25 +257,25 @@
                 <div class="modal-body" id="modal-body">
                     <div class="row">
                     </div>
-                    <form class="" action="{{route('edit_company',[$company->id])}}" method="POST">
+                    <form class="" action="{{route('edit_company_organization',[$company_organization->id])}}" method="POST">
                         @csrf
                         <div class="">
                             <div class="row">
                                 <div class="col-6">
                                     <label for="personal_name" class="mr-sm-2">Company name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Company name" name="name" value="{{$company->name}}" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Company name" name="name" value="{{$company_organization->name}}" id="" required>
                                 </div>
                                 <div class="col-6" id="parent_id_select_2">
                                     <label for="parent_account" class="mr-sm-2">Parent account:</label>
                                     <div>
                                         <select class="select2 form-control select2_styles" name="parent_id" >
                                             <option selected>Select Parent Company</option>
-                                            @foreach($all_companies as $comp)
-                                                @if($comp->id === $company->id)
+                                            @foreach($all_company_organizations as $comp)
+                                                @if($comp->id === $company_organization->id)
                                                     @continue
                                                 @endif
                                                 <option value="{{$comp->id}}"
-                                                @if(!empty($company->parentCompany->id) && $comp->id == $company->parentCompany->id) {{'selected'}} @else {{""}} @endif >{{$comp->name}}</option>
+                                                @if(!empty($company_organization->parentCompany->id) && $comp->id == $company_organization->parentCompany->id) {{'selected'}} @else {{""}} @endif >{{$comp->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -315,7 +287,7 @@
                                     <select required class="select2 custom-select form-control" required name="owner_id">
                                         @if($users)
                                             @foreach($users as $user)
-                                                <option value="{{$user->id}}" @if($user->id == $company->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->name}}</option>
+                                                <option value="{{$user->id}}" @if($user->id == $company_organization->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->name}}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -324,7 +296,7 @@
                                     <label  class="mr-sm-2">Type:</label>
                                     <select  class="select2 custom-select form-control" name="company_id" required>
                                         @foreach($company_types as  $company_type)
-                                            <option value="{{$company_type->id}}" @if($company_type->id == $company->companyTypes->id) {{'selected'}} @else {{""}} @endif>{{$company_type->name}}</option>
+                                            <option value="{{$company_type->id}}" @if($company_type->id == $company_organization->companyTypes->id) {{'selected'}} @else {{""}} @endif>{{$company_type->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -332,13 +304,13 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Phone:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="phone" value="{{$company->company_phone}}" name="company_phone" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="phone" value="{{$company_organization->company_phone}}" name="company_phone" required>
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Industry:</label>
                                     <select  class="select2 custom-select form-control" name="industry_id" required>
                                         @foreach($industries_types as  $industries_type)
-                                            <option value="{{$industries_type->id}}" @if($industries_type->id == $company->industriesTypes->id) {{'selected'}} @else {{""}} @endif>{{$industries_type->name}}</option>
+                                            <option value="{{$industries_type->id}}" @if($industries_type->id == $company_organization->industriesTypes->id) {{'selected'}} @else {{""}} @endif>{{$industries_type->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -346,71 +318,71 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Website:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2"  placeholder="Website" value="{{$company->website}}" name="website" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2"  placeholder="Website" value="{{$company_organization->website}}" name="website" >
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Phone:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" required placeholder="Phone" value="{{$company->additional_phone}}" name="additional_phone" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" required placeholder="Phone" value="{{$company_organization->additional_phone}}" name="additional_phone" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Description:</label>
-                                    <textarea class="form-control" id="" rows="3"  name="description">{{$company->description}}</textarea>
+                                    <textarea class="form-control" id="" rows="3"  name="description">{{$company_organization->description}}</textarea>
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Employees:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Employees" required value="{{$company->employees}}" name="employees" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Employees" required value="{{$company_organization->employees}}" name="employees" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_1 Street:</label>
-                                    <textarea class="form-control" id="" rows="3" name="address_1_street" >{{$company->address_1_street}}</textarea>
+                                    <textarea class="form-control" id="" rows="3" name="address_1_street" >{{$company_organization->address_1_street}}</textarea>
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_2 Street:</label>
-                                    <textarea class="form-control" id="" rows="3" name="address_2_street" >{{$company->address_2_street}}</textarea>
+                                    <textarea class="form-control" id="" rows="3" name="address_2_street" >{{$company_organization->address_2_street}}</textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_1 Country:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company->address_1_country}}" name="address_1_country" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company_organization->address_1_country}}" name="address_1_country" >
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_2 Country:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company->address_2_country}}" name="address_2_country" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company_organization->address_2_country}}" name="address_2_country" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_1 City:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company->address_1_city}}" name="address_1_city" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company_organization->address_1_city}}" name="address_1_city" >
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_2 City:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company->address_2_city}}" name="address_2_city" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company_organization->address_2_city}}" name="address_2_city" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_1 State:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company->address_1_state}}" name="address_1_state" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company_organization->address_1_state}}" name="address_1_state" >
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_2 State:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company->address_2_state}}" name="address_2_state" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company_organization->address_2_state}}" name="address_2_state" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_1 zip code:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company->address_1_zip_code}}" name="address_1_zip_code"  >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company_organization->address_1_zip_code}}" name="address_1_zip_code"  >
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address_2 zip code:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company->address_2_zip_code}}" name="address_2_zip_code" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$company_organization->address_2_zip_code}}" name="address_2_zip_code" >
                                 </div>
                             </div>
                             <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
@@ -449,9 +421,9 @@
                                         <label for="" class="mr-sm-2">Company Name:</label>
                                         <div>
                                             <select class="select2 select_company form-control" name="company_id">
-                                                <option selected value="0">Select Company</option>
-                                                @foreach($all_companies as $comp)
-                                                    <option value="{{$comp->id}}" {{ $comp->id == $company->id ? 'selected="selected"' : '' }}>{{$comp->name}}</option>
+                                                <option selected value="">Select Company</option>
+                                                @foreach($all_company_organizations as $comp)
+                                                    <option value="{{$comp->id}}" {{ $comp->id == $company_organization->id ? 'selected="selected"' : '' }}>{{$comp->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -461,7 +433,7 @@
                                         <label for="" class="mr-sm-2">Contact Owner:</label>
                                         <div>
                                             <select class="select2 select_owner form-control" name="owner_id">
-                                                <option selected value="0">Select Contact Owner</option>
+                                                <option selected value="">Select Contact Owner</option>
                                                 @foreach($users as $user)
                                                     <option value="{{$user->id}}"  >{{$user->name}}</option>
                                                 @endforeach
@@ -471,7 +443,7 @@
                                     </div>
                                     <label for="" class="mr-sm-2">Solution:</label>
                                     <select class=" form-control" name="solution">
-                                        <option selected value="0">Select Solution</option>
+                                        <option selected value="">Select Solution</option>
                                         <option  value="Mr">Mr.</option>
                                         <option  value="Ms">Ms.</option>
                                         <option  value="Mrs">Mrs.</option>
@@ -515,7 +487,7 @@
                                     <label for="personal_name" class="mr-sm-2">Reports To:</label>
                                     <div>
                                         <select class="select2 select_reports_emails form-control" required name="reports">
-                                            <option selected value="0">Select Reports address</option>
+                                            <option selected value="">Select Reports address</option>
                                             @foreach($users as $user)
                                                 <option value="{{$user->id}}"  >{{$user->email}}</option>
                                             @endforeach
@@ -536,35 +508,35 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div>
-                                        <label for="" class="mr-sm-2">Meiling address:</label>
+                                        <label for="" class="mr-sm-2">Mailing address:</label>
                                         <div>
                                             <select class="select2 select_emails form-control" name="mailing_address">
-                                                <option selected value="0">Select Meiling address</option>
+                                                <option selected value="">Select Mailing address</option>
                                                 @foreach($users as $user)
                                                     <option value="{{$user->id}}"  >{{$user->email}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <label  class="mr-sm-2">Meiling Street:</label>
+                                    <label  class="mr-sm-2">Mailing Street:</label>
                                     <textarea  class="form-control" id="" rows="3" name="mailing_street"></textarea>
                                     <div class="row">
                                         <div class="col-8">
-                                            <label for="personal_name" class="mr-sm-2">Meiling City:</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing City:</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_city" value="" id="" >
                                         </div>
                                         <div class="col-4">
-                                            <label for="personal_name" class="mr-sm-2">Meiling State:</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing State:</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_state" value="" id="" >
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-8">
-                                            <label for="personal_name" class="mr-sm-2">Meiling Country:</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing Country:</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_country" value="" id="" >
                                         </div>
                                         <div class="col-4">
-                                            <label for="personal_name" class="mr-sm-2">Meiling Zip :</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing Zip :</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing__zip_code" value="" id="" >
                                         </div>
                                     </div>

@@ -29,18 +29,18 @@
             </tr>
             </thead>
             <tbody>
-                @foreach($companies as  $value)
+                @foreach($company_organizations as  $value)
                 <tr{{--id="" data-toggle="modal" data-target="#edit_account_{{$value->id}}"--}} >
-                    <td><a href="{{ route('edit_company', [$value->id]) }}">{{$value->name}}</a></td>
-                    <td>{{!empty($value->parentCompany->name) ? $value->parentCompany->name : ""}}</td>
-                    <td>{{$value->companyTypes->name}}</td>
-                    <td>{{$value->industriesTypes->name}}</td>
+                    <td><a href="{{ route('edit_company_organization', [$value->id]) }}">{{$value->name}}</a></td>
+                    <td>{{ $value->parentCompany->name ?? '' }}</td>
+                    <td>{{$value->companyTypes->name ?? '' }}</td>
+                    <td>{{$value->industriesTypes->name ?? '' }}</td>
                     <td>{{$value->company_phone}}</td>
                     <td>{{$value->ownerUser->name}}</td>
                     <td>
                         <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Edit</button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item text-primary" href="{{ route('edit_company', [$value->id]) }}">Edit</a>
+                            <a class="dropdown-item text-primary" href="{{ route('edit_company_organization', [$value->id]) }}">Edit</a>
                             <a class="dropdown-item text-danger" href="{{ route('delete_company', [$value->id]) }}">Delete</a>
                         </div>
                     </td>
@@ -79,8 +79,8 @@
                             <div class="col-6 d-flex flex-column">
                                 <label for="parent_account w-100" class="mr-sm-2">Parent account:</label>
                                 <select class="select2 form-control" name="parent_id">
-                                    <option selected value="0">Select Parent Company</option>
-                                    @foreach($all_companies as $comp)
+                                    <option selected value="">Select Parent Company</option>
+                                    @foreach($all_company_organizations as $comp)
                                         <option value="{{$comp->id}}"  >{{$comp->name}}</option>
                                     @endforeach
                                 </select>
@@ -209,7 +209,7 @@
     </div>
 </div>
 
-@foreach($companies as  $value)
+@foreach($company_organizations as  $value)
     <div class="modal edit_account" id="edit_account_{{$value->id}}">
         <div class="modal-dialog  mt-5 modal-lg">
             <div class="modal-content">
@@ -237,7 +237,7 @@
                                     <label for="parent_account" class="mr-sm-2">Parent account:</label>
                                     <select class="select2_2" name="parent_id" >
                                         <option selected>Select Parent Company</option>
-                                        @foreach($all_companies as $comp)
+                                        @foreach($all_company_organizations as $comp)
                                             <option value="{{$comp->id}}"
                                             @if(!empty($value->parentCompany->id) && $comp->id == $value->parentCompany->id) {{'selected'}} @else {{""}} @endif >{{$comp->name}}</option>
                                         @endforeach

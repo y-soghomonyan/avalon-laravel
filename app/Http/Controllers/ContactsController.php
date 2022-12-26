@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
-use App\Models\Company;
+use App\Models\CompanyOrganization;
 use App\Models\Contact;
 
 class ContactsController extends Controller
@@ -16,7 +16,7 @@ class ContactsController extends Controller
 
         return view('user.contact.contacts', [
             'contacts' => Contact::where('user_id', $id)->get(),
-            'all_companies' =>Company::all( 'id', 'name' ),
+            'all_companies' =>CompanyOrganization::all( 'id', 'name' ),
             'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name', 'email']),
         ]);
     }
@@ -57,6 +57,10 @@ class ContactsController extends Controller
     public function edit_contact(Request $req, $id){
         $contact = Contact::find($id);
 
+        if(empty($contact)){
+            return redirect()->route('contacts')->with('danger', "Not Found");
+        }
+
         if ($_POST){
             if($contact->user_id == Auth::user()->id) {
 
@@ -92,7 +96,7 @@ class ContactsController extends Controller
 //            'company_types' => CompanyTypes::all(),
 //            'industries_types' => IndustriesTypes::all(),
             'contact' => $contact,
-            'all_companies' =>Company::all(['id', 'name']),
+            'all_companies' =>CompanyOrganization::all(['id', 'name']),
             'all_contacts' =>Contact::where('id', '!=', $id)->get(['id', 'title']),
             'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name','email']),
         ]);
@@ -100,6 +104,9 @@ class ContactsController extends Controller
 
     public function delete_contact($id){
         $data = Contact::find($id);
+        if(empty($data)){
+            return redirect()->route('contacts')->with('danger', "Not Found");
+        }
         if($data->delete()){
             return redirect()->route('contacts')->with('success', $data->title.' - Remove');
         }

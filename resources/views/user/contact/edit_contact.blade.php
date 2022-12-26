@@ -27,7 +27,7 @@
             <div class="col-3">
                 <div class="col-12 rounded bg-white py-3 px-3">
                     <div style="border-bottom: 1px solid lightgrey" class="pb-2">
-                        <h4>Total Enterprise</h4>
+                        <h4>{{$contact->title}}</h4>
                     </div>
                     <div class="mt-3">
                         <a class="btn btn-light text-primary"  data-toggle="modal" data-target="#edit_account">Edit</a>
@@ -39,7 +39,7 @@
                     <div id="contact_info_btn" class="collapse show">
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label for="personal_name" class="mr-sm-2">Company name:</label>
-                            <div>@if(!empty($contact->parentCompany->id)){{$contact->parentCompany->id}}@endif</div>
+                            <div>{{$contact->parentCompany->name ?? ''}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label for="personal_name" class="mr-sm-2">Contact name:</label>
@@ -48,7 +48,7 @@
 
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label  class="mr-sm-2">Contact owner:</label>
-                            <div>{{$contact->ownerUser->name}}</div>
+                            <div>{{$contact->ownerUser->name ?? ""}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label  class="mr-sm-2">Email:</label>
@@ -147,7 +147,7 @@
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Reports to</label>
-                                                    <div>{{$contact->reportsTo && $contact->reportsTo->email ? $contact->reportsTo->email:"" }}</div>
+                                                    <div>{{$contact->reportsTo->email ?? '' }}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Department</label>
@@ -163,8 +163,8 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Meiling Address:</label>
-                                                    <div>{{$contact->mailingAddress && $contact->mailingAddress->email ? $contact->mailingAddress->email : '' }}</div>
+                                                    <label for="personal_name" class="mr-sm-2">Mailing Address:</label>
+                                                    <div>{{$contact->mailingAddress->email ?? ''  }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -264,10 +264,9 @@
                                     <div>
                                         <label for="" class="mr-sm-2">Contact Name:</label>
                                         <div>
-                                            <select class="select2 select_contact form-control" name="contact_id">
-                                                <option  value="0">Select contact</option>
+                                            <select class="select2 select_contact form-control" name="contact_id" required>
+                                                <option  value="">Select contact</option>
                                                 @foreach($all_companies as $comp)
-
                                                     <option  @if(!empty($contact->parentCompany->id) && $comp->id == $contact->parentCompany->id) {{'selected'}} @else {{""}} @endif >{{$comp->name}}</option>
                                                 @endforeach
                                             </select>
@@ -276,17 +275,17 @@
                                     <div>
                                         <label for="" class="mr-sm-2">Contact Owner:</label>
                                         <div>
-                                            <select class="select2 select_owner form-control" name="owner_id">
-                                                <option selected value="0">Select Contact Owner</option>
+                                            <select class="select2 select_owner form-control" name="owner_id" required>
+                                                <option selected value="">Select Contact Owner</option>
                                                 @foreach($users as $user)
-                                                    <option value="{{$user->id}}" @if($user->id == $contact->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->name}}</option>
+                                                    <option value="{{$user->id}}" @if(!empty($contact->ownerUser->id) && $user->id == $contact->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <label for="" class="mr-sm-2">Solution:</label>
                                     <select class=" form-control" name="solution">
-                                        <option selected value="0">Select Solution</option>
+                                        <option selected value="">Select Solution</option>
                                         <option  value="Mr"  @if($contact->solution == 'Mr') {{'selected'}} @else {{""}} @endif>Mr.</option>
                                         <option  value="Ms" @if($contact->solution == 'Ms') {{'selected'}} @else {{""}} @endif>Ms.</option>
                                         <option  value="Mrs" @if($contact->solution == 'Mrs') {{'selected'}} @else {{""}} @endif>Mrs.</option>
@@ -329,8 +328,8 @@
                                 <div class="col-6">
                                     <label for="personal_name" class="mr-sm-2">Reports To:</label>
                                     <div>
-                                        <select class="select2 select_reports_emails form-control" name="reports">
-                                            <option selected value="0">Select Reports address</option>
+                                        <select class="select2 select_reports_emails form-control" name="reports" required>
+                                            <option selected value="">Select Reports address</option>
                                             @foreach($users as $user1)
                                                 <option value="{{$user1->id}}" @if($user1->id == $contact->reports) {{'selected'}} @else {{""}} @endif>{{$user1->email}}</option>
                                             @endforeach
@@ -351,35 +350,35 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div>
-                                        <label for="" class="mr-sm-2">Meiling address:</label>
+                                        <label for="" class="mr-sm-2">Mailing address:</label>
                                         <div>
                                             <select class="select2 select_emails form-control" name="mailing_address">
-                                                <option selected value="0">Select Meiling address</option>
+                                                <option selected value="">Select Mailing address</option>
                                                 @foreach($users as $user2)
-                                                    <option value="{{$user2->id}}" @if($user2->id == $contact->reports) {{'selected'}} @else {{""}} @endif>{{$user2->email}}</option>
+                                                    <option value="{{$user2->id}}" @if(!empty($contact->reports) && $user2->id == $contact->reports) {{'selected'}} @else {{""}} @endif>{{$user2->email}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <label  class="mr-sm-2">Meiling Street:</label>
+                                    <label  class="mr-sm-2">Mailing Street:</label>
                                     <textarea  class="form-control" id="" rows="3" name="mailing_street">{{$contact->mailing_street}}</textarea>
                                     <div class="row">
                                         <div class="col-8">
-                                            <label for="personal_name" class="mr-sm-2">Meiling City:</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing City:</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_city" value="{{$contact->mailing_city}}" id="" >
                                         </div>
                                         <div class="col-4">
-                                            <label for="personal_name" class="mr-sm-2">Meiling State:</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing State:</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_state" value="{{$contact->mailing_state}}" id="" >
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-8">
-                                            <label for="personal_name" class="mr-sm-2">Meiling Country:</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing Country:</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_country" value="{{$contact->mailing_country}}" id="" >
                                         </div>
                                         <div class="col-4">
-                                            <label for="personal_name" class="mr-sm-2">Meiling Zip :</label>
+                                            <label for="personal_name" class="mr-sm-2">Mailing Zip :</label>
                                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing__zip_code" value="{{$contact->mailing__zip_code}}" id="" >
                                         </div>
                                     </div>
