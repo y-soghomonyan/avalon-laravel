@@ -19,9 +19,9 @@ class Contact extends Model
 //        return $this->hasOne(Companies::class, 'id', 'parent_id');
 //    }
 
-    public function parentCompany()
+    public function parentAccount()
     {
-        return $this->hasOne(CompanyOrganization::class, 'id', 'company_id');
+        return $this->hasOne(Account::class, 'id', 'account_id');
     }
     public function reportsTo()
     {

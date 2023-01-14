@@ -24,8 +24,8 @@ class CreateCompaniesTable extends Migration
             $table->string('filing_status')->nullable();
             $table->bigInteger('company_id')->unsigned()->index()->nullable();
             $table->foreign('company_id')->references('id')->on('company_types')->onDelete('cascade');
-            $table->bigInteger('company_organization_id')->unsigned()->index()->nullable();
-            $table->foreign('company_organization_id')->references('id')->on('company_organizations')->onDelete('cascade');
+            $table->bigInteger('account_id')->unsigned()->index()->nullable();
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->bigInteger('contact_id')->unsigned()->index()->nullable();
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
             $table->string('type')->nullable();

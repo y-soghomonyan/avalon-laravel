@@ -1,8 +1,14 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CompanyOrganizationsController;
+use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\LogCallController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\SendEmailController;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,29 +18,54 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::controller(CompanyOrganizationsController::class)->group(function () {
-    Route::get('/company-organizations','index')->name('company-organizations')->middleware('auth');
+Route::controller(AccountsController::class)->group(function () {
+    Route::get('/accounts', 'index')->name('accounts')->middleware('auth');
     Route::post('/add_account', 'add_account')->name('add_account')->middleware('auth');
-    Route::match(['post', 'get'],'/edit-company-organization/{id}', 'edit_company')->name('edit_company_organization')->middleware('auth');
-    Route::get('/delete_company/{id}', 'delete_company')->name('delete_company')->middleware('auth');
-    Route::post('/get_parent_account_ajax','get_parent_account_ajax')->name('get_parent_account_ajax')->middleware('auth');
+    Route::match(['post', 'get'], '/account/{id}', 'edit_account')->name('edit_account')->middleware('auth');
+    Route::get('/delete_account/{id}', 'delete_account')->name('delete_account')->middleware('auth');
+    Route::post('/get_parent_account_ajax', 'get_parent_account_ajax')->name('get_parent_account_ajax')->middleware('auth');
+    Route::post('/send_email/{id}', 'send_email')->name('send_email')->middleware('auth');
+    Route::get('/delete_email/{email_id}/{account_id}', 'delete_email')->name('delete_email')->middleware('auth');
 });
-
 
 Route::controller(ContactsController::class)->group(function () {
     Route::get('/contacts','index')->name('contacts')->middleware('auth');
     Route::post('/add_contact', 'add_contact')->name('add_contact')->middleware('auth');
-    Route::match(['post', 'get'],'/edit-contact/{id}', 'edit_contact')->name('edit_contact')->middleware('auth');
+    Route::match(['post', 'get'],'/contact/{id}', 'edit_contact')->name('edit_contact')->middleware('auth');
     Route::get('/delete_contact/{id}', 'delete_contact')->name('delete_contact')->middleware('auth');
+    Route::get('/contacts/{id}/account', 'contacts_by_account')->name('contacts_by_account')->middleware('auth');
 });
-
 
 Route::controller(CompaniesController::class)->group(function () {
     Route::get('/companies','index')->name('companies')->middleware('auth');
     Route::post('/create_company', 'store')->name('create_company')->middleware('auth');
     Route::post('/update-company/{id}', 'update')->name('update-company')->middleware('auth');
-    Route::get('/edit-company/{id}', 'edit')->name('edit-company')->middleware('auth');
+    Route::get('/company/{id}', 'edit')->name('edit-company')->middleware('auth');
     Route::get('/destroy_company/{id}', 'destroy')->name('destroy_company')->middleware('auth');
+    Route::get('/companies/{id}/account', 'companies_by_account')->name('companies_by_account')->middleware('auth');
+});
+
+Route::controller(LogCallController::class)->group(function () {
+    Route::post('/add_log_call','add_log_call')->name('add_log_call')->middleware('auth');
+    Route::post('/edit_call/{id}', 'edit_call')->name('edit_call')->middleware('auth');
+    Route::get('/delete_call/{id}', 'delete_call')->name('delete_call')->middleware('auth');
+});
+
+Route::controller(TaskController::class)->group(function () {
+    Route::post('/add_task','add_task')->name('add_task')->middleware('auth');
+    Route::post('/edit_task/{id}', 'edit_task')->name('edit_task')->middleware('auth');
+    Route::get('/delete_task/{id}', 'delete_task')->name('delete_task')->middleware('auth');
+});
+
+Route::controller(EventController::class)->group(function () {
+    Route::post('/add_event','add_event')->name('add_event')->middleware('auth');
+    Route::post('/edit_event/{id}', 'edit_event')->name('edit_event')->middleware('auth');
+    Route::get('/delete_event/{id}', 'delete_event')->name('delete_event')->middleware('auth');
+});
+
+Route::controller(SendEmailController::class)->group(function () {
+    Route::post('/send_email', 'send_email')->name('send_email')->middleware('auth');
+    Route::get('/delete_email/{email_id}/', 'delete_email')->name('delete_email')->middleware('auth');
 });
 
 Route::group(['prefix' => 'admin'], function () {

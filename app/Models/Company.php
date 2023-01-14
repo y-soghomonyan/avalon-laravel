@@ -23,9 +23,9 @@ class Company extends Model
         return $this->hasOne(CountryState::class, 'id','state_id');
     }
 
-    public function parentCompany()
+    public function parentAccount()
     {
-        return $this->hasOne(CompanyOrganization::class, 'id', 'company_organization_id');
+        return $this->hasOne(Account::class, 'id', 'account_id');
     }
     public function companyTypes()
     {

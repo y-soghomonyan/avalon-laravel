@@ -10,6 +10,33 @@
 body{
     height: 100vh;
 }
+a{
+    text-decoration: none;
+}
+#app{
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #76d2e4, #0f2d59);
+}
+
+
+::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
 
 .company_info_btn, .contact_info_btn{
     width: 100%;
@@ -17,7 +44,8 @@ body{
     height: 40px;
     cursor: pointer;
     color: #41464b;
-    text-align: center;
+    padding-left: 5px;
+    /* text-align: center; */
     line-height: 40px;
     border-radius:5px;
 }
@@ -26,7 +54,13 @@ body{
     left: -65px;
     top: 35px;
 }
-
+.select_span_style {
+    width: 100%!important;
+    height: 100%!important;
+}
+.select_span_style span {
+    height: 37px!important;
+}
 
 .center_nav_active_style .nav-link {
     border: none;
@@ -47,4 +81,157 @@ body{
     border: unset!important;
     border-radius: unset;
     border-top: 3px solid blue!important;
+}
+
+.df_jssb_amc{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.df_jsfs_amc{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.df_jsc_amc{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg_c_contact{
+    background-color: blueviolet;
+}
+.bg_c_quotes{
+    background-color: #88C651;
+}
+.bg_c_event{
+    background-color: #EB7092;
+}
+.bg_c_call{
+    background-color: #48C3CC;
+}
+
+.bg_c_tag{
+    background-color: #FCB95B;
+}
+.bg_c_cases{
+    background-color: #F2CF5B;
+}
+
+.bg_c_campaign{
+    background-color: #F49756;
+}
+
+.bg_c_notes{
+    background-color: #E6D478;
+}
+
+.bg_c_file{
+    background-color: #BAAC93;
+}
+
+.text_d_n{
+    text-decoration:none;
+}
+
+.icon_small{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+.icon_small img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.emails_blocks_scroll{
+    height: 80px;
+    overflow-y: scroll;
+}
+
+.notification_icons{
+    width: 40px;
+    height: 40px;
+    border-radius:3px
+}
+.sales_blocks {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F3F3F3;
+    border:1px solid grey;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.sales_blocks button {
+    background-color: white;
+}
+
+.sales_blocks span {
+    font-weight: 700;
+}
+
+.row-with-float > [class^=col-] {
+    float: left;
+}
+.row-with-float > [class^=col-] + [class^=col-] {
+
+}
+.row-with-float::before, .row-with-float::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.sticky-top{
+    position: sticky;
+    top: 20px;
+}
+
+/* *{
+    outline: 1px solid limegreen !important; 
+} */
+
+
+.account_info_btn{
+    background-color: rgb(243, 243, 243);
+    cursor:pointer;
+    border-radius: 5px;
+}
+
+.slds-edit__icon{
+    width: 20px;
+    fill: #0D6EFD;
+}
+.slds-delete__icon{
+    width: 20px;
+    fill: rgb(231 27 71);
+}
+
+.slds-icon_x-small{
+    margin-top: -3px;
+    width: 14px;
+    fill: rgb(63, 62, 62);
+}
+
+.slds-icon_x-middle{
+    fill: #0d6efd;
+    width: 40px; 
+}
+
+.slds-icon_x-small_rotate{
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    transform: rotate(-90deg);
+}
+.upov_max_height{
+    max-height: 290px;
+    overflow: hidden;
 }

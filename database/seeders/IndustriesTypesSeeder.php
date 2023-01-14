@@ -14,11 +14,47 @@ class IndustriesTypesSeeder extends Seeder
      *
      * @return void
      */
+
+     public $industries_types = [
+        'Agriculture',
+        'Apparel',
+        'Banking',
+        'Biotechnology',
+        'Chemicals',
+        'Communications',
+        'Construction',
+        'Consulting',
+        'Education',
+        'Electronics',
+        'Energy',
+        'Engineering',
+        'Entertainment',
+        'Environmental',
+        'Finance',
+        'Food & Beverage',
+        'Government',
+        'Healthcare',
+        'Hospitality',
+        'Insurance',
+        'Machinery',
+        'Manufacturing',
+        'Media',
+        'Not For Profit',
+        'Other',
+        'Recreation',
+        'Retail',
+        'Shipping',
+        'Technology',
+        'Telecommunications',
+        'Transportation',
+        'Utilities'
+     ];
+
     public function run()
     {
-        for($i = 0; $i<=10; $i++){
+         foreach ($this->industries_types as $industries_type){
             DB::table('industries_types')->insert([
-                'name' => Str::random(10),
+                'name' => $industries_type,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ]);

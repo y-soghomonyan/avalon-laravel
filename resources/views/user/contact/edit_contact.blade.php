@@ -1,30 +1,10 @@
 @extends('user.layout.app')
 @section('title')Edit Contact @endsection
 @section('contents')
-
-    <style>
-        .sales_blocks {
-            display: flex;
-            justify-content: space-between;
-            background-color: #F3F3F3;
-            border:1px solid grey;
-            align-items: center;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        .sales_blocks button {
-            background-color: white;
-        }
-
-        .sales_blocks span {
-            font-weight: 700;
-        }
-
-    </style>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <div class="container-fluid mt-5">
-        <div class="row">
-            <div class="col-3">
+        <div class="row-with-float">
+            <div class="col-3 px-2 sticky-top">
                 <div class="col-12 rounded bg-white py-3 px-3">
                     <div style="border-bottom: 1px solid lightgrey" class="pb-2">
                         <h4>{{$contact->title}}</h4>
@@ -35,11 +15,14 @@
                     </div>
                 </div>
                 <div class="col-12 mt-3 rounded bg-white py-3 px-3">
-                    <div class=" contact_info_btn" data-toggle="collapse" data-target="#contact_info_btn">Contact Information</div>
+                    <div class=" contact_info_btn collaps_show" data-toggle="collapse" data-target="#contact_info_btn">
+                        <svg class="slds-icon slds-icon-text-default slds-icon_x-small  " focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+                        Contact Information 
+                    </div>
                     <div id="contact_info_btn" class="collapse show">
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label for="personal_name" class="mr-sm-2">Company name:</label>
-                            <div>{{$contact->parentCompany->name ?? ''}}</div>
+                            <label for="personal_name" class="mr-sm-2">Account name:</label>
+                            <div>{{$contact->parentAccount->name ?? ''}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label for="personal_name" class="mr-sm-2">Contact name:</label>
@@ -61,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6  ">
+            <div class="col-6 px-2">
                 <div class="col-12 rounded bg-white py-3 px-3">
                     <ul class="nav nav-tabs  center_nav_active_style">
                         <li class="nav-item">
@@ -81,56 +64,14 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane container active" id="menu1">
-                            <div class="col-12 mt-3 px-3">
-                                <ul class="nav nav-tabs ">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#menu1_1">Email</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#menu2_1">Details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#menu3_1">Sales</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#menu4_1">Marketing</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane container active" id="menu1_1">
-                                        <form action="">
-                                            <div class="row mt-3">
-                                                <div class="col-9">
-                                                    <input required type="email" class="form-control mb-2 mr-sm-2" placeholder="Write an email..." name="email" value="" id="">
-                                                </div>
-                                                <div class="col-3">
-                                                    <input type="submit" class="form-control mb-2 mr-sm-2 btn btn-primary"  name="submit" value="Compose" >
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <div class="col-12 mt-3 px-3">
-                                            <div class=" contact_info_btn" data-toggle="collapse" data-target="#upcoming"> Upcoming & Overdue</div>
-                                            <div id="upcoming" class="collapse">
-                                                <div class="border-bottom mt-2 pt-1 px-2 pb-3">
-                                                    <div class="text-center">No activities to show</div>
-                                                    <div class="text-center">Get started by sending an email, scheduling a task, and more</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mt-3 px-3">
-                                            <div class="text-center">No past activity. Past meetings and tasks marked as done show up here</div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane container fade" id="menu2_1">...</div>
-                                    <div class="tab-pane container fade" id="menu3_1">...</div>
-                                    <div class="tab-pane container fade" id="menu4_1">...</div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('notifications.forms')
                         <div class="tab-pane container fade" id="menu2">
                             <div class="col-12 mt-3 px-3">
-                                <div class=" contact_info_btn" data-toggle="collapse" data-target="#additional_info">Additional Information</div>
+                                <div class=" contact_info_btn collaps_show" data-toggle="collapse" data-target="#additional_info">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small " focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+
+                                    Additional Information 
+                                </div>
                                 <div id="additional_info" class="collapse show">
                                     <div class=" mt-2 pt-1 px-2 pb-3">
                                         <div class="row">
@@ -157,7 +98,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" contact_info_btn mt-3" data-toggle="collapse" data-target="#address_info">Address Information</div>
+                                <div class=" contact_info_btn mt-3 collaps_show" data-toggle="collapse" data-target="#address_info">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+
+                                    Address Information
+                                </div>
                                 <div id="address_info" class="collapse">
                                     <div class=" mt-2 pt-1 px-2 pb-3">
                                         <div class="row">
@@ -170,7 +115,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" contact_info_btn mt-3" data-toggle="collapse" data-target="#system_info">System Information</div>
+                                <div class=" contact_info_btn mt-3 collaps_show" data-toggle="collapse" data-target="#system_info">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+
+                                    System Information
+                                </div>
                                 <div id="system_info" class="collapse">
                                     <div class=" mt-2 pt-1 px-2 pb-3">
                                         <div class="row">
@@ -190,6 +139,8 @@
                                 </div>
                             </div>
                         </div>
+                        
+
                         <div class="tab-pane container fade" id="menu3">
                             <div class="row mt-3 px-3">
                                 <div class="col-12 sales_blocks">
@@ -197,7 +148,7 @@
                                     <div><button class="btn btn-outline-primary" >New</button></div>
                                 </div>
                                 <div class="col-12 sales_blocks">
-                                    <span>Contacts (0)</span>
+                                    <span>Contacts ({{$contacts_count->count()}})</span>
                                     <div><button class="btn btn-outline-primary" >New</button></div>
                                 </div>
                                 <div class="col-12 sales_blocks">
@@ -213,7 +164,7 @@
                         <div class="tab-pane container fade" id="menu4">
                             <div class="row mt-3 px-3">
                                 <div class="col-12 sales_blocks">
-                                    <span>Campaigns (0)</span>
+                                    <span>Companies ({{$companies_count->count()}})</span>
                                 </div>
                                 <div class="col-12 sales_blocks">
                                     <span>Campaign influence</span>
@@ -232,10 +183,108 @@
                             </div>
                         </div>
                     </div>
+                    @include('notifications.notifications')
                 </div>
             </div>
-            <div class="col-3 ">
+            <div class="col-3 px-2 sticky-top">
                 <div class="col-12 rounded bg-white py-3 px-3">
+                    <div class="row mt-3">
+                         <div class="col-5  df_jsfs_amc">
+                             <div  class="icon_small bg_c_tag" >
+                                 <img src="{{url('image/opportunity_120.png')}}" alt="">
+                             </div>
+                             <div class="text-info px-2">Opportunities (0)</div>
+                         </div>
+                         <div class="col-7  df_jsfs_amc">
+                            <div  class="icon_small bg_c_quotes" >
+                                <img src="{{url('image/quotes_120.png')}}" alt="">
+                            </div>
+                            <div class="text-info px-2">Quotes (0)</div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-5  df_jsfs_amc">
+                            <div  class="icon_small bg_c_cases" >
+                                <img src="{{url('image/case_120.png')}}" alt="">
+                            </div>
+                            <div class="text-info px-2">Cases (0)</div>
+                        </div>
+                         <div class="col-7  df_jsfs_amc">
+                            <div  class="icon_small bg_c_campaign" >
+                                <img src="{{url('image/campaign_120.png')}}" alt="">
+                            </div>
+                            <div class="text-info px-2">Campaign Influence (0)</div>
+                         </div>
+                     </div>
+                     <div class="row mt-3">
+                        <div class="col-5  df_jsfs_amc">
+                            <div  class="icon_small bg_c_file" >
+                                <img src="{{url('image/file_120.png')}}" alt="">
+                            </div>
+                            <div class="text-info px-2">Files (0)</div>
+                        </div>
+                         <div class="col-7  df_jsfs_amc">
+                             <div  class="icon_small bg_c_notes" >
+                                 <img src="{{url('image/note_120.png')}}" alt="">
+                             </div>
+                             <div class="text-info px-2">Notes (0) </div>
+                         </div>
+                     </div>
+                 </div>
+               
+                 <div class="col-12 rounded mt-3">
+                    <div class="  collaps_show rounded px-3 py-2 bg-white  " data-toggle="collapse" data-target="#contacts" style="cursor:pointer">
+                        <div class="col-12 ">
+                            <div class="row">
+                                <div class="df_jsfs_amc col-8">
+                                    <div  class="icon_small bg_c_contact" >
+                                        <img src="{{url('image/contact_120.png')}}" alt="">
+                                    </div>
+                                    <div class="text-info px-2">Contacts ({{$contacts_count->count()}})</div>
+                                </div>
+                                <div class=" col-2 offset-2">
+                                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#create_contact">New</button> 
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="contacts" class="collapse bg-white">
+                            <div class=" mt-2 pt-1 px-2 pb-3">
+                                @foreach($contacts_count as $contact_)
+                                    <div class="mt-3 df_jssb_amc">
+                                        <a href="{{ route('edit_contact', [$contact_->id]) }}">{{$contact_->title}}</a>   
+                                    </div> 
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 rounded mt-3">
+                    <div class="  collaps_show rounded px-3 py-2 bg-white  " data-toggle="collapse" data-target="#companies" style="cursor:pointer">
+                        <div class="col-12 ">
+                            <div class="row">
+                                <div class="df_jsfs_amc col-8">
+                                    <div  class="icon_small bg_c_campaign" >
+                                        <img src="{{url('image/campaign_120.png')}}" alt="">
+                                    </div>
+                                    <div class="text-info px-2">Companies ({{$companies_count->count()}})</div>
+                                </div>
+                                <div class=" col-2 offset-2">
+                                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#create_company">New</button> 
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="companies" class="collapse bg-white">
+                            <div class="border-bottom mt-2 pt-1 px-2 pb-3">
+                                @foreach($companies_count as $company)
+                                    <div class="mt-3 df_jssb_amc">
+                                        <a href="{{route('edit-company',  [$company->id]) }}">{{$company->name}}</a>
+                                    </div> 
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -264,10 +313,10 @@
                                     <div>
                                         <label for="" class="mr-sm-2">Contact Name:</label>
                                         <div>
-                                            <select class="select2 select_contact form-control" name="contact_id" required>
+                                            <select class="select2 select_contact form-control" name="account_id" required>
                                                 <option  value="">Select contact</option>
-                                                @foreach($all_companies as $comp)
-                                                    <option  @if(!empty($contact->parentCompany->id) && $comp->id == $contact->parentCompany->id) {{'selected'}} @else {{""}} @endif >{{$comp->name}}</option>
+                                                @foreach($accounts as $account)
+                                                    <option  value="{{$account->id}}" @if(isset($contact->parentAccount->id) && $account->id == $contact->parentAccount->id) {{'selected'}} @else {{""}} @endif >{{$account->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -340,13 +389,11 @@
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="department" value="{{$contact->department}}" id="" >
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-12 mb-2">
                                     <div class="bg-light p-3 h6">Address Information</div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-6">
                                     <div>
@@ -393,21 +440,52 @@
                 </div>
             </div>
         </div>
-
-
-
-
     </div>
-
+    @include('modals.contact')
 
 @section('js')
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
 
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+            ['clean']                                         // remove formatting button
+        ];
+
+        var quill = new Quill('#editor', {
+            modules: {
+            toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+
         $(document).ready(function() {
+            let editor = $('#editor')
+            quill.on('text-change', function(delta, source) {
+                $("#hiddenArea").val($("#editor").html());
+                var delta = quill.getContents();
+            });
+
             $('.select2').each(function(){
                 $(this).select2({
                     dropdownParent:  $(this).parent()
                 });
+            })
+
+            $('#active_show_button').click(()=>{
+                $('#active_show_button').remove();
+                $("#activity_form").removeClass('d-none')
             })
         });
 

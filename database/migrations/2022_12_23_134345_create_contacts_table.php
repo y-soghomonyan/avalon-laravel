@@ -17,8 +17,8 @@ class CreateContactsTable extends Migration
             $table->id();
 
             $table->string('user_id');
-            $table->bigInteger('company_id')->unsigned()->index()->nullable();
-            $table->foreign('company_id')->references('id')->on('company_organizations')->onDelete('cascade');
+            $table->bigInteger('account_id')->unsigned()->index()->nullable();
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->bigInteger('owner_id')->unsigned()->index()->nullable();
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('solution')->nullable();

@@ -2,245 +2,48 @@
 @section('title')Companies @endsection
 @section('contents')
 
-
-
-
-    <div class="container-fluid mt-5 rounded bg-white py-3 px-3">
+    <div class="container-fluid  rounded  px-3">
         <div class="row">
             <div class="col-10"></div>
             <div class="col-2 text-end">
-                <button class="btn btn-light " id="add_new_account" data-toggle="modal" data-target="#open_account">New</button>
+                <button class="btn btn-light " id="add_new_account" data-toggle="modal" data-target="#create_company">New</button>
             </div>
         </div>
     </div>
     <div class="container-fluid mt-5 rounded bg-white py-3 px-3">
         <table class="table table-hover">
             <thead>
-            <tr>
-                <th>Name</th>
-                <th>Company & Organization</th>
-                <th>Filing</th>
-                <th>Division</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Account</th>
+                    <th>Filing</th>
+                    <th>Division</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
-            @foreach($companies as  $value)
-                <tr>
-                    <td><a href="{{ route('edit-company', [$value->id]) }}">{{$value->name}}</a></td>
-                    <td>{{$value->parentCompany->name ?? ''}}</td>
-                    <td>{{$value->filing}}</td>
-                    <td>{{$value->division}}</td>
-                    <td><span class=" {{$value->status ? 'text-success' : 'text-danger'}}">{{$value->status ? 'Active' : 'Inactive'}}</span></td>
-                    <td>
-                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Edit</button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item text-primary" href="{{ route('edit-company', [$value->id]) }}">Edit</a>
-                            <a class="dropdown-item text-danger" href="{{ route('destroy_company', [$value->id]) }}">Delete</a>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
+                @foreach($companies as  $value)
+                    <tr>
+                        <td><a href="{{ route('edit-company', [$value->id]) }}">{{$value->name}}</a></td>
+                        <td>{{$value->parentAccount->name ?? ''}}</td>
+                        <td>{{$value->filing}}</td>
+                        <td>{{$value->division}}</td>
+                        <td><span class=" {{$value->status ? 'text-success' : 'text-danger'}}">{{$value->status ? 'Active' : 'Inactive'}}</span></td>
+                        <td>
+                            <a  href="{{ route('edit-company', [$value->id]) }}">
+                                <svg class="slds-edit__icon" focusable="false" data-key="edit" aria-hidden="true" viewBox="0 0 52 52"><g><g><path d="M9.5 33.4l8.9 8.9c.4.4 1 .4 1.4 0L42 20c.4-.4.4-1 0-1.4l-8.8-8.8c-.4-.4-1-.4-1.4 0L9.5 32.1c-.4.4-.4 1 0 1.3zM36.1 5.7c-.4.4-.4 1 0 1.4l8.8 8.8c.4.4 1 .4 1.4 0l2.5-2.5c1.6-1.5 1.6-3.9 0-5.5l-4.7-4.7c-1.6-1.6-4.1-1.6-5.7 0l-2.3 2.5zM2.1 48.2c-.2 1 .7 1.9 1.7 1.7l10.9-2.6c.4-.1.7-.3.9-.5l.2-.2c.2-.2.3-.9-.1-1.3l-9-9c-.4-.4-1.1-.3-1.3-.1l-.2.2c-.3.3-.4.6-.5.9L2.1 48.2z"></path></g></g></svg> 
+                            </a>
+                            <a  href="{{ route('destroy_company', [$value->id]) }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="slds-delete__icon" id="Layer_1" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="M10 3v3h9V3a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1z"/><path d="M4 5v1h21V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1zM6 8l1.812 17.209A2 2 0 0 0 9.801 27H19.2a2 2 0 0 0 1.989-1.791L23 8H6zm4.577 16.997a.999.999 0 0 1-1.074-.92l-1-13a1 1 0 0 1 .92-1.074.989.989 0 0 1 1.074.92l1 13a1 1 0 0 1-.92 1.074zM15.5 24a1 1 0 0 1-2 0V11a1 1 0 0 1 2 0v13zm3.997.077a.999.999 0 1 1-1.994-.154l1-13a.985.985 0 0 1 1.074-.92 1 1 0 0 1 .92 1.074l-1 13z"/></svg>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
-
-
-    <div class="modal " id="open_account">
-
-        <div class="modal-dialog mt-5 modal-xl">
-            <div class="modal-content">
-                <div class="">
-                    <div class="text-end pt-3 px-3">
-                        <button type="button"  class="btn-close text- close" data-dismiss="modal"></button>
-                    </div>
-                    <h3 class="modal-title text-center">New Contact</h3>
-                </div>
-                <div class="modal-body">
-                    <form class="form-inline" action="{{route('create_company')}}" method="POST">
-                        @csrf
-                        <div class="">
-                            <div class="row">
-                                <div class="col-12 mb-2">
-                                    <div class="bg-light p-3 h6">Company Details</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2"> Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="name" value="" id="" required>
-                                    <label for="personal_name" class="mr-sm-2"> Filing No:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="" id="" required>
-                                </div>
-
-                                <div class="col-6">
-                                    <div>
-                                        <label for="" class="mr-sm-2">Country:</label>
-                                        <div>
-                                            <select class="select2  form-control" name="country_id" id="countries">
-                                                <option selected value="">Select Company</option>
-                                                @foreach($countries as $country)
-                                                    <option value="{{$country->id}}"  >{{$country->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-none" id="country_state">
-                                        <label for="" class="mr-sm-2">State:</label>
-                                        <div >
-                                            <select class="select2  form-control" name="state_id">
-                                                <option selected value="">Select State</option>
-                                                @foreach($countries as $country)
-                                                    @if($country->states->count())
-                                                        @foreach($country->states as $state)
-                                                            <option value="{{$state->id}}">{{$state->name}}</option>
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label for="" class="mr-sm-2">Company Type:</label>
-                                        <div>
-                                            <select required class="select2 custom-select form-control" name="company_id">
-                                                <option selected value="">Select Company Type</option>
-                                                    @foreach($company_types as  $company_type)
-                                                        <option value="{{$company_type->id}}" >{{$company_type->name}}</option>
-                                                    @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label for="" class="mr-sm-2">Filing Status:</label>
-                                        <div>
-                                            <select class="select2 select_company form-control" name="filing_status">
-                                                <option selected value="">Select Filing Status </option>
-                                                <option value="1"  >Active</option>
-                                                <option value="0"  >Dissolved</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 mb-2 mt-3">
-                                    <div class="bg-light p-3 h6">Account Details</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div>
-                                        <label for="" class="mr-sm-2">Company & Organization:</label>
-                                        <div>
-                                            <select required class="select2 custom-select form-control" name="company_organization_id">
-                                                <option selected value="">Select Company & Organization </option>
-                                                @foreach($company_organizations as $company_organization)
-                                                    <option value="{{$company_organization->id}}">{{$company_organization->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2">Contact:</label>
-                                    <div>
-                                        <select class="select2 select_reports_emails form-control" required name="contact_id">
-                                            <option selected value="">Select Contact </option>
-                                            @foreach($contacts as $contact)
-                                                <option value="{{$contact->id}}"  >{{$contact->title}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-12 mb-2">
-                                    <div class="bg-light p-3 h6">Engagement</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div>
-                                        <label for="" class="mr-sm-2">Type:</label>
-                                        <div>
-                                            <select class="select2 form-control" name="type">
-                                                <option selected value="">Select Types</option>
-                                                <option value="Client">client</option>
-                                                <option value="Readymade">Readymade</option>
-                                                <option value="Group">Group</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label for="" class="mr-sm-2">Division :</label>
-                                        <div>
-                                            <select class="select2 form-control" name="division">
-                                                <option selected value="">Select Division</option>
-                                                <option value="STM Corporate Group">STM Corporate Group</option>
-                                                <option value="Mount Bonnell Advisors">Mount Bonnell Advisors</option>
-                                                <option value="US Corporation & Trust Services">US Corporation & Trust Services</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div>
-                                        <label for="" class="mr-sm-2">Status:</label>
-                                        <div>
-                                            <select class="select2 form-control" name="status">
-                                                <option selected value="">Select Status</option>
-                                                <option value="1"  >Active</option>
-                                                <option value="0"  >Dissolved</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label for="" class="mr-sm-2">Sub Status:</label>
-                                        <div>
-                                            <input type="checkbox" value="1" name="sub_status">
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-12 mb-2">
-                                    <div class="bg-light p-3 h6">Previous Names</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2"> previous name1:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name1" value="" id="" >
-                                    <label for="personal_name" class="mr-sm-2"> previous name2:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name2" value="" id="" >
-
-                                </div>
-                                <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2"> previous name3:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name3" value="" id="" >
-                                    <label for="personal_name" class="mr-sm-2"> previous name4:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name4" value="" id="" >
-                                    <label for="personal_name" class="mr-sm-2"> previous name5:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name5" value="" id="" >
-
-                                </div>
-                            </div>
-                            <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    @include('modals.company')
 
 @section('js')
     <script>
@@ -252,7 +55,6 @@
                 });
             })
         });
-
 
         $('#countries').change(function () {
             let state = $('#country_state')

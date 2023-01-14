@@ -1,30 +1,9 @@
 @extends('user.layout.app')
-@section('title')Edit Contact @endsection
+@section('title')Edit Company @endsection
 @section('contents')
-
-    <style>
-        .sales_blocks {
-            display: flex;
-            justify-content: space-between;
-            background-color: #F3F3F3;
-            border:1px solid grey;
-            align-items: center;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        .sales_blocks button {
-            background-color: white;
-        }
-
-        .sales_blocks span {
-            font-weight: 700;
-        }
-
-    </style>
     <div class="container-fluid mt-5">
-        <div class="row">
-            <div class="col-3">
+        <div class="row-with-float">
+            <div class="col-3 px-2 sticky-top">
                 <div class="col-12 rounded bg-white py-3 px-3">
                     <div style="border-bottom: 1px solid lightgrey" class="pb-2">
                         <h4>{{$company->name}}</h4>
@@ -35,7 +14,10 @@
                     </div>
                 </div>
                 <div class="col-12 mt-3 rounded bg-white py-3 px-3">
-                    <div class=" contact_info_btn" data-toggle="collapse" data-target="#contact_info_btn">Company Details</div>
+                    <div class=" contact_info_btn collaps_show" data-toggle="collapse" data-target="#contact_info_btn">
+                        <svg class="slds-icon slds-icon-text-default slds-icon_x-small  " focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+                        Company Details
+                    </div>
                     <div id="contact_info_btn" class="collapse show">
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label for="personal_name" class="mr-sm-2">Company name:</label>
@@ -84,63 +66,20 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane container active" id="menu1">
-                            <div class="col-12 mt-3 px-3">
-                                <ul class="nav nav-tabs ">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#menu1_1">Email</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#menu2_1">Details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#menu3_1">Sales</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#menu4_1">Marketing</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane container active" id="menu1_1">
-                                        <form action="">
-                                            <div class="row mt-3">
-                                                <div class="col-9">
-                                                    <input required type="email" class="form-control mb-2 mr-sm-2" placeholder="Write an email..." name="email" value="" id="">
-                                                </div>
-                                                <div class="col-3">
-                                                    <input type="submit" class="form-control mb-2 mr-sm-2 btn btn-primary"  name="submit" value="Compose" >
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <div class="col-12 mt-3 px-3">
-                                            <div class=" contact_info_btn" data-toggle="collapse" data-target="#upcoming"> Upcoming & Overdue</div>
-                                            <div id="upcoming" class="collapse">
-                                                <div class="border-bottom mt-2 pt-1 px-2 pb-3">
-                                                    <div class="text-center">No activities to show</div>
-                                                    <div class="text-center">Get started by sending an email, scheduling a task, and more</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mt-3 px-3">
-                                            <div class="text-center">No past activity. Past meetings and tasks marked as done show up here</div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane container fade" id="menu2_1">...</div>
-                                    <div class="tab-pane container fade" id="menu3_1">...</div>
-                                    <div class="tab-pane container fade" id="menu4_1">...</div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('notifications.forms')
                         <div class="tab-pane container fade" id="menu2">
                             <div class="col-12 mt-3 px-3">
-                                <div class=" contact_info_btn" data-toggle="collapse" data-target="#additional_info">Account Details</div>
+                                <div class=" contact_info_btn collaps_show" data-toggle="collapse" data-target="#additional_info">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small " focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+                                    Account Details
+                                </div>
                                 <div id="additional_info" class="collapse show">
                                     <div class=" mt-2 pt-1 px-2 pb-3">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Company & Organization:</label>
-                                                    <div>{{$company->parentCompany->name ?? ''}}</div>
+                                                    <label for="personal_name" class="mr-sm-2">Account:</label>
+                                                    <div>{{$company->parentAccount->name ?? ''}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -152,7 +91,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" contact_info_btn mt-3" data-toggle="collapse" data-target="#address_info">Engagement</div>
+                                <div class=" contact_info_btn mt-3 collaps_show" data-toggle="collapse" data-target="#address_info">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+                                     Engagement
+                                </div>
                                 <div id="address_info" class="collapse">
                                     <div class=" mt-2 pt-1 px-2 pb-3">
                                         <div class="row">
@@ -171,19 +113,19 @@
                                                     <label for="personal_name" class="mr-sm-2">Status:</label>
                                                     <div>{{$company->status ? "Active" : "Dissolved"}}</div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class=" contact_info_btn mt-3" data-toggle="collapse" data-target="#system_info">System Information</div>
+                                <div class=" contact_info_btn mt-3 collaps_show" data-toggle="collapse" data-target="#system_info">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+                                    System Information
+                                </div>
                                 <div id="system_info" class="collapse">
                                     <div class=" mt-2 pt-1 px-2 pb-3">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-
                                                     <div> Created By: {{ Auth::user()->name }}. {{$company->created_at}}</div>
                                                 </div>
                                             </div>
@@ -204,7 +146,7 @@
                                     <div><button class="btn btn-outline-primary" >New</button></div>
                                 </div>
                                 <div class="col-12 sales_blocks">
-                                    <span>Contacts (0)</span>
+                                    <span>Contacts ({{$contacts_count->count()}})</span>
                                     <div><button class="btn btn-outline-primary" >New</button></div>
                                 </div>
                                 <div class="col-12 sales_blocks">
@@ -220,7 +162,7 @@
                         <div class="tab-pane container fade" id="menu4">
                             <div class="row mt-3 px-3">
                                 <div class="col-12 sales_blocks">
-                                    <span>Campaigns (0)</span>
+                                    <span>Companies ({{$companies_count->count()}})</span>
                                 </div>
                                 <div class="col-12 sales_blocks">
                                     <span>Campaign influence</span>
@@ -237,17 +179,59 @@
                                     </div>
                                 </div>
                             </div>
+                        </div> 
+                    </div>
+                    @include('notifications.notifications')
+                </div>
+            </div>
+            <div class="col-3 px-2 sticky-top">
+                <div class="col-12 rounded bg-white py-3 px-3">
+                    <div class="row mt-3">
+                        <div class="col-5  df_jsfs_amc">
+                            <div  class="icon_small bg_c_tag" >
+                                <img src="{{url('image/opportunity_120.png')}}" alt="">
+                            </div>
+                            <div class="text-info px-2">Opportunities (0)</div>
+                        </div>
+                        <div class="col-7  df_jsfs_amc">
+                           <div  class="icon_small bg_c_quotes" >
+                               <img src="{{url('image/quotes_120.png')}}" alt="">
+                           </div>
+                           <div class="text-info px-2">Quotes (0)</div>
+                       </div>
+                   </div>
+                   <div class="row mt-3">
+                       <div class="col-5  df_jsfs_amc">
+                           <div  class="icon_small bg_c_cases" >
+                               <img src="{{url('image/case_120.png')}}" alt="">
+                           </div>
+                           <div class="text-info px-2">Cases (0)</div>
+                       </div>
+                        <div class="col-7  df_jsfs_amc">
+                           <div  class="icon_small bg_c_campaign" >
+                               <img src="{{url('image/campaign_120.png')}}" alt="">
+                           </div>
+                           <div class="text-info px-2">Campaign Influence (0)</div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                       <div class="col-5  df_jsfs_amc">
+                           <div  class="icon_small bg_c_file" >
+                               <img src="{{url('image/file_120.png')}}" alt="">
+                           </div>
+                           <div class="text-info px-2">Files (0)</div>
+                       </div>
+                        <div class="col-7  df_jsfs_amc">
+                            <div  class="icon_small bg_c_notes" >
+                                <img src="{{url('image/note_120.png')}}" alt="">
+                            </div>
+                            <div class="text-info px-2">Notes (0) </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-3 ">
-                <div class="col-12 rounded bg-white py-3 px-3">
-                </div>
-            </div>
         </div>
     </div>
-
     <div class="modal edit_account" id="edit_account">
         <div class="modal-dialog mt-5 modal-xl">
             <div class="modal-content">
@@ -273,20 +257,18 @@
                                     <label for="personal_name" class="mr-sm-2"> Filing No:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="{{$company->filing}}" id="" required>
                                 </div>
-
                                 <div class="col-6">
                                     <div>
                                         <label for="" class="mr-sm-2">Country:</label>
                                         <div>
                                             <select class="select2  form-control" name="country_id" id="countries" required>
-                                                <option selected value="">Select Company</option>
+                                                <option selected value="">Select Country</option>
                                                 @foreach($countries as $country)
                                                     <option value="{{$country->id}}" {{($country->id == $company->country_id) ? 'selected' : ''}}  >{{$country->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class=" {{(empty($company->state_id)) ? 'd-none' : ''}}  " id="country_state">
                                         <label for="" class="mr-sm-2">State:</label>
                                         <div >
@@ -316,11 +298,10 @@
                                     <div>
                                         <label for="" class="mr-sm-2">Filing Status:</label>
                                         <div>
-                                            <select class="select2 select_company form-control" name="filing_status">
+                                            <select class="select2  form-control" name="filing_status">
                                                 <option selected value="">Select Filing Status </option>
                                                 <option value="1" {{$company->filing_status ? 'selected' : ''}} >Active</option>
                                                 <option value="0" {{!$company->filing_status ? 'selected' : ''}} >Dissolved</option>
-
                                             </select>
                                         </div>
                                     </div>
@@ -334,12 +315,12 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div>
-                                        <label for="" class="mr-sm-2">Company & Organization:</label>
+                                        <label for="" class="mr-sm-2">Account:</label>
                                         <div>
-                                            <select required class="select2 custom-select form-control" name="company_organization_id">
-                                                <option selected value="">Select Company & Organization </option>
-                                                @foreach($company_organizations as $company_organization)
-                                                    <option value="{{$company_organization->id}}"  {{(!empty($company_organization->id) && $company->company_organization_id == $company_organization->id) ? 'selected' : ''}}>{{$company_organization->name}}</option>
+                                            <select required class="select2 custom-select form-control" name="account_id">
+                                                <option selected value="">Select Account </option>
+                                                @foreach($accounts as $account)
+                                                    <option value="{{$account->id}}"  {{(!empty($account->id) && $company->account_id == $account->id) ? 'selected' : ''}}>{{$account->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -387,7 +368,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-6">
                                     <div>
                                         <label for="" class="mr-sm-2">Status:</label>
@@ -406,7 +386,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="row mt-3">
                                 <div class="col-12 mb-2">
@@ -415,20 +394,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2"> previous name1:</label>
+                                    <label for="personal_name" class="mr-sm-2"> Previous name 1:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name1" value="{{$company->previous_name1}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2"> previous name2:</label>
+                                    <label for="personal_name" class="mr-sm-2"> Previous name 2:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name2" value="{{$company->previous_name2}}" id="" >
-
                                 </div>
                                 <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2"> previous name3:</label>
+                                    <label for="personal_name" class="mr-sm-2"> Previous name 3:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name3" value="{{$company->previous_name3}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2"> previous name4:</label>
+                                    <label for="personal_name" class="mr-sm-2"> Previous name 4:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name4" value="{{$company->previous_name4}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2"> previous name5:</label>
+                                    <label for="personal_name" class="mr-sm-2"> Previous name 5:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name5" value="{{$company->previous_name5}}" id="" >
-
                                 </div>
                             </div>
                             <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
@@ -442,9 +419,29 @@
         </div>
     </div>
 
-
 @section('js')
     <script>
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+            ['clean']                                         // remove formatting button
+        ];
+        var quill = new Quill('#editor', {
+            modules: {
+            toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
 
         $(document).ready(function() {
             $('.select2').each(function(){
@@ -452,6 +449,12 @@
                     dropdownParent:  $(this).parent()
                 });
             })
+        });
+
+        let editor = $('#editor')
+        quill.on('text-change', function(delta, source) {
+            $("#hiddenArea").val($("#editor").html());
+            var delta = quill.getContents();
         });
 
         $('#countries').change(function () {

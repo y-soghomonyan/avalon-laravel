@@ -2,208 +2,50 @@
 @section('title')Companies @endsection
 @section('contents')
 
-    <div class="container-fluid mt-5 rounded bg-white py-3 px-3">
+    <div class="container-fluid rounded  px-3">
         <div class="row">
             <div class="col-10"></div>
             <div class="col-2 text-end">
-                <button class="btn btn-light " id="add_new_account" data-toggle="modal" data-target="#open_account">New</button>
+                <button class="btn btn-light " id="add_new_account" data-toggle="modal" data-target="#create_contact">New</button>
             </div>
         </div>
     </div>
     <div class="container-fluid mt-5 rounded bg-white py-3 px-3">
         <table class="table table-hover">
             <thead>
-            <tr>
-                <th>Name</th>
-                <th>Company name</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Contact Owner Alias</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Account name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Contact Owner Alias</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
-            @foreach($contacts as  $value)
+                @foreach($contacts as  $value)
 
-                <tr{{--id="" data-toggle="modal" data-target="#edit_account_{{$value->id}}"--}}>
-                    <td><a href="{{ route('edit_contact', [$value->id]) }}">{{$value->title}}</a></td>
-                    <td>{{ $value->parentCompany->name ?? '' }}</td>
-                    <td>{{ $value->phone }}</td>
-                    <td>{{ $value->email }}</td>
-                    <td>{{ $value->ownerUser->name ?? '' }}</td>
-                    <td>
-                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Edit</button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item text-primary" href="{{ route('edit_contact', [$value->id]) }}">Edit</a>
-                            <a class="dropdown-item text-danger" href="{{ route('delete_contact', [$value->id]) }}">Delete</a>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
+                    <tr>
+                        <td><a href="{{ route('edit_contact', [$value->id]) }}">{{$value->title}}</a></td>
+                        <td>{{ $value->parentAccount->name ?? '' }}</td>
+                        <td>{{ $value->phone }}</td>
+                        <td>{{ $value->email }}</td>
+                        <td>{{ $value->ownerUser->name ?? '' }}</td>
+                        <td>
+                            <a  href="{{ route('edit_contact', [$value->id]) }}">
+                                <svg class="slds-edit__icon" focusable="false" data-key="edit" aria-hidden="true" viewBox="0 0 52 52"><g><g><path d="M9.5 33.4l8.9 8.9c.4.4 1 .4 1.4 0L42 20c.4-.4.4-1 0-1.4l-8.8-8.8c-.4-.4-1-.4-1.4 0L9.5 32.1c-.4.4-.4 1 0 1.3zM36.1 5.7c-.4.4-.4 1 0 1.4l8.8 8.8c.4.4 1 .4 1.4 0l2.5-2.5c1.6-1.5 1.6-3.9 0-5.5l-4.7-4.7c-1.6-1.6-4.1-1.6-5.7 0l-2.3 2.5zM2.1 48.2c-.2 1 .7 1.9 1.7 1.7l10.9-2.6c.4-.1.7-.3.9-.5l.2-.2c.2-.2.3-.9-.1-1.3l-9-9c-.4-.4-1.1-.3-1.3-.1l-.2.2c-.3.3-.4.6-.5.9L2.1 48.2z"></path></g></g></svg> 
+                            </a>
+                            <a  href="{{ route('delete_contact', [$value->id]) }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="slds-delete__icon" id="Layer_1" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="M10 3v3h9V3a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1z"/><path d="M4 5v1h21V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1zM6 8l1.812 17.209A2 2 0 0 0 9.801 27H19.2a2 2 0 0 0 1.989-1.791L23 8H6zm4.577 16.997a.999.999 0 0 1-1.074-.92l-1-13a1 1 0 0 1 .92-1.074.989.989 0 0 1 1.074.92l1 13a1 1 0 0 1-.92 1.074zM15.5 24a1 1 0 0 1-2 0V11a1 1 0 0 1 2 0v13zm3.997.077a.999.999 0 1 1-1.994-.154l1-13a.985.985 0 0 1 1.074-.92 1 1 0 0 1 .92 1.074l-1 13z"/></svg>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
-
-
-    <div class="modal " id="open_account">
-
-        <div class="modal-dialog mt-5 modal-xl">
-            <div class="modal-content">
-                <div class="">
-                    <div class="text-end pt-3 px-3">
-                        <button type="button"  class="btn-close text- close" data-dismiss="modal"></button>
-                    </div>
-                    <h3 class="modal-title text-center">New Contact</h3>
-                </div>
-                <div class="modal-body">
-                    <form class="form-inline" action="{{route('add_contact')}}" method="POST">
-                        @csrf
-                        <div class="">
-                            <div class="row">
-                                <div class="col-12 mb-2">
-                                    <div class="bg-light p-3 h6">Contact Information</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div>
-                                        <label for="" class="mr-sm-2">Company Name:</label>
-                                        <div>
-                                            <select class="select2 select_company form-control" name="company_id" required>
-                                                <option selected value="">Select Company</option>
-                                                @foreach($all_companies as $comp)
-                                                    <option value="{{$comp->id}}"  >{{$comp->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                    <div>
-                                        <label for="" class="mr-sm-2">Contact Owner:</label>
-                                        <div>
-                                            <select class="select2 select_owner form-control" required name="owner_id">
-                                                <option selected value="">Select Contact Owner</option>
-                                                @foreach($users as $user)
-                                                    <option value="{{$user->id}}"  >{{$user->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                    <label for="" class="mr-sm-2">Solution:</label>
-                                    <select class=" form-control" name="solution">
-                                        <option selected value="">Select Solution</option>
-                                        <option  value="Mr">Mr.</option>
-                                        <option  value="Ms">Ms.</option>
-                                        <option  value="Mrs">Mrs.</option>
-                                        <option  value="Dr">Dr.</option>
-                                        <option  value="Prof">Prof.</option>
-                                    </select>
-
-                                    <label for="personal_name" class="mr-sm-2">First Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="first_name" value="" id="" required>
-                                    <label for="personal_name" class="mr-sm-2">Middle Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="middle_name" value="" id="" required>
-                                    <label for="personal_name" class="mr-sm-2">Last Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="last_name" value="" id="" required>
-                                    <label for="personal_name" class="mr-sm-2">Suffix:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="suffix" value="" id="" required>
-
-
-                                </div>
-                                <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2">Title:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="title" value="" id="" required>
-                                    <label for="personal_name" class="mr-sm-2">Email:</label>
-                                    <input type="email" class="form-control mb-2 mr-sm-2" placeholder="" name="email" value="{{ Auth::user()->email }}" id="" required>
-                                    <label for="personal_name" class="mr-sm-2">Phone:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="phone" value="" id="" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 mb-2">
-                                    <div class="bg-light p-3 h6">Additional Information</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2">Mobile:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mobile" value="" id="" >
-                                    <label for="personal_name" class="mr-sm-2">Fax:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="fax" value="" id="" >
-                                </div>
-                                <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2">Reports To:</label>
-                                    <div>
-                                        <select class="select2 select_reports_emails form-control" required name="reports">
-                                            <option selected value="">Select Reports address</option>
-                                            @foreach($users as $user)
-                                                <option value="{{$user->id}}"  >{{$user->email}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <label for="personal_name" class="mr-sm-2">Department:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="department" value="" id="" >
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12 mb-2">
-                                    <div class="bg-light p-3 h6">Address Information</div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div>
-                                        <label for="" class="mr-sm-2">Mailing address:</label>
-                                        <div>
-                                            <select class="select2 select_emails form-control" name="mailing_address">
-                                                <option selected value="">Select Mailing address</option>
-                                                @foreach($users as $user)
-                                                    <option value="{{$user->id}}"  >{{$user->email}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <label  class="mr-sm-2">Mailing Street:</label>
-                                    <textarea  class="form-control" id="" rows="3" name="mailing_street"></textarea>
-                                    <div class="row">
-                                        <div class="col-8">
-                                            <label for="personal_name" class="mr-sm-2">Mailing City:</label>
-                                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_city" value="" id="" >
-                                        </div>
-                                        <div class="col-4">
-                                            <label for="personal_name" class="mr-sm-2">Mailing State:</label>
-                                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_state" value="" id="" >
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-8">
-                                            <label for="personal_name" class="mr-sm-2">Mailing Country:</label>
-                                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_country" value="" id="" >
-                                        </div>
-                                        <div class="col-4">
-                                            <label for="personal_name" class="mr-sm-2">Mailing Zip :</label>
-                                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing__zip_code" value="" id="" >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
+    @include('modals.contact')
+    
 @section('js')
     <script>
 
