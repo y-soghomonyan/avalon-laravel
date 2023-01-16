@@ -38,8 +38,6 @@
                             <div class="col-6 " id="business_account_name">
                                 <label for="personal_name" class="mr-sm-2">Account name:</label>
                                 <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="Account name" name="name" value="" id="account_name">
-                                {{--<input type="hidden" value="{{ Auth::user()->name }}" id=""  class="">--}}
-
                             </div>
                             <div class="col-6 d-none " id="personal_account_name">
                                 <label for="personal_name" class="mr-sm-2">First name:</label>

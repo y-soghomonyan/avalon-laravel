@@ -29,7 +29,7 @@ class CompaniesController extends Controller
             'countries' => Country::with(['states'])->get(),
             'accounts' => Account::where('user_id', '=', $id)->get(['id', 'name']),
             'contacts' => Contact::where('user_id', '=', $id)->get(['id', 'title']),
-            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name']),
+            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'first_name', 'last_name']),
         ]);
     }
 
@@ -42,7 +42,7 @@ class CompaniesController extends Controller
             'countries' => Country::with(['states'])->get(),
             'accounts' => Account::where('user_id', '=', $user_id)->get(['id', 'name']),
             'contacts' => Contact::where('user_id', '=', $user_id)->get(['id', 'title']),
-            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name']),
+            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'first_name', 'last_name']),
         ]);
     }
 
@@ -121,7 +121,7 @@ class CompaniesController extends Controller
             'countries' => Country::with(['states'])->get(),
             'accounts' => Account::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
             'contacts' => Contact::where('user_id', '=', Auth::user()->id)->get(['id', 'title']),
-            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name','email']),
+            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'email', 'first_name', 'last_name']),
             'companies' =>Company::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
             'companies_count' => Company::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
             'contacts_count' => Contact::where('user_id', '=', Auth::user()->id)->get(['id', 'title']),

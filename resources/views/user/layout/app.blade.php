@@ -6,16 +6,19 @@
                 </a>
                 <div class="dropdown">
                     <div  class=" dropdown-toggle dropdown-menu-left" data-toggle="dropdown" style="cursor: pointer">
-                        <img src="{{ Auth::user()->avatarUrl }}" style="height: 25px; width: 25px; ">
-                       </div>
+                        <img src="{{ Auth::user()->avatarUrl }}" style="height: 25px; width: 25px; object-fit:cover;" class="rounded-circle" id="header__user_avatar">
+                        <span class="text-center">{{ Auth::user()->first_name }}</span>
+                    </div>
                     <div class="dropdown-menu dropdown-menu-start dropdown-menu-left drop_logout">
-                        <p class="text-center">{{ Auth::user()->name }}</p>
+                       
+                        <a class="dropdown-item" href="{{ route('profile') }}">  <input class="btn " type="button" value="Profile"></a>
                         <a class="dropdown-item" href="#">
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="">
                                 @csrf
                                 <input class="btn " type="submit" value="Logout">
                             </form>
                         </a>
+
                     </div>
                 </div>
             </div>

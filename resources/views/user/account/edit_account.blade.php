@@ -129,12 +129,12 @@
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                     
-                                                    <div> Created By: {{ Auth::user()->name }}. {{$account->created_at}}</div>
+                                                    <div> Created By: {{ Auth::user()->first_name }}. {{$account->created_at}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <div>Last Modified By: {{ Auth::user()->name }}. {{$account->updated_at}}</div>
+                                                    <div>Last Modified By: {{ Auth::user()->first_name }}. {{$account->updated_at}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -248,7 +248,7 @@
                                     <select required class="select2 custom-select form-control" required name="owner_id">
                                         @if($users)
                                             @foreach($users as $user)
-                                                <option value="{{$user->id}}" @if($user->id == $account->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->name}}</option>
+                                                <option value="{{$user->id}}" @if($user->id == $account->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->first_name}}</option>
                                             @endforeach
                                         @endif
                                     </select>

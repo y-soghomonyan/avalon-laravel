@@ -287,7 +287,7 @@
                                 <div>
                                     <select class="select2 select_contact form-control" name="assigned_to" required>
                                         @foreach($users as $user)
-                                            <option value="{{$user->id}}" {{ Auth::user()->name == $user->id? "selected" : ""}}>{{$user->email}}</option>
+                                            <option value="{{$user->id}}" {{ Auth::user()->first_name == $user->id? "selected" : ""}}>{{$user->email}}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -84,7 +84,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Account owner:</label>
-                                    <div> {{ Auth::user()->name }}</div>
+                                    <div> {{ Auth::user()->first_name }}</div>
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Type:</label>

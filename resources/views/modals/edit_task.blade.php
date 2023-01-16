@@ -142,12 +142,12 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="border-bottom mt-2 pt-1 px-2">
-                                        <div> Created By: {{ Auth::user()->name }}. {{$task->created_at}}</div>
+                                        <div> Created By: {{ Auth::user()->first_name }}. {{$task->created_at}}</div>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="border-bottom mt-2 pt-1 px-2">
-                                        <div>Last Modified By: {{ Auth::user()->name }}. {{$task->updated_at}}</div>
+                                        <div>Last Modified By: {{ Auth::user()->first_name }}. {{$task->updated_at}}</div>
                                     </div>
                                 </div>
                             </div>

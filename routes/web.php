@@ -7,7 +7,7 @@ use App\Http\Controllers\LogCallController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\SendEmailController;
-
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -17,6 +17,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::controller(UserController::class)->group(function () {
+
+    Route::get('/profile', 'profile')->name('profile')->middleware('auth');
+    Route::post('/update-profile', 'update_profile')->name('update_profile')->middleware('auth');
+
+});
 
 Route::controller(AccountsController::class)->group(function () {
     Route::get('/accounts', 'index')->name('accounts')->middleware('auth');

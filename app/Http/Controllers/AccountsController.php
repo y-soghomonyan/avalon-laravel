@@ -27,7 +27,7 @@ class AccountsController extends Controller
             'accounts' => Account::where('user_id', $id)->get(),
             'all_accounts' =>Account::all( 'id', 'name' ),
          //   'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name']),
-            'users'=>User::all(['id', 'name']),
+            'users'=>User::all(['id', 'first_name', 'last_name']),
             ]);
     }
 
@@ -109,7 +109,7 @@ class AccountsController extends Controller
             'industries_types' => IndustriesType::all(),
             'account' => $account,
             'accounts' => Account::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
-            'users' => User::all(['id', 'name', 'email']),
+            'users' => User::all(['id', 'first_name', 'last_name', 'email']),
             'companies' => Company::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
             'contacts' => Contact::where('user_id', '=', Auth::user()->id)->get(['id', 'title']),
             'countries' => Country::all(),

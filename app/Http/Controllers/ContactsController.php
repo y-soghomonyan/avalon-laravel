@@ -17,7 +17,7 @@ class ContactsController extends Controller
         return view('user.contact.contacts', [
             'contacts' => Contact::where('user_id', $id)->get(),
             'accounts' =>Account::all( 'id', 'name' ),
-            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name', 'email']),
+            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id','first_name', 'last_name', 'email']),
         ]);
     }
 
@@ -25,7 +25,7 @@ class ContactsController extends Controller
         return view('user.contact.contacts', [
             'contacts' => Contact::where('account_id', $id)->get(),
             'accounts' =>Account::all( 'id', 'name' ),
-            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name', 'email']),
+            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id','first_name', 'last_name', 'email']),
         ]);
     }
 

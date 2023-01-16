@@ -18,7 +18,8 @@ class User extends \TCG\Voyager\Models\User
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
     ];
@@ -46,6 +47,6 @@ class User extends \TCG\Voyager\Models\User
 
     public function getAvatarUrlAttribute()
     {
-        return $this->avatar && file_exists(public_path($this->avatar)) ? asset($this->avatar) : url('image/avatar.png');
+        return $this->avatar && file_exists(public_path('storage/'.$this->avatar)) ? asset('storage/'.$this->avatar) : url('image/avatar.png');
     }
 }

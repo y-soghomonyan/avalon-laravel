@@ -126,12 +126,12 @@
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
 
-                                                    <div> Created By: {{ Auth::user()->name }}. {{$contact->created_at}}</div>
+                                                    <div> Created By: {{ Auth::user()->first_name }}. {{$contact->created_at}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <div>Last Modified By: {{ Auth::user()->name }}. {{$contact->updated_at}}</div>
+                                                    <div>Last Modified By: {{ Auth::user()->first_name }}. {{$contact->updated_at}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -327,7 +327,7 @@
                                             <select class="select2 select_owner form-control" name="owner_id" required>
                                                 <option selected value="">Select Contact Owner</option>
                                                 @foreach($users as $user)
-                                                    <option value="{{$user->id}}" @if(!empty($contact->ownerUser->id) && $user->id == $contact->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->name}}</option>
+                                                    <option value="{{$user->id}}" @if(!empty($contact->ownerUser->id) && $user->id == $contact->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->first_name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
