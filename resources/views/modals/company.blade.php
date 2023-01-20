@@ -22,7 +22,7 @@
                                 <label for="personal_name" class="mr-sm-2"> Name:</label>
                                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="name" value="" id="" required>
                                 <label for="personal_name" class="mr-sm-2"> Filing No:</label>
-                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="" id="" required>
+                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="" id="" >
                             </div>
                             <div class="col-6">
                                 <div>
@@ -55,7 +55,7 @@
                                 <div>
                                     <label for="" class="mr-sm-2">Company Type:</label>
                                     <div>
-                                        <select required class="select2 custom-select form-control" name="company_id">
+                                        <select  class="select2 custom-select form-control" name="company_id">
                                             <option selected value="">Select Company Type</option>
                                                 @foreach($company_types as  $company_type)
                                                     <option value="{{$company_type->id}}" >{{$company_type->name}}</option>
@@ -118,7 +118,7 @@
                                     <div>
                                         <select class="select2 form-control" name="type">
                                             <option selected value="">Select Types</option>
-                                            <option value="Client">client</option>
+                                            <option value="Client">Client</option>
                                             <option value="Readymade">Readymade</option>
                                             <option value="Group">Group</option>
                                         </select>

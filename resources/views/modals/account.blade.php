@@ -52,21 +52,25 @@
                         <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Account owner:</label>
-                                <select required class="select2 custom-select form-control" name="owner_id">
-                                    @if($users)
-                                        @foreach($users as $user)
-                                            <option value="{{$user->id}}" {{ Auth::user()->id == $user->id? 'selected': '' }} >{{$user->name}}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
+                                <div>
+                                    <select  class="select2 custom-select form-control" name="owner_id">
+                                        @if($users)
+                                            @foreach($users as $user)
+                                                <option value="{{$user->id}}" {{ Auth::user()->id == $user->id? 'selected': '' }} >{{$user->first_name. ' ' . $user->last_name}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Type:</label>
-                                <select required class="select2 custom-select form-control" name="account_type_id">
-                                    @foreach($account_types as  $account_type)
-                                        <option value="{{$account_type->id}}" >{{$account_type->name}}</option>
-                                    @endforeach
-                                </select>
+                                <div>
+                                    <select  class="select2 custom-select form-control" name="account_type_id">
+                                        @foreach($account_types as  $account_type)
+                                            <option value="{{$account_type->id}}" {{$account_type->name == 'Client' ? "selected" : ""}}>{{$account_type->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -75,15 +79,17 @@
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Phone:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="phone" value="" name="account_phone" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="phone" value="" name="account_phone" >
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Industry:</label>
-                                <select required class="select2 custom-select form-control" name="industry_id">
-                                    @foreach($industries_types as  $industries_type)
-                                        <option value="{{$industries_type->id}}">{{$industries_type->name}}</option>
-                                    @endforeach
-                                </select>
+                                <div>
+                                    <select  class="select2 custom-select form-control" name="industry_id">
+                                        @foreach($industries_types as  $industries_type)
+                                            <option value="{{$industries_type->id}}" {{$industries_type->name == 'Other' ? "selected" : ""}}>{{$industries_type->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -93,7 +99,7 @@
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Phone:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="Phone" value="" name="additional_phone" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="Phone" value="" name="additional_phone" >
                             </div>
                         </div>
                         <div class="row">
@@ -103,7 +109,7 @@
                             </div>
                             <div class="col-6">
                                 <label  class="mr-sm-2">Employees:</label>
-                                <input required type="text" class="form-control mb-2 mr-sm-2" placeholder="Employees" value="" name="employees" >
+                                <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="Employees" value="" name="employees" >
                             </div>
                         </div>
                         <div class="row">

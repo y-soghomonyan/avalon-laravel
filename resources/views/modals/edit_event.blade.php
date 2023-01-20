@@ -47,7 +47,7 @@
                         <div class="row mt-2">
                             <div class="col-6">
                                 <label for="" class="mr-sm-2">Location</label>
-                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="location" value="{{$event->location}}" id="" required>
+                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="location" value="{{$event->location}}" id="">
                             </div>
                             <div class="col-6  ">
                                 <label for="contact_id" class="mr-sm-2">Company</label>

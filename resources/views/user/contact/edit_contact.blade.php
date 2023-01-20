@@ -242,7 +242,7 @@
                                     </div>
                                     <div class="text-info px-2">Contacts ({{$contacts_count->count()}})</div>
                                 </div>
-                                <div class=" col-2 offset-2">
+                                <div class="col-4 text-right">
                                     <button class="btn btn-outline-primary" data-toggle="modal" data-target="#create_contact">New</button> 
                                 </div>
 
@@ -269,7 +269,7 @@
                                     </div>
                                     <div class="text-info px-2">Companies ({{$companies_count->count()}})</div>
                                 </div>
-                                <div class=" col-2 offset-2">
+                                <div class=" col-4 text-right">
                                     <button class="btn btn-outline-primary" data-toggle="modal" data-target="#create_company">New</button> 
                                 </div>
 
@@ -311,9 +311,9 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div>
-                                        <label for="" class="mr-sm-2">Contact Name:</label>
+                                        <label for="" class="mr-sm-2">Account Name:</label>
                                         <div>
-                                            <select class="select2 select_contact form-control" name="account_id" required>
+                                            <select class="select2 select_contact form-control" name="account_id" >
                                                 <option  value="">Select contact</option>
                                                 @foreach($accounts as $account)
                                                     <option  value="{{$account->id}}" @if(isset($contact->parentAccount->id) && $account->id == $contact->parentAccount->id) {{'selected'}} @else {{""}} @endif >{{$account->name}}</option>
@@ -324,7 +324,7 @@
                                     <div>
                                         <label for="" class="mr-sm-2">Contact Owner:</label>
                                         <div>
-                                            <select class="select2 select_owner form-control" name="owner_id" required>
+                                            <select class="select2 select_owner form-control" name="owner_id" >
                                                 <option selected value="">Select Contact Owner</option>
                                                 @foreach($users as $user)
                                                     <option value="{{$user->id}}" @if(!empty($contact->ownerUser->id) && $user->id == $contact->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->first_name}}</option>
@@ -343,13 +343,13 @@
                                     </select>
 
                                     <label for="personal_name" class="mr-sm-2">First Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="first_name" value="{{$contact->first_name}}" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="first_name" value="{{$contact->first_name}}" id="" >
                                     <label for="personal_name" class="mr-sm-2">Middle Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="middle_name" value="{{$contact->middle_name}}" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="middle_name" value="{{$contact->middle_name}}" id="" >
                                     <label for="personal_name" class="mr-sm-2">Last Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="last_name" value="{{$contact->last_name}}" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="last_name" value="{{$contact->last_name}}" id="" >
                                     <label for="personal_name" class="mr-sm-2">Suffix:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="suffix" value="{{$contact->suffix}}" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="suffix" value="{{$contact->suffix}}" id="" >
 
 
                                 </div>
@@ -359,7 +359,7 @@
                                     <label for="personal_name" class="mr-sm-2">Email:</label>
                                     <input type="email" class="form-control mb-2 mr-sm-2" placeholder="" name="email" value="{{$contact->email}}" id="" required>
                                     <label for="personal_name" class="mr-sm-2">Phone:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="phone" value="{{$contact->phone}}" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="phone" value="{{$contact->phone}}" id="" >
                                 </div>
                             </div>
                             <div class="row">
@@ -377,7 +377,7 @@
                                 <div class="col-6">
                                     <label for="personal_name" class="mr-sm-2">Reports To:</label>
                                     <div>
-                                        <select class="select2 select_reports_emails form-control" name="reports" required>
+                                        <select class="select2 select_reports_emails form-control" name="reports" >
                                             <option selected value="">Select Reports address</option>
                                             @foreach($users as $user1)
                                                 <option value="{{$user1->id}}" @if($user1->id == $contact->reports) {{'selected'}} @else {{""}} @endif>{{$user1->email}}</option>

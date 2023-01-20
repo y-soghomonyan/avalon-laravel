@@ -72,7 +72,7 @@
                     </div>
                     <div class="text-info px-2">Contacts ({{$contacts_count->count()}})</div>
                 </div>
-                <div class=" col-2 offset-2">
+                <div class=" col-4 text-right">
                     <button class="btn btn-outline-primary" data-toggle="modal" data-target="#create_contact">New</button> 
                 </div>
 
@@ -99,7 +99,7 @@
                     </div>
                     <div class="text-info px-2">Companies ({{$companies_count->count()}})</div>
                 </div>
-                <div class=" col-2 offset-2">
+                <div class=" col-4 text-right">
                     <button class="btn btn-outline-primary" data-toggle="modal" data-target="#create_company">New</button> 
                 </div>
               

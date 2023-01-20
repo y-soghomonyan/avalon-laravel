@@ -11371,7 +11371,7 @@ a{
 
 
 ::-webkit-scrollbar {
-    width: 3px;
+    width: 5px;
   }
   
   /* Track */
@@ -11389,6 +11389,12 @@ a{
   }
 
 
+  .select2-results__options::-webkit-scrollbar {
+      width: 8px;
+  }
+.text-right {
+    text-align: right;
+}
 .company_info_btn, .contact_info_btn{
     width: 100%;
     background-color: lightgrey;
@@ -11583,6 +11589,9 @@ a{
     transform: rotate(-90deg);
 }
 .upov_max_height{
-    max-height: 290px;
-    overflow: hidden;
+    /*max-height: 290px;*/
+    /*overflow: hidden;*/
+}
+.hidden-event {
+    display: none;
 }

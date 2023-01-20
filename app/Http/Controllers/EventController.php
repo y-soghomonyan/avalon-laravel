@@ -14,9 +14,9 @@ class EventController extends Controller
     public function add_event(Request $req){
 
         $url = url()->previous();
-        if(empty($req->input('contact_id')) || $req->input('contact_id') == 0){
-            return redirect()->to($url)->with('danger',  'You need add New Contact');
-        }
+//        if(empty($req->input('contact_id')) || $req->input('contact_id') == 0){
+//            return redirect()->to($url)->with('danger',  'You need add New Contact');
+//        }
         $data = new Event();
         $data->user_id = Auth::user()->id;
         $data->contact_id = $req->input('contact_id');
@@ -37,7 +37,7 @@ class EventController extends Controller
 
         if ($data->save()) {
            
-            return redirect()->to($url)->with('success',  'Add Event');
+            return redirect()->to($url)->with('success',  'New Event Created');
            // return redirect()->route($req->input('url'), [$req->input('id')])->with('success',  ' Add ');
         }
         
@@ -73,7 +73,7 @@ class EventController extends Controller
         $event->user_id = Auth::user()->id;
 
         if ($event->save()) {
-            return redirect()->to($url)->with('success',  'Edit Event');
+            return redirect()->to($url)->with('success',  'Event is edited');
             //return redirect()->route($req->input('url'), [$req->input('id')])->with('success',  ' Add ');
         }
     }
@@ -85,7 +85,7 @@ class EventController extends Controller
             return  redirect()->to($url)->with('danger', "Not Found");
         }
         if($event->delete()){
-            return redirect()->to($url)->with('success',  ' Event Delete ');
+            return redirect()->to($url)->with('success',  ' Event is Deleted');
         }
     }
 }

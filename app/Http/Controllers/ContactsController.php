@@ -56,7 +56,7 @@ class ContactsController extends Controller
         $data->mailing__zip_code = $req->input('mailing__zip_code');
 
         if($data->save()){
-            return redirect()->route('contacts')->with('success', $req->input('title').' - Add');
+            return redirect()->route('contacts')->with('success', $req->input('title').' - Added');
         }
 
     }
@@ -94,7 +94,7 @@ class ContactsController extends Controller
                 $contact->mailing__zip_code = $req->input('mailing__zip_code');
 
                 if ($contact->save()) {
-                    return redirect()->route('edit_contact', [$id])->with('success', $req->input('title') . ' - Edit');
+                    return redirect()->route('edit_contact', [$id])->with('success', $req->input('title') . ' - Edited');
                 }
             }
         }
@@ -105,7 +105,7 @@ class ContactsController extends Controller
             'accounts' => Account::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
             'companies' =>Company::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
             'contacts' => Contact::where('user_id', '=', Auth::user()->id)->get(['id', 'title']),
-            'users'=> User::where('id', '!=', Auth::user()->id)->get(['id', 'name','email']),
+            'users'=> User::where('id', '!=', Auth::user()->id)->get(['id', 'first_name', 'last_name','email']),
             'emails' => AccountSendEmail::where('user_id', '=', Auth::user()->id)->get(),
             'notifications'=> $notifications->notifications('contact_id',$id),
             'companies_count' => Company::where('user_id', '=', Auth::user()->id)->where('contact_id', '=', $id)->get(['id', 'name']),
@@ -124,7 +124,7 @@ class ContactsController extends Controller
             return redirect()->route('contacts')->with('danger', "Not Found");
         }
         if($data->delete()){
-            return redirect()->route('contacts')->with('success', $data->title.' - Remove');
+            return redirect()->route('contacts')->with('success', $data->title.' - Removed');
         }
     }
 }

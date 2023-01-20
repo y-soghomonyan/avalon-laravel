@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AccountSendEmail;
+use App\Models\TypeOfCompaneis;
 use App\Models\CompanyType;
 use App\Models\Account;
 use App\Models\Company;
@@ -24,7 +25,7 @@ class CompaniesController extends Controller
     {
         $id = Auth::user()->id;
         return view('user.company.index', [
-            'company_types' => CompanyType::all(),
+            'company_types' => TypeOfCompaneis::all(),
             'companies' => Company::where('user_id', $id)->get(),
             'countries' => Country::with(['states'])->get(),
             'accounts' => Account::where('user_id', '=', $id)->get(['id', 'name']),
@@ -37,7 +38,7 @@ class CompaniesController extends Controller
     {
         $user_id = Auth::user()->id;
         return view('user.company.index', [
-            'company_types' => CompanyType::all(),
+            'company_types' => TypeOfCompaneis::all(),
             'companies' => Company::where('account_id', $id)->get(),
             'countries' => Country::with(['states'])->get(),
             'accounts' => Account::where('user_id', '=', $user_id)->get(['id', 'name']),
@@ -86,7 +87,7 @@ class CompaniesController extends Controller
         $company->previous_name5 = $request->input('previous_name5');
 
         if($company->save()){
-            return redirect()->route('companies')->with('success', $request->input('name').' - Add');
+            return redirect()->route('companies')->with('success', $request->input('name').' - Added');
         }
     }
 
@@ -117,7 +118,7 @@ class CompaniesController extends Controller
         $notifications = new NotificationController;
         return view('user.company.edit', [
             'company' => $company,
-            'company_types' => CompanyType::all(),
+            'company_types' => TypeOfCompaneis::all(),
             'countries' => Country::with(['states'])->get(),
             'accounts' => Account::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
             'contacts' => Contact::where('user_id', '=', Auth::user()->id)->get(['id', 'title']),
@@ -171,7 +172,7 @@ class CompaniesController extends Controller
             $company->previous_name5 = $request->input('previous_name5');
 
             if($company->save()){
-                return redirect()->route('edit-company', [$id])->with('success', $request->input('name') . ' - Edit');
+                return redirect()->route('edit-company', [$id])->with('success', $request->input('name') . ' - Edited');
             }
         }
         return redirect()->route('companies')->with('error', $request->input('name').' - is not your');
@@ -190,7 +191,7 @@ class CompaniesController extends Controller
             return redirect()->route('companies')->with('danger', "Not Found");
         }
         if($data->delete()){
-            return redirect()->route('companies')->with('success', $data->name.' - Remove');
+            return redirect()->route('companies')->with('success', $data->name.' - Removed');
         }
     }
 }

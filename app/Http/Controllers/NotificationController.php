@@ -13,9 +13,9 @@ use Auth;
 class NotificationController extends Controller
 {
     public function notifications($page_id, $id){
-        $log_calls = LogCall::where('user_id', '=', Auth::user()->id,)->where($page_id, '=', $id)->with('contacts')->orderBy('created_at', 'DESC')->get()->toArray();
-        $tasks = Task::where('user_id', '=', Auth::user()->id,)->where($page_id, '=', $id)->with('contacts')->orderBy('created_at', 'DESC')->get()->toArray();
-        $events = Event::where('user_id', '=', Auth::user()->id,)->where($page_id, '=', $id)->with('contacts')->orderBy('created_at', 'DESC')->get()->toArray();
+        $log_calls = LogCall::where('user_id', '=', Auth::user()->id)->where($page_id, '=', $id)->with('contacts')->orderBy('created_at', 'DESC')->get()->toArray();
+        $tasks = Task::where('user_id', '=', Auth::user()->id)->where($page_id, '=', $id)->with('contacts')->orderBy('created_at', 'DESC')->get()->toArray();
+        $events = Event::where('user_id', '=', Auth::user()->id)->where($page_id, '=', $id)->with('contacts')->orderBy('created_at', 'DESC')->get()->toArray();
 
         $notifications_array = [];
         $months = array(

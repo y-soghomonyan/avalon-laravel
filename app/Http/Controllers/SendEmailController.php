@@ -38,7 +38,7 @@ class SendEmailController extends Controller
          
         Mail::to($req->input('to'))->bcc($req->input('Bcc'))->send(new AccountEmailSender($mailData));
         
-        return redirect()->to($url)->with('success',  'Email send');
+        return redirect()->to($url)->with('success',  'Email sent');
         //return redirect()->route('edit_account', [$id])->with('success',  'Email send');
     }
 

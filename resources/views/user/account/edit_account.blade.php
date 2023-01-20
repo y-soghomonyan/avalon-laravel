@@ -245,21 +245,25 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Account owner:</label>
-                                    <select required class="select2 custom-select form-control" required name="owner_id">
-                                        @if($users)
-                                            @foreach($users as $user)
-                                                <option value="{{$user->id}}" @if($user->id == $account->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->first_name}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
+                                    <div>
+                                        <select required class="select2 custom-select form-control" required name="owner_id">
+                                            @if($users)
+                                                @foreach($users as $user)
+                                                    <option value="{{$user->id}}" @if($user->id == $account->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->first_name}}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Type:</label>
-                                    <select  class="select2 custom-select form-control" name="account_type_id" required>
-                                        @foreach($company_types as  $account_type)
-                                            <option value="{{$account_type->id}}" @if($account_type->id == $account->accountTypes->id) {{'selected'}} @else {{""}} @endif>{{$account_type->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div>
+                                        <select  class="select2 custom-select form-control" name="account_type_id" required>
+                                            @foreach($company_types as  $account_type)
+                                                <option value="{{$account_type->id}}" @if($account_type->id == $account->accountTypes->id) {{'selected'}} @else {{""}} @endif>{{$account_type->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -269,11 +273,13 @@
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Industry:</label>
-                                    <select  class="select2 custom-select form-control" name="industry_id" required>
-                                        @foreach($industries_types as  $industries_type)
-                                            <option value="{{$industries_type->id}}" @if($industries_type->id == $account->industriesTypes->id) {{'selected'}} @else {{""}} @endif>{{$industries_type->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div>
+                                        <select  class="select2 custom-select form-control" name="industry_id" required>
+                                            @foreach($industries_types as  $industries_type)
+                                                <option value="{{$industries_type->id}}" @if($industries_type->id == $account->industriesTypes->id) {{'selected'}} @else {{""}} @endif>{{$industries_type->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

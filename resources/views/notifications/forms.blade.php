@@ -1,3 +1,5 @@
+
+
     <div class="tab-pane container active" id="menu1">
         <div class="col-12 mt-3 px-2">
             <ul class="nav nav-tabs ">
@@ -59,8 +61,8 @@
                                             <label for="related_to" class="mr-sm-2">Account To</label>
                                             <select class="select2 select_contact form-control" name="related_to" required>
                                                 <option value="0" >None</option>
-                                                @foreach($accounts as $account)
-                                                    <option value="{{$account->id}}" >{{$account->name}}</option>
+                                                @foreach($accounts as $acc)
+                                                    <option value="{{$acc->id}}" >{{$acc->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -86,12 +88,12 @@
                             <svg class="slds-icon slds-icon-text-default slds-icon_x-small " focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
                             <b>Upcoming & Overdue</b>
                          </div>
-                        <div id="upcoming" class="show upov_max_height" class="collapse">
+                        <div id="upcoming" class="show collapse">
 
-                            <div class="row px-2 py-2">
+                            <div class="row px-2 py-2 upov_max_height">
                             @if(!empty($upcoming_overdues))
-                                @foreach($upcoming_overdues as $upcoming_overdue)
-                                <div class="col-12">
+                                @foreach($upcoming_overdues as $key => $upcoming_overdue)
+                                <div class="col-12 <?= $key > 2 ? 'hidden-event' : ''?>">
 
                                       {{-- @if($$upcoming_overdue['notification'] == 'call')
                                         <div class="row mt-2">
@@ -139,11 +141,14 @@
                                                 </div>
                                               </div>
                                               <div class="row">
-                                                  <div class="col-6 offset-1">You had an event with <a href="{{ route('edit_contact', [$event->contact_id]) }}">{{$event->contacts['title']}}</a> </div>
+                                                  @if(!empty($event->contacts))
+                                                      <div class="col-6 offset-1">You had an event with <a href="{{ route('edit_contact', [$event->contact_id]) }}">{{$event->contacts['title']}}</a> </div>
+                                                  @endif
+                                                  {{--<div class="col-6 offset-1">You had an event with <a href="{{ route('edit_contact', [$event->contact_id]) }}">{{$event->contacts['title']}}</a> </div>--}}
                                                   <div class="col-4">{{$event->created_at}}</div>
                                                   <div class="col-1"><div class="dropdown">
                                                       <button type="button" class="btn btn-light text-muted dropdown-toggle" data-toggle="dropdown"></button>
-                                                      <div class="dropdown-menu">
+                                                      <div class="dropdown-menu" x-placement="top-left">
                                                         <a class="dropdown-item" href="#"><button class="btn" data-toggle="modal" data-target="#edit_event_{{$event->id}}">Edit</button> </a>
                                                         <a class="dropdown-item bg-danger text-white" href="{{route('delete_event',[$event->id])}}"><button class="btn text-white"> Delete</button></a>
                                                       
@@ -170,7 +175,10 @@
                                           </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-6 offset-1">You logged a task with <a href="{{ route('edit_contact', [$task->contact_id]) }}">{{$task->contacts['title']}}</a></div>
+                                            @if(!empty($event->contacts))
+                                                <div class="col-6 offset-1">You logged a task with <a href="{{ route('edit_contact', [$task->contact_id]) }}">{{$task->contacts['title']}}</a> </div>
+                                            @endif
+                                            {{--<div class="col-6 offset-1">You logged a task with <a href="{{ route('edit_contact', [$task->contact_id]) }}">{{$task->contacts['title']}}</a></div>--}}
                                             <div class="col-4">{{$task->created_at}}</div>
                                             <div class="col-1"><div class="dropdown">
                                                 <button type="button" class="btn btn-light text-muted dropdown-toggle" data-toggle="dropdown"></button>
@@ -195,12 +203,13 @@
                                 </div>
                             @endif
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="df_jsc_amc">
-                                <button class="btn btn btn-outline-success upov_max_height_button">Show More</button>
+                            <div class="row">
+                                <div class="df_jsc_amc">
+                                    <button class="btn btn btn-outline-success upov_max_height_button">Show More</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     {{-- <div class="col-12 mt-3 px-3">
                         <div class="text-center">No past activity. Past meetings and tasks marked as done show up here</div>
@@ -233,8 +242,8 @@
                                 <label for="contact_id" class="mr-sm-2">Contact</label>
                                 <select class="select2 select_contact form-control" name="contact_id" required>
                                     <option value="0">None</option>
-                                    @foreach($contacts as $contact)
-                                        <option value="{{$contact->id}}">{{$contact->title}}</option>
+                                    @foreach($contacts as $contac)
+                                        <option value="{{$contac->id}}" {{!empty($contact) && $contact->id == $contac->id ? "selected" : ""}}>{{$contac->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -242,8 +251,8 @@
                                 <label for="related_to" class="mr-sm-2">Account To</label>
                                 <select class="select2 select_contact form-control" name="related_to" required>
                                     <option value="0" >None</option>
-                                    @foreach($accounts as $account)
-                                        <option value="{{$account->id}}">{{$account->name}}</option>
+                                    @foreach($accounts as $acco)
+                                        <option value="{{$acco->id}}" {{!empty($account) && $account->id == $acco->id ? "selected" : ""}}>{{$acco->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -253,13 +262,13 @@
                                 <label for="contact_id" class="mr-sm-2">Company</label>
                                 <select class="select2 select_contact form-control" name="company_id" required>
                                     <option value="0">None</option>
-                                    @foreach($companies as $company)
-                                        <option value="{{$company->id}}">{{$company->name}}</option>
+                                    @foreach($companies as $compan)
+                                        <option value="{{$compan->id}}" {{!empty($company) && $company->id == $compan->id ? "selected" : ""}}>{{$compan->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-info mt-3 text-white" value="Send">
+                        <input type="submit" class="btn btn-info mt-3 text-white" value="Save">
                     </form>
                 </div>
                 <div class="tab-pane container fade" id="menu3_1">
@@ -298,8 +307,8 @@
                                 <label for="contact_id" class="mr-sm-2">Contact</label>
                                 <select class="select2 select_contact form-control" name="contact_id" required>
                                     <option value="0">None</option>
-                                    @foreach($contacts as $contact)
-                                        <option value="{{$contact->id}}">{{$contact->title}}</option>
+                                    @foreach($contacts as $contac)
+                                        <option value="{{$contac->id}}" {{!empty($contact) && $contact->id == $contac->id ? "selected" : ""}}>{{$contac->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -307,8 +316,8 @@
                                 <label for="related_to" class="mr-sm-2">Account To</label>
                                 <select class="select2 select_contact form-control" name="related_to" required>
                                     <option value="0" >None</option>
-                                    @foreach($accounts as $account)
-                                        <option value="{{$account->id}}">{{$account->name}}</option>
+                                    @foreach($accounts as $acco)
+                                        <option value="{{$acco->id}}" {{!empty($account) && $account->id == $acco->id ? "selected" : ""}}>{{$acco->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -318,13 +327,13 @@
                                 <label for="contact_id" class="mr-sm-2">Company</label>
                                 <select class="select2 select_contact form-control" name="company_id" required>
                                     <option value="0">None</option>
-                                    @foreach($companies as $company)
-                                        <option value="{{$company->id}}">{{$company->name}}</option>
+                                    @foreach($companies as $compan)
+                                        <option value="{{$compan->id}}" {{!empty($company) && $company->id == $compan->id ? "selected" : ""}}>{{$compan->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-info mt-3 text-white" value="Send">
+                        <input type="submit" class="btn btn-info mt-3 text-white" value="Save">
                     </form>
                 </div>
                 <div class="tab-pane container fade" id="menu4_1">
@@ -377,7 +386,7 @@
                         <div class="row mt-2">
                             <div class="col-12">
                                 <label for="" class="mr-sm-2">Location</label>
-                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Location" name="location" value="" id="" required>
+                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Location" name="location" value="" id="">
                             </div>
                             
                         </div>
@@ -386,8 +395,8 @@
                                 <label for="contact_id" class="mr-sm-2">Contact</label>
                                 <select class="select2 select_contact form-control" name="contact_id" required>
                                     <option value="0">None</option>
-                                    @foreach($contacts as $contact)
-                                        <option value="{{$contact->id}}">{{$contact->title}}</option>
+                                    @foreach($contacts as $contac)
+                                        <option value="{{$contac->id}}" {{!empty($contact) && $contact->id == $contac->id ? "selected" : ""}}>{{$contac->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -395,8 +404,8 @@
                                 <label for="related_to" class="mr-sm-2">Account To</label>
                                 <select class="select2 select_contact form-control" name="related_to" required>
                                     <option value="0" >None</option>
-                                    @foreach($accounts as $account)
-                                        <option value="{{$account->id}}" >{{$account->name}}</option>
+                                    @foreach($accounts as $acco)
+                                        <option value="{{$acco->id}}" {{!empty($account) && $account->id == $acco->id ? "selected" : ""}}>{{$acco->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -406,13 +415,14 @@
                                 <label for="contact_id" class="mr-sm-2">Company</label>
                                 <select class="select2 select_contact form-control" name="company_id" required>
                                     <option value="0">None</option>
-                                    @foreach($companies as $company)
-                                        <option value="{{$company->id}}">{{$company->name}}</option>
+                                    @foreach($companies as $compan)
+                                        {{--<option value="{{$company->id}}">{{$company->name}}</option>--}}
+                                        <option value="{{$compan->id}}" {{!empty($company) && $company->id == $compan->id ? "selected" : ""}}>{{$compan->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-info mt-3 text-white" value="Send">
+                        <input type="submit" class="btn btn-info mt-3 text-white" value="Save">
                     </form>
                 </div>
             </div>

@@ -33,10 +33,10 @@
                                     <div>
                                         <label for="" class="mr-sm-2">Contact Owner:</label>
                                         <div>
-                                            <select class="select2 select_owner form-control" required name="owner_id">
+                                            <select class="select2 select_owner form-control" name="owner_id">
                                                 <option selected value="">Select Contact Owner</option>
                                                 @foreach($users as $user)
-                                                    <option value="{{$user->id}}"  >{{$user->name}}</option>
+                                                    <option value="{{$user->id}}"  >{{$user->first_name." ". $user->last_name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -51,13 +51,13 @@
                                         <option  value="Prof">Prof.</option>
                                     </select>
                                     <label for="personal_name" class="mr-sm-2">First Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="first_name" value="" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="first_name" value="" id="" >
                                     <label for="personal_name" class="mr-sm-2">Middle Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="middle_name" value="" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="middle_name" value="" id="" >
                                     <label for="personal_name" class="mr-sm-2">Last Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="last_name" value="" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="last_name" value="" id="" >
                                     <label for="personal_name" class="mr-sm-2">Suffix:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="suffix" value="" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="suffix" value="" id="" >
                                 </div>
                                 <div class="col-6">
                                     <label for="personal_name" class="mr-sm-2">Title:</label>
@@ -65,7 +65,7 @@
                                     <label for="personal_name" class="mr-sm-2">Email:</label>
                                     <input type="email" class="form-control mb-2 mr-sm-2" placeholder="" name="email" value="{{ Auth::user()->email }}" id="" required>
                                     <label for="personal_name" class="mr-sm-2">Phone:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="phone" value="" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="phone" value="" id="" >
                                 </div>
                             </div>
                             <div class="row">
@@ -83,7 +83,7 @@
                                 <div class="col-6">
                                     <label for="personal_name" class="mr-sm-2">Reports To:</label>
                                     <div>
-                                        <select class="select2 select_reports_emails form-control" required name="reports">
+                                        <select class="select2 select_reports_emails form-control"  name="reports">
                                             <option selected value="">Select Reports address</option>
                                             @foreach($users as $user)
                                                 <option value="{{$user->id}}"  >{{$user->email}}</option>

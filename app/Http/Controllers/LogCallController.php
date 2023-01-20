@@ -13,9 +13,10 @@ class LogCallController extends Controller
 
     public function add_log_call(Request $req){
         $url = url()->previous();
-        if(empty($req->input('contact_id')) || $req->input('contact_id') == 0){
-            return redirect()->to($url)->with('danger',  'You need add New Contact');
-        }
+//        dd($url);
+//        if(empty($req->input('contact_id')) || $req->input('contact_id') == 0){
+//            return redirect()->to($url)->with('danger',  'You need add New Contact');
+//        }
         $data = new LogCall();
         $data->contact_id = $req->input('contact_id');
         $data->company_id = $req->input('company_id');
@@ -31,7 +32,7 @@ class LogCallController extends Controller
         $data->user_id = Auth::user()->id;
 
         if ($data->save()) {
-            return redirect()->to($url)->with('success',  'Add Call');
+            return redirect()->to($url)->with('success',  'Call is added');
            // return redirect()->route($req->input('url'), [$req->input('id')])->with('success',  ' Add ');
         }
     }
@@ -55,7 +56,7 @@ class LogCallController extends Controller
         $call->user_id = Auth::user()->id;
 
         if ($call->save()) {
-            return redirect()->to($url)->with('success',  'Edit Call');
+            return redirect()->to($url)->with('success',  'Call is edited');
             //return redirect()->route($req->input('url'), [$req->input('id')])->with('success',  ' Add ');
         }
     }
@@ -67,7 +68,7 @@ class LogCallController extends Controller
             return  redirect()->to($url)->with('danger', "Not Found");
         }
         if($call->delete()){
-            return redirect()->to($url)->with('success',  ' Call Delete ');
+            return redirect()->to($url)->with('success',  ' Call is Deleted ');
         }
     }
 

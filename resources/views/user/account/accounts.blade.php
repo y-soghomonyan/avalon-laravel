@@ -14,12 +14,12 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Acoount name</th>
-                <th>Parent Acoount</th>
+                <th>Account name</th>
+                <th>Parent Account</th>
                 <th>Type</th>
                 <th>Industry</th>
-                <th>Acoount phone</th>
-                <th>Acoount owner</th>
+                <th>Account phone</th>
+                <th>Account owner</th>
                 <th></th>
             </tr>
         </thead>
@@ -27,11 +27,11 @@
             @foreach($accounts as  $value)
             <tr >
                 <td><a href="{{ route('edit_account', [$value->id]) }}">{{$value->name}}</a></td>
-                <td>{{ $value->parentAcoount->name ?? '' }}</td>
+                <td>{{ $value->parentAccount->name ?? '' }}</td>
                 <td>{{$value->accountTypes->name ?? '' }}</td>
                 <td>{{$value->industriesTypes->name ?? '' }}</td>
                 <td>{{$value->account_phone}}</td>
-                <td>{{$value->ownerUser->name}}</td>
+                <td>{{$value->ownerUser->first_name}}</td>
                 <td>
                     {{-- <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Edit</button>
                     <div class="dropdown-menu"> --}}
@@ -102,11 +102,13 @@
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Industry:</label>
-                                    <select  class="custom-select" name="industry_id" required>
-                                        @foreach($industries_types as  $industries_type)
-                                            <option value="{{$industries_type->id}}" @if($industries_type->id == $value->industriesTypes->id) {{'selected'}} @else {{""}} @endif>{{$industries_type->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div>
+                                        <select  class="custom-select" name="industry_id" required>
+                                            @foreach($industries_types as  $industries_type)
+                                                <option value="{{$industries_type->id}}" @if($industries_type->id == $value->industriesTypes->id) {{'selected'}} @else {{""}} @endif>{{$industries_type->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

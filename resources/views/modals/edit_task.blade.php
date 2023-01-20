@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <label for="" class="mr-sm-2">Acoount To</label>
+                                <label for="" class="mr-sm-2">Account To</label>
                                 <select class="select2 select_contact form-control" name="related_to" required>
                                     <option value="0" >None</option>
                                     @foreach($accounts as $account)

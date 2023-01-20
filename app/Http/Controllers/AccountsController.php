@@ -59,7 +59,7 @@ class AccountsController extends Controller
         $data->address_2_zip_code = $req->input('address_2_zip_code');
 
         if($data->save()){
-            return redirect()->route('accounts')->with('success', $req->input('name').' - Add');
+            return redirect()->route('accounts')->with('success', $req->input('name').' - Added');
         }
     }
 
@@ -96,7 +96,7 @@ class AccountsController extends Controller
                 $account->address_2_zip_code = $req->input('address_2_zip_code');
 
                 if ($account->save()) {
-                    return redirect()->route('edit_account', [$id])->with('success', $req->input('name') . ' - Edit');
+                    return redirect()->route('edit_account', [$id])->with('success', $req->input('name') . ' - Edited');
                 }
             }
         }
@@ -140,7 +140,7 @@ class AccountsController extends Controller
             return redirect()->route('accounts')->with('danger', "Not Found");
         }
         if($account->delete()){
-            return redirect()->route('accounts')->with('success', $account->name.' - Remove');
+            return redirect()->route('accounts')->with('success', $account->name.' - Removed');
         }
     }
 

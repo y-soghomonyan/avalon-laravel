@@ -255,13 +255,13 @@
                                     <label for="personal_name" class="mr-sm-2"> Name:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="name" value="{{$company->name}}" id="" required>
                                     <label for="personal_name" class="mr-sm-2"> Filing No:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="{{$company->filing}}" id="" required>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="{{$company->filing}}" id="" >
                                 </div>
                                 <div class="col-6">
                                     <div>
                                         <label for="" class="mr-sm-2">Country:</label>
                                         <div>
-                                            <select class="select2  form-control" name="country_id" id="countries" required>
+                                            <select class="select2  form-control" name="country_id" id="countries" >
                                                 <option selected value="">Select Country</option>
                                                 @foreach($countries as $country)
                                                     <option value="{{$country->id}}" {{($country->id == $company->country_id) ? 'selected' : ''}}  >{{$country->name}}</option>
@@ -287,7 +287,7 @@
                                     <div>
                                         <label for="" class="mr-sm-2">Company Type:</label>
                                         <div>
-                                            <select required class="select2 custom-select form-control" name="company_id">
+                                            <select  class="select2 custom-select form-control" name="company_id">
                                                 <option selected value="">Select Company Type</option>
                                                 @foreach($company_types as  $company_type)
                                                     <option value="{{$company_type->id}} " {{(!empty($company->company_id) && $company->company_id == $company_type->id) ? 'selected' : ''}}>{{$company_type->name}}</option>
@@ -317,7 +317,7 @@
                                     <div>
                                         <label for="" class="mr-sm-2">Account:</label>
                                         <div>
-                                            <select required class="select2 custom-select form-control" name="account_id">
+                                            <select  class="select2 custom-select form-control" name="account_id">
                                                 <option selected value="">Select Account </option>
                                                 @foreach($accounts as $account)
                                                     <option value="{{$account->id}}"  {{(!empty($account->id) && $company->account_id == $account->id) ? 'selected' : ''}}>{{$account->name}}</option>
@@ -329,7 +329,7 @@
                                 <div class="col-6">
                                     <label for="personal_name" class="mr-sm-2">Contact:</label>
                                     <div>
-                                        <select class="select2 select_reports_emails form-control" required name="contact_id">
+                                        <select class="select2 select_reports_emails form-control"  name="contact_id">
                                             <option selected value="">Select Contact </option>
                                             @foreach($contacts as $contact)
                                                 <option value="{{$contact->id}}"  {{(!empty($contact->id) && $company->contact_id == $contact->id) ? 'selected' : ''}}>{{$contact->title}}</option>
@@ -350,7 +350,7 @@
                                         <div>
                                             <select class="select2 form-control" name="type">
                                                 <option selected value="">Select Types</option>
-                                                <option value="Client" {{(!empty($company->type) && $company->type == 'Client') ? 'selected' : ''}}>client</option>
+                                                <option value="Client" {{(!empty($company->type) && $company->type == 'Client') ? 'selected' : ''}}>Client</option>
                                                 <option value="Readymade" {{(!empty($company->type) && $company->type == 'Readymade') ? 'selected' : ''}}>Readymade</option>
                                                 <option value="Group" {{(!empty($company->type) && $company->type == 'Group') ? 'selected' : ''}}>Group</option>
                                             </select>

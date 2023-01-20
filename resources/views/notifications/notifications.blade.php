@@ -13,6 +13,7 @@
        <div class="row">
         <div class="col-12">
           @foreach($notification as $key => $value)
+              {{--@php dd($value);  @endphp--}}
             @if($value['notification'] == 'call')
               <div class="row mt-2">
                 <div class="col-12">
@@ -28,7 +29,9 @@
                         </div>
                       </div>
                       <div class="row">
+                          @if(!empty($log_call->contacts))
                           <div class="col-6 offset-1">You logged a call with <a href="{{ route('edit_contact', [$log_call->contact_id]) }}">{{$log_call->contacts['title']}}</a></div>
+                          @endif
                           <div class="col-4">{{$log_call->created_at}}</div>
                           <div class="col-1">
                             <div class="dropdown">
@@ -59,7 +62,9 @@
                       </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 offset-1">You had an event with <a href="{{ route('edit_contact', [$event->contact_id]) }}">{{$event->contacts['title']}}</a> </div>
+                        @if(!empty($event->contacts))
+                            <div class="col-6 offset-1">You had an event with <a href="{{ route('edit_contact', [$event->contact_id]) }}">{{$event->contacts['title']}}</a> </div>
+                        @endif
                         <div class="col-4">{{$event->created_at}}</div>
                         <div class="col-1"><div class="dropdown">
                             <button type="button" class="btn btn-light text-muted dropdown-toggle" data-toggle="dropdown"></button>
@@ -90,7 +95,9 @@
                 </div>
               </div>
               <div class="row">
-                  <div class="col-6 offset-1">You logged a task with <a href="{{ route('edit_contact', [$task->contact_id]) }}">{{$task->contacts['title']}}</a></div>
+                  @if(!empty($task->contacts))
+                    <div class="col-6 offset-1">You logged a task with <a href="{{ route('edit_contact', [$task->contact_id]) }}">{{$task->contacts['title']}}</a></div>
+                  @endif
                   <div class="col-4">{{$task->created_at}}</div>
                   <div class="col-1"><div class="dropdown">
                       <button type="button" class="btn btn-light text-muted dropdown-toggle" data-toggle="dropdown"></button>

@@ -17,7 +17,7 @@ class CompanyTypesSeeder extends Seeder
 
      public $company_types = [
         'Competitor',
-        'Customer',
+        'Client',
         'Integrator',
         'Investor',
         'Partner',

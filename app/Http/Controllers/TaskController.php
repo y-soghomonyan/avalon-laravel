@@ -11,9 +11,9 @@ class TaskController extends Controller
 {
     public function add_task(Request $req){
         $url = url()->previous();
-        if(empty($req->input('contact_id')) || $req->input('contact_id') == 0){
-            return redirect()->to($url)->with('danger',  'You need add New Contact');
-        }
+//        if(empty($req->input('contact_id')) || $req->input('contact_id') == 0){
+//            return redirect()->to($url)->with('danger',  'You need add New Contact');
+//        }
         $data = new Task();
         $data->contact_id = $req->input('contact_id');
         $data->company_id = $req->input('company_id');
@@ -28,7 +28,7 @@ class TaskController extends Controller
         $data->user_id = Auth::user()->id;
 
         if ($data->save()) {
-            return redirect()->to($url)->with('success',  'Add Task');
+            return redirect()->to($url)->with('success',  'New Task Created');
         }
     }
 
@@ -50,7 +50,7 @@ class TaskController extends Controller
         $task->user_id = Auth::user()->id;
 
         if ($task->save()) {
-            return redirect()->to($url)->with('success',  'Edit Task');
+            return redirect()->to($url)->with('success',  'Task is edited');
         }
     }
 
@@ -61,7 +61,7 @@ class TaskController extends Controller
             return  redirect()->to($url)->with('danger', "Not Found");
         }
         if($task->delete()){
-            return redirect()->to($url)->with('success',  ' Task Delete ');
+            return redirect()->to($url)->with('success',  ' Task is Deleted ');
         }
     }
 

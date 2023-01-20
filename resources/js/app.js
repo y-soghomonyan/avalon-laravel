@@ -15,12 +15,12 @@ $(document).ready(function() {
 
     })
 
-    if($( '.upov_max_height' ).height() < 290){
+    if($( '.upov_max_height > div' ).length < 4){
         $('.upov_max_height_button').hide();
     }
     $('.upov_max_height_button').click(()=>{
         $('.upov_max_height_button').hide();
-        $('.upov_max_height').removeClass('upov_max_height');
+        $('.upov_max_height .hidden-event').removeClass('hidden-event');
     })
 
 
