@@ -43,6 +43,10 @@
                             <label  class="mr-sm-2">Company Type:</label>
                             <div>{{$company->companyTypes->name ?? ''}} </div>
                         </div>
+                        <div class="border-bottom mt-2 pt-1 px-2">
+                            <label  class="mr-sm-2">Incorporation date:</label>
+                            <div>{{$company->incorporation_date ?? ''}} </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -225,7 +229,103 @@
                             <div  class="icon_small bg_c_notes" >
                                 <img src="{{url('image/note_120.png')}}" alt="">
                             </div>
-                            <div class="text-info px-2">Notes (0) </div>
+                            <div class="text-info px-2">Notes ({{$notes->count()}})</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 rounded mt-3">
+                    <div class=" account_info_btn collaps_show rounded px-3 py-2 bg-white  " data-toggle="collapse" data-target="#notes" style="cursor:pointer">
+                        <div class="col-12 ">
+                            <div class="row">
+                                <div class="df_jsfs_amc col-8">
+                                    <div  class="icon_small bg_c_notes" >
+                                        <img src="{{url('image/note_120.png')}}" alt="">
+                                    </div>
+                                    <div class="text-info px-2">Notes ({{$notes->count()}})</div>
+                                </div>
+                                <div class=" col-4 text-right">
+                                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#create_notes">New</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="notes" class="collapse bg-white rounded-bottom" style="margin-top: -5px;">
+                        <div class="  pt-1 px-2 pb-3">
+                            @foreach($notes as $key => $not)
+                            @php if($key > 2)continue; @endphp
+                            <div class="mt-3 px-2 border-bottom">
+                                <a data-toggle="modal" data-target="#create_notes"  class="text-primary notes_title_content" id="">{{$not->title??"Untitled Note"}}</a>
+                                <p>{{$not->created_at}} by <span class="text-primary">{{Auth::user()->first_name}}</span></p>
+                                <p >{!! $not->content !!}</p>
+                                <input type="hidden" value="{{ $not->content }}" class="notes_content">
+                                <input type="hidden" value="{{route('edit_notes', [$not->id])}}" class="notes_action">
+                                <input type="hidden" value="{{ route('delete_notes', [$not->id]) }}" class="notes_delete_hreff">
+                            </div> 
+                        @endforeach
+                        </div>
+                        <div class="row text-center py-3">
+                            <a href="{{ route('notes', [$url, $id]) }}" class=" text-primary">View All</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 rounded mt-3">
+                    <div class=" account_info_btn collaps_show rounded px-3 py-2 bg-white  " data-toggle="collapse" data-target="#files" style="cursor:pointer">
+                        <div class="col-12 ">
+                            <div class="row">
+                                <div class="df_jsfs_amc col-8">
+                                    <div  class="icon_small bg_c_file" >
+                                        <img src="{{url('image/file_120.png')}}" alt="">
+                                    </div>
+                                    <div class="text-info px-2">Files
+                                         ({{$files->count()}})
+                                    </div>
+                                </div>
+                                <div class=" col-4 text-right">
+                                    <button class="btn btn-outline-primary " data-toggle="modal" data-target="#create_files">New</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="files" class="collapse bg-white rounded-bottom" style="margin-top: -5px;">
+                        <div class="  pt-1 px-2 pb-3">
+                            @foreach($files as $key => $file)
+                                @php if($key > 2)continue; @endphp
+                                @php $file_data = $file->file @endphp
+                                <div class="mt-3 border-bottom">
+                                    <div class="row">
+                                        <div class="col-2 ">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                @if(strtok($file_data->type, '/') == 'image')
+                                                    <a  data-toggle="modal" data-target="#files_show" class="show_img_full">
+                                                        <img src="{{ asset("storage/public/Files/$file_data->path") }}" width="40" height="40" alt="">
+                                                        <input type="hidden" class="file_path_for_download" value="{{ asset("storage/public/Files/$file_data->path") }}">
+                                                    </a>
+                                                @else
+                                                    <a href="{{ asset("storage/public/Files/$file_data->path") }}" download>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="#7F8DE1" width="40" height="40" viewBox="0 0 22 22" id="memory-file"><path d="M13 1V2H14V3H15V4H16V5H17V6H18V7H19V20H18V21H4V20H3V2H4V1H13M13 4H12V8H16V7H15V6H14V5H13V4M5 3V19H17V10H11V9H10V3H5Z"/></svg>
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-10">
+                                        <div class="row">
+                                            <p class="text-primary">{{$file_data->name}}</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">{{$file_data->created_at}}</div>
+                                            <div class="col-4">{{$file_data->size}}/b</div>
+                                            <div class="col-4">{{$file_data->type ? substr($file_data->type, ($a = strrpos($file_data->type, '/') +1)) : ""}}</div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            @endforeach
+                        </div>
+                        <div class="row text-center py-3">
+                            <a href="{{ route('files', [$url,$id]) }}" class=" text-primary">View All</a>
                         </div>
                     </div>
                 </div>
@@ -242,7 +342,7 @@
                     <h3 class="modal-title text-center">Edit Company</h3>
                 </div>
                 <div class="modal-body">
-                    <form class="form-inline" action="{{route('update-company',[$company->id])}}" method="POST">
+                    <form class="form-inline" action="{{route('edit-company',[$company->id])}}" method="POST">
                         @csrf
                         <div class="">
                             <div class="row">
@@ -256,6 +356,8 @@
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="name" value="{{$company->name}}" id="" required>
                                     <label for="personal_name" class="mr-sm-2"> Filing No:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="{{$company->filing}}" id="" >
+                                    <label for="personal_name" class="mr-sm-2">Incorporation date</label>
+                                    <input type="date" class="form-control mb-2 mr-sm-2" placeholder="" name="incorporation_date" value="{{$company->incorporation_date}}" id="" >
                                 </div>
                                 <div class="col-6">
                                     <div>
@@ -418,58 +520,59 @@
             </div>
         </div>
     </div>
+    @include('modals.notes')
+    @include('modals.files')
+    @section('js')
+        <script>
+            var toolbarOptions = [
+                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                ['blockquote', 'code-block'],
+                [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                [{ 'direction': 'rtl' }],                         // text direction
+                [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                [{ 'font': [] }],
+                [{ 'align': [] }],
+                ['clean']                                         // remove formatting button
+            ];
+            var quill = new Quill('#editor', {
+                modules: {
+                toolbar: toolbarOptions
+                },
+                theme: 'snow'
+            });
 
-@section('js')
-    <script>
-        var toolbarOptions = [
-            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-            ['blockquote', 'code-block'],
-            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-            [{ 'direction': 'rtl' }],                         // text direction
-            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-            [{ 'font': [] }],
-            [{ 'align': [] }],
-            ['clean']                                         // remove formatting button
-        ];
-        var quill = new Quill('#editor', {
-            modules: {
-            toolbar: toolbarOptions
-            },
-            theme: 'snow'
-        });
+            $(document).ready(function() {
+                $('.select2').each(function(){
+                    $(this).select2({
+                        dropdownParent:  $(this).parent()
+                    });
+                })
+            });
 
-        $(document).ready(function() {
-            $('.select2').each(function(){
-                $(this).select2({
-                    dropdownParent:  $(this).parent()
-                });
+            let editor = $('#editor')
+            quill.on('text-change', function(delta, source) {
+                $("#hiddenArea").val($("#editor").html());
+                var delta = quill.getContents();
+            });
+
+            $('#countries').change(function () {
+                let state = $('#country_state')
+                state.val("");
+                $("#country_state option:selected").prop("selected", false)
+                state.addClass('d-none');
+                if($(this).find(':selected').val() == 4){
+                    state.removeClass('d-none');
+                }else{
+                    state.val(0);
+                }
             })
-        });
 
-        let editor = $('#editor')
-        quill.on('text-change', function(delta, source) {
-            $("#hiddenArea").val($("#editor").html());
-            var delta = quill.getContents();
-        });
-
-        $('#countries').change(function () {
-            let state = $('#country_state')
-            state.val("");
-            $("#country_state option:selected").prop("selected", false)
-            state.addClass('d-none');
-            if($(this).find(':selected').val() == 4){
-                state.removeClass('d-none');
-            }else{
-                state.val(0);
-            }
-        })
-
-    </script>
-@endsection
+        </script>
+    @endsection
 
 @endsection

@@ -13,7 +13,6 @@
        <div class="row">
         <div class="col-12">
           @foreach($notification as $key => $value)
-              {{--@php dd($value);  @endphp--}}
             @if($value['notification'] == 'call')
               <div class="row mt-2">
                 <div class="col-12">
@@ -25,7 +24,7 @@
                           </div>
                         </div>
                         <div class="col-6 text-info">
-                          {{$subject_calls[$log_call->subject] }}
+                            <a href="{{ route('log_call', [$log_call->id, $url]) }}">{{$subject_calls[$log_call->subject] }}</a>
                         </div>
                       </div>
                       <div class="row">
@@ -38,7 +37,7 @@
                               <button type="button" class="btn btn-light text-muted dropdown-toggle" data-toggle="dropdown"></button>
                               <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#"><button class="btn" data-toggle="modal" data-target="#edit_call_{{$log_call->id}}">Edit</button> </a>
-                                <a class="dropdown-item bg-danger text-white " href="{{route('delete_call',[$log_call->id])}}"><button class="btn text-white">Delete</button></a>
+                                <a class="dropdown-item bg-danger text-white " href="{{route('delete_call',[$log_call->id,$url])}}"><button class="btn text-white">Delete</button></a>
                               </div>
                             </div>
                           </div>
@@ -58,7 +57,7 @@
                         </div>
                       </div>
                       <div class="col-6">
-                        {{$subject_events[$event->subject] }}
+                        <a href="{{ route('event', [$event->id, $url]) }}">{{$subject_events[$event->subject] }}</a>
                       </div>
                     </div>
                     <div class="row">
@@ -70,7 +69,7 @@
                             <button type="button" class="btn btn-light text-muted dropdown-toggle" data-toggle="dropdown"></button>
                             <div class="dropdown-menu">
                               <a class="dropdown-item" href="#"><button class="btn" data-toggle="modal" data-target="#edit_event_{{$event->id}}">Edit</button> </a>
-                              <a class="dropdown-item bg-danger text-white" href="{{route('delete_event',[$event->id])}}"><button class="btn text-white"> Delete</button></a>
+                              <a class="dropdown-item bg-danger text-white" href="{{route('delete_event',[$event->id, $url])}}"><button class="btn text-white"> Delete</button></a>
                             
                             </div>
                           </div>
@@ -91,7 +90,7 @@
                   </div>
                 </div>
                 <div class="col-6 text-info">
-                  {{$subject_tasks[$task->subject] }}
+                  <a href="{{ route('task', [$task->id, $url]) }}">{{$subject_tasks[$task->subject] }}</a>
                 </div>
               </div>
               <div class="row">
@@ -103,7 +102,7 @@
                       <button type="button" class="btn btn-light text-muted dropdown-toggle" data-toggle="dropdown"></button>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" href="#"><button class="btn" data-toggle="modal" data-target="#edit_task_{{$task->id}}">Edit</button> </a>
-                        <a class="dropdown-item bg-danger text-white" href="{{route('delete_task',[$task->id])}}"><button class="btn text-white">Delete</button></a>
+                        <a class="dropdown-item bg-danger text-white" href="{{route('delete_task',[$task->id, $url])}}"><button class="btn text-white">Delete</button></a>
                       </div>
                     </div>
                   </div>

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AccountSendEmail;
+use App\Models\FileReations;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Company;
+use App\Models\Files;
+use App\Models\Notes;
 use App\Models\User;
 use Auth;
 
@@ -114,7 +117,12 @@ class ContactsController extends Controller
             'subject_events' => [1 => 'Call', 2 => 'Email', 3 => 'Meeting', 4 => 'Send Letter/Quote', 5 => 'Other'],
             'subject_tasks' => [1 => 'Call', 2 => 'Send Letter', 3 => 'Send Quote', 4 => 'Other'],
             'subject_calls' => [1 => 'Call', 2 => 'Send Letter', 3 => 'Send Quote', 4 => 'Other'],
-            
+            'url' => 'contact',
+            'id' => $id,
+            'page_title' => $contact->tytle,
+            'notes' => Notes::where('contact_id', '=', $id)->get(),
+            'files' => FileReations::where('contact_id', '=', $id)->where('status', '=', 1)->with('file')->get(),
+            'files_data' => FileReations::where('user_id', '=', Auth::user()->id)->with('file')->get(),
         ]);
     }
 

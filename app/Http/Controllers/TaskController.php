@@ -5,10 +5,33 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Task;
+use App\Models\Account;
+use App\Models\Contact;
+use App\Models\Company;
 use Auth;
 
 class TaskController extends Controller
 {
+
+    public function get_task($id, $url){
+
+        $task = Task::where('id', '=', $id)->with('contacts')->with('account')->with('company')->get()->first();
+        $url_ = url()->previous();
+        if(empty($task)){
+            return redirect()->to($url_)->with('error',  'Call is not found');
+        }
+
+        return view('notifications.task', [
+            'accounts' => Account::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
+            'companies' => Company::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
+            'contacts' => Contact::where('user_id', '=', Auth::user()->id)->get(['id', 'title']),
+            'users' => User::all(['id', 'first_name', 'last_name', 'email']),
+            'subject_tasks' => [1 => 'Call', 2 => 'Send Letter', 3 => 'Send Quote', 4 => 'Other'],
+            'task' => $task,
+            'url' => $url
+        ]);
+    }
+
     public function add_task(Request $req){
         $url = url()->previous();
 //        if(empty($req->input('contact_id')) || $req->input('contact_id') == 0){
@@ -34,19 +57,40 @@ class TaskController extends Controller
 
     public function edit_task(Request $req, $id){
 
+        $requests = [
+            'contact_id',
+            'company_id',
+            'subject',
+            'comments',
+            'related_to',
+            'assigned_to',
+            'priority',
+            'status',
+            'reminder_set',
+            'create_recurring_series_of_tasks',
+            'date',
+    ];
+
         $url = url()->previous();
         $task = Task::whereId($id)->first();
-        $task->contact_id = $req->input('contact_id');
-        $task->company_id = $req->input('company_id');
-        $task->subject = $req->input('subject');
-        $task->comments = $req->input('comments');
-        $task->related_to = $req->input('related_to');
-        $task->assigned_to = $req->input('assigned_to');
-        $task->priority =  $req->input('priority');
-        $task->status =  $req->input('status');
-        $task->reminder_set = $req->input('reminder_set');
-        $task->create_recurring_series_of_tasks =  $req->input('create_recurring_series_of_tasks');
-        $task->date =  $req->input('date');
+
+
+        foreach ($requests as $request){
+            if($req->input($request)){
+                $task->{$request} = $req->input($request);
+            }
+        }
+        // $task->contact_id = $req->input('contact_id');
+        // $task->company_id = $req->input('company_id');
+        // $task->subject = $req->input('subject');
+        // $task->comments = $req->input('comments');
+        // $task->related_to = $req->input('related_to');
+        // $task->assigned_to = $req->input('assigned_to');
+        // $task->priority =  $req->input('priority');
+        // $task->status =  $req->input('status');
+        // $task->reminder_set = $req->input('reminder_set');
+        // $task->create_recurring_series_of_tasks =  $req->input('create_recurring_series_of_tasks');
+        // $task->date =  $req->input('date');
         $task->user_id = Auth::user()->id;
 
         if ($task->save()) {
@@ -54,13 +98,32 @@ class TaskController extends Controller
         }
     }
 
-    public function delete_task ($id){
-        $url = url()->previous();
+    public function delete_task ($id, $url = null){
+
         $task = Task::find($id);
+        $url_id  = '';
+        if(!isset($url)){
+            $url = url()->previous();
+        }else{
+            $key = $url.'_id';
+            if($url == 'account'){
+                $key = 'related_to';
+            }
+            $url_id = $task->{$key};
+            $url = 'edit_'.$url;
+        }
+
+        
         if(empty($task)){
+            if (!empty($url_id)){
+                return redirect()->route($url, [$url_id])->with('danger', "Not Found");
+            }
             return  redirect()->to($url)->with('danger', "Not Found");
         }
         if($task->delete()){
+            if (!empty($url_id)){
+                return redirect()->route($url, [$url_id])->with('success',  ' Task is Deleted ');
+            }
             return redirect()->to($url)->with('success',  ' Task is Deleted ');
         }
     }

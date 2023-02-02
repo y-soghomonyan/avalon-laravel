@@ -23,6 +23,9 @@
                                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="name" value="" id="" required>
                                 <label for="personal_name" class="mr-sm-2"> Filing No:</label>
                                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="" id="" >
+                                <label for="personal_name" class="mr-sm-2">Incorporation date</label>
+                                <input type="date" class="form-control mb-2 mr-sm-2" placeholder="" name="incorporation_date" value="" id="" >
+                                
                             </div>
                             <div class="col-6">
                                 <div>

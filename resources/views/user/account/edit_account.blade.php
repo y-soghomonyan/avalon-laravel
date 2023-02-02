@@ -1,8 +1,6 @@
 @extends('user.layout.app')
 @section('title')Edit Account @endsection
 @section('contents')
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
     <div class="container-fluid mt-5">
         <div class="row-with-float">
             <div class="col-3 px-2 sticky-top">
@@ -182,6 +180,7 @@
             </div>
         </div>
     </div>
+    
     <div class="modal edit_account" id="edit_account">
         <div class="modal-dialog  mt-5 modal-xl">
             <div class="modal-content">
@@ -364,7 +363,8 @@
     </div>
     @include('modals.contact')
     @include('modals.company')
-
+    @include('modals.notes')
+    @include('modals.files')
     @section('js')
       <!-- Include the Quill library -->
       <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -390,7 +390,6 @@
           ['clean']                                         // remove formatting button
         ];
 
-        var quill = new Quill('#editor', {
           modules: {
             toolbar: toolbarOptions
           },

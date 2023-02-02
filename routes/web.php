@@ -8,6 +8,9 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\NotesController;
+use App\Http\Controllers\FilesController;
 
 
 Route::get('/', function () {
@@ -46,28 +49,47 @@ Route::controller(ContactsController::class)->group(function () {
 Route::controller(CompaniesController::class)->group(function () {
     Route::get('/companies','index')->name('companies')->middleware('auth');
     Route::post('/create_company', 'store')->name('create_company')->middleware('auth');
-    Route::post('/update-company/{id}', 'update')->name('update-company')->middleware('auth');
-    Route::get('/company/{id}', 'edit')->name('edit-company')->middleware('auth');
+    Route::post('/update-company/{id}', 'update')->name('edit-company')->middleware('auth');
+    Route::get('/company/{id}', 'edit')->name('edit_company')->middleware('auth');
     Route::get('/destroy_company/{id}', 'destroy')->name('destroy_company')->middleware('auth');
     Route::get('/companies/{id}/account', 'companies_by_account')->name('companies_by_account')->middleware('auth');
 });
 
 Route::controller(LogCallController::class)->group(function () {
+    Route::get('/log-call/{id}/{url}', 'get_call')->name('log_call')->middleware('auth');
     Route::post('/add_log_call','add_log_call')->name('add_log_call')->middleware('auth');
     Route::post('/edit_call/{id}', 'edit_call')->name('edit_call')->middleware('auth');
-    Route::get('/delete_call/{id}', 'delete_call')->name('delete_call')->middleware('auth');
+    Route::get('/delete_call/{id}/{url}', 'delete_call')->name('delete_call')->middleware('auth');
 });
 
 Route::controller(TaskController::class)->group(function () {
+    Route::get('/task/{id}/{url}', 'get_task')->name('task')->middleware('auth');
     Route::post('/add_task','add_task')->name('add_task')->middleware('auth');
     Route::post('/edit_task/{id}', 'edit_task')->name('edit_task')->middleware('auth');
-    Route::get('/delete_task/{id}', 'delete_task')->name('delete_task')->middleware('auth');
+    Route::get('/delete_task/{id}/{url}', 'delete_task')->name('delete_task')->middleware('auth');
 });
 
 Route::controller(EventController::class)->group(function () {
+    Route::get('/event/{id}/{url}', 'get_event')->name('event')->middleware('auth');
     Route::post('/add_event','add_event')->name('add_event')->middleware('auth');
     Route::post('/edit_event/{id}', 'edit_event')->name('edit_event')->middleware('auth');
-    Route::get('/delete_event/{id}', 'delete_event')->name('delete_event')->middleware('auth');
+    Route::get('/delete_event/{id}/{url}', 'delete_event')->name('delete_event')->middleware('auth');
+});
+
+Route::controller(NotesController::class)->group(function () {
+    Route::post('/add_notes','add_notes')->name('add_notes')->middleware('auth');
+    Route::post('/edit_notes/{id}', 'edit_notes')->name('edit_notes')->middleware('auth');
+    Route::get('/delete_notes/{id}', 'delete_notes')->name('delete_notes')->middleware('auth');
+    Route::get('/{url}/{id}/notes', 'get_notes')->name('notes')->middleware('auth');
+});
+
+Route::controller(FilesController::class)->group(function () {
+    Route::post('/add_files','add_files')->name('add_files')->middleware('auth');
+    // Route::post('/edit_files/{id}', 'edit_files')->name('edit_files')->middleware('auth');
+    Route::post('/edit_files', 'edit_files')->name('edit_files')->middleware('auth');
+    Route::get('/delete_files/{id}', 'delete_files')->name('delete_files')->middleware('auth');
+    Route::get('/{url}/{id}/files', 'get_files')->name('files')->middleware('auth');
+    Route::post('/search_file', 'search_file')->name('search_file')->middleware('auth');
 });
 
 Route::controller(SendEmailController::class)->group(function () {

@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AccountSendEmail;
 use App\Models\TypeOfCompaneis;
+use App\Models\FileReations;
 use App\Models\CompanyType;
 use App\Models\Account;
 use App\Models\Company;
 use App\Models\Contact;
 use App\Models\Country;
+use App\Models\Files;
+use App\Models\Notes;
 use App\Models\User;
 use Auth;
 
@@ -68,23 +71,24 @@ class CompaniesController extends Controller
         $company = new Company();
 
         $company->user_id = Auth::user()->id;
+        $company->type = $request->input('type');
         $company->name = $request->input('name');
+        $company->status = $request->input('status');
         $company->filing = $request->input('filing');
         $company->state_id = $request->input('state_id');
+        $company->division = $request->input('division');
         $company->company_id = $request->input('company_id');
         $company->country_id = $request->input('country_id');
-        $company->filing_status = $request->input('filing_status');
+        $company->sub_status = $request->input('sub_status');
         $company->account_id = $request->input('account_id');
         $company->contact_id = $request->input('contact_id');
-        $company->type = $request->input('type');
-        $company->division = $request->input('division');
-        $company->status = $request->input('status');
-        $company->sub_status = $request->input('sub_status');
+        $company->filing_status = $request->input('filing_status');
         $company->previous_name1 = $request->input('previous_name1');
         $company->previous_name2 = $request->input('previous_name2');
         $company->previous_name3 = $request->input('previous_name3');
         $company->previous_name4 = $request->input('previous_name4');
         $company->previous_name5 = $request->input('previous_name5');
+        $company->incorporation_date = $request->input('incorporation_date');
 
         if($company->save()){
             return redirect()->route('companies')->with('success', $request->input('name').' - Added');
@@ -132,6 +136,12 @@ class CompaniesController extends Controller
             'subject_events' => [1 => 'Call', 2 => 'Email', 3 => 'Meeting', 4 => 'Send Letter/Quote', 5 => 'Other'],
             'subject_tasks' => [1 => 'Call', 2 => 'Send Letter', 3 => 'Send Quote', 4 => 'Other'],
             'subject_calls' => [1 => 'Call', 2 => 'Send Letter', 3 => 'Send Quote', 4 => 'Other'],
+            'url' => 'company',
+            'id' => $id,
+            'page_title' => $company->name,
+            'notes' => Notes::where('company_id', '=', $id)->get(),
+            'files' => FileReations::where('company_id', '=', $id)->where('status', '=', 1)->with('file')->get(),
+            'files_data' => FileReations::where('user_id', '=', Auth::user()->id)->with('file')->get(),
         ]);
 
     }
@@ -170,9 +180,10 @@ class CompaniesController extends Controller
             $company->previous_name3 = $request->input('previous_name3');
             $company->previous_name4 = $request->input('previous_name4');
             $company->previous_name5 = $request->input('previous_name5');
+            $company->incorporation_date = $request->input('incorporation_date');
 
             if($company->save()){
-                return redirect()->route('edit-company', [$id])->with('success', $request->input('name') . ' - Edited');
+                return redirect()->route('edit_company', [$id])->with('success', $request->input('name') . ' - Edited');
             }
         }
         return redirect()->route('companies')->with('error', $request->input('name').' - is not your');

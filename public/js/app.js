@@ -2111,11 +2111,6 @@ $(document).ready(function () {
       $("#profile_btn").html("Save Profile");
       return;
     }
-
-    //     console.log(formData.get('password'));
-    //    for (const value of formData.values()) {
-    //     console.log(value);
-    //   }
     $("#res").html('');
     $.ajaxSetup({
       headers: {

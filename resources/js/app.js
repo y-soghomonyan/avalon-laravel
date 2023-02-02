@@ -54,11 +54,6 @@ $(document).ready(function(){
             return ;
         }
      
-        
-    //     console.log(formData.get('password'));
-    //    for (const value of formData.values()) {
-    //     console.log(value);
-    //   }
     $("#res").html('');
 
  

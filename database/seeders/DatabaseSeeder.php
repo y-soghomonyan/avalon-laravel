@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
             CompanyTypesSeeder::class,
             IndustriesTypesSeeder::class,
             CountriesSeeder::class,
-            StatesSeeder::class
-
+            StatesSeeder::class,
+            TypeOfCompaniesSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 //        (new CategoriesTableSeeder())->run();

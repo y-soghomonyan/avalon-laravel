@@ -162,3 +162,131 @@
         </div>
     </div> 
 </div>
+
+<div class="modal " id="edit_task_comment{{$task->id}}">
+    <div class="modal-dialog mt-5 modal-md">
+        <div class="modal-content">
+            <div class="">
+                <div class="text-end pt-3 px-3">
+                    <button type="button"  class="btn-close text- close" data-dismiss="modal"></button>
+                </div>
+                <h3 class="modal-title text-center">Edit Comment</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline" action="{{route('edit_task', [$task->id])}}" method="POST">
+                    @csrf
+                    <div class="">
+                        <div class="row mt2">
+                            <div class="col-12">
+                                <label for="" class="mr-sm-2">Comment</label>
+                                <textarea name="comments" id="" cols="20" rows="5" class="form-control">{{$task->comments}}</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal " id="edit_task_date{{$task->id}}">
+    <div class="modal-dialog mt-5 modal-sm">
+        <div class="modal-content">
+            <div class="">
+                <div class="text-end pt-3 px-3">
+                    <button type="button"  class="btn-close text- close" data-dismiss="modal"></button>
+                </div>
+                <h3 class="modal-title text-center">Edit Date</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline" action="{{route('edit_task', [$task->id])}}" method="POST">
+                    @csrf
+                    <div class="">
+                        <div class="row mt2">
+                            <div class="col-6">
+                                <label for="" class="mr-sm-2">Due Date</label>
+                                <input type="date" class="form-control mb-2 mr-sm-2" placeholder="" name="date" value="{{ substr($task->date, 0, strpos($task->date, ' ')) }}" id="" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal " id="edit_task_status{{$task->id}}">
+    <div class="modal-dialog mt-5 modal-sm">
+        <div class="modal-content">
+            <div class="">
+                <div class="text-end pt-3 px-3">
+                    <button type="button"  class="btn-close text- close" data-dismiss="modal"></button>
+                </div>
+                <h3 class="modal-title text-center">Edit Status</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline" action="{{route('edit_task', [$task->id])}}" method="POST">
+                    @csrf
+                    <div class="">
+                        <div>
+                            <label for="" class="mr-sm-2">Status</label>
+                            <div>
+                                <select class="select2 select_emails form-control" name="status" >
+                                    <option value="1" {{ $task->status == 1 ? "selected" : "" }} >Open</option>
+                                    <option value="2" {{$task->status == 2 ? "selected" : "" }} >Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal " id="edit_task_priority{{$task->id}}">
+    <div class="modal-dialog mt-5 modal-sm">
+        <div class="modal-content">
+            <div class="">
+                <div class="text-end pt-3 px-3">
+                    <button type="button"  class="btn-close text- close" data-dismiss="modal"></button>
+                </div>
+                <h3 class="modal-title text-center">Edit Priority</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline" action="{{route('edit_task', [$task->id])}}" method="POST">
+                    @csrf
+                    <div class="">
+                        <div class="row mt2">
+                            <div>
+                                <label for="" class="mr-sm-2">Priority</label>
+                                <div>
+                                    <select class="select2 select_emails form-control" name="priority" >
+                                        <option value="1" {{ $task->priority == 1 ? "selected" : "" }} >Normal</option>
+                                        <option value="2" {{$task->priority == 2 ? "selected" : "" }} >High</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

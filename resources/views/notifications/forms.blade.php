@@ -4,10 +4,10 @@
         <div class="col-12 mt-3 px-2">
             <ul class="nav nav-tabs ">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#menu1_1">Email</a>
+                    <a class="nav-link  d-none" data-toggle="tab" href="#menu1_1">Email</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#menu2_1">Log a call</a>
+                <li class="nav-item active">
+                    <a class="nav-link active" data-toggle="tab" href="#menu2_1">Log a call</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#menu3_1">New Task</a>
@@ -17,7 +17,7 @@
                 </li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane container active" id="menu1_1">
+                <div class="tab-pane container  d-none" id="menu1_1">
                     <div class="row mt-3" id="active_show_button">
                         <div class="col-12" >
                             <div class="row mt-3">
@@ -137,7 +137,8 @@
                                                   </div>
                                                 </div>
                                                 <div class="col-6">
-                                                  {{$subject_events[$event->subject] }}
+                                                    <a href="{{ route('event', [$event->id, $url]) }}">{{$subject_events[$event->subject] }}</a>
+                                                  {{-- {{$subject_events[$event->subject] }} --}}
                                                 </div>
                                               </div>
                                               <div class="row">
@@ -150,7 +151,7 @@
                                                       <button type="button" class="btn btn-light text-muted dropdown-toggle" data-toggle="dropdown"></button>
                                                       <div class="dropdown-menu" x-placement="top-left">
                                                         <a class="dropdown-item" href="#"><button class="btn" data-toggle="modal" data-target="#edit_event_{{$event->id}}">Edit</button> </a>
-                                                        <a class="dropdown-item bg-danger text-white" href="{{route('delete_event',[$event->id])}}"><button class="btn text-white"> Delete</button></a>
+                                                        <a class="dropdown-item bg-danger text-white" href="{{route('delete_event',[$event->id, $url])}}"><button class="btn text-white"> Delete</button></a>
                                                       
                                                       </div>
                                                     </div>
@@ -171,7 +172,8 @@
                                             </div>
                                           </div>
                                           <div class="col-6 text-info">
-                                            {{$subject_tasks[$task->subject] }}
+                                            <a href="{{ route('task', [$task->id, $url]) }}">{{$subject_tasks[$task->subject] }}</a>
+                                            {{-- {{$subject_tasks[$task->subject] }} --}}
                                           </div>
                                         </div>
                                         <div class="row">
@@ -184,7 +186,7 @@
                                                 <button type="button" class="btn btn-light text-muted dropdown-toggle" data-toggle="dropdown"></button>
                                                 <div class="dropdown-menu">
                                                   <a class="dropdown-item" href="#"><button class="btn" data-toggle="modal" data-target="#edit_task_{{$task->id}}">Edit</button> </a>
-                                                  <a class="dropdown-item bg-danger text-white" href="{{route('delete_task',[$task->id])}}"><button class="btn text-white">Delete</button></a>
+                                                  <a class="dropdown-item bg-danger text-white" href="{{route('delete_task',[$task->id, $url])}}"><button class="btn text-white">Delete</button></a>
                                                 </div>
                                               </div>
                                             </div>
@@ -215,7 +217,7 @@
                         <div class="text-center">No past activity. Past meetings and tasks marked as done show up here</div>
                     </div> --}}
                 </div>
-                <div class="tab-pane container fade mt-3 " id="menu2_1">
+                <div class="tab-pane container  mt-3 show active" id="menu2_1">
                     {{-- @php
                         $url = Route::currentRouteName();
                         $id =  $account->id;

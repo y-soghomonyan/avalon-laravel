@@ -154,7 +154,7 @@
                                 <div>
                                     <label for="reminder_set_event" class="mr-sm-2">Reminder Set</label>
                                     <input type="checkbox" class="form-check-input"  name="reminder_set"
-                                     {{ $event->reminder_set?"checked" :""}} id="reminder_set_event" >
+                                     {{ $event->reminder_set?"checked" :""}} id="reminder_set_event"  >
                                 </div>
                             </div>
                         </div>
