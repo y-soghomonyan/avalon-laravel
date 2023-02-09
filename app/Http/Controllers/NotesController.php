@@ -15,7 +15,6 @@ class NotesController extends Controller
         $column = $url.'_id';
         $notes = Notes::where($column, '=', $id)->with('contacts')->with('account')->with('company')->get();
 
-       
         $page_title = '';
         $titles = [
           'account_id' => $notes->first()->account->name ?? "",
@@ -29,20 +28,10 @@ class NotesController extends Controller
        }
 
         return view('user.notes.notes', [
-         
             'id' => $id,
             'notes' => $notes,
             'page_title' => $page_title,
             'url' => $url
-
-            
-            //'log_calls' => LogCall::where('user_id', '=', Auth::user()->id)->get(),
-            // 'tasks' => Task::where('user_id', '=', Auth::user()->id)->get(),
-            // 'events' => Event::where('user_id', '=', Auth::user()->id)->get(),
-            // 'log_calls_array'=> $this->return_log_calls(),
-            // 'tasks_array' => $this->return_tasks(),
-            // 'events_array' => $this->return_events(),
-            //'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name']),
         ]);
 
     }

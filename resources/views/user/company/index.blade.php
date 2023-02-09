@@ -60,37 +60,37 @@
         </div>
       </div>
 
-@section('js')
-    <script>
+    @section('js')
+        <script>
 
-        $(document).ready(function() {
+            $(document).ready(function() {
 
-            $('.data_delete_href_from').on('click',function(){
-                let href = $(this).data('href');
-                $('.data_delete_href_to').attr('href',href);
+                $('.data_delete_href_from').on('click',function(){
+                    let href = $(this).data('href');
+                    $('.data_delete_href_to').attr('href',href);
+                })
+
+                $('.select2').each(function(){
+                    $(this).select2({
+                        dropdownParent:  $(this).parent()
+                    });
+                })
+            });
+
+            $('#countries').change(function () {
+                let state = $('#country_state')
+                state.val("");
+                $("#country_state option:selected").prop("selected", false)
+
+                state.addClass('d-none');
+                if($(this).find(':selected').val() == 4){
+                    state.removeClass('d-none');
+                }else{
+                    state.val(0);
+                }
             })
 
-            $('.select2').each(function(){
-                $(this).select2({
-                    dropdownParent:  $(this).parent()
-                });
-            })
-        });
-
-        $('#countries').change(function () {
-            let state = $('#country_state')
-            state.val("");
-            $("#country_state option:selected").prop("selected", false)
-
-            state.addClass('d-none');
-            if($(this).find(':selected').val() == 4){
-                state.removeClass('d-none');
-            }else{
-                state.val(0);
-            }
-        })
-
-    </script>
-@endsection
+        </script>
+    @endsection
 
 @endsection

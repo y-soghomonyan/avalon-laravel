@@ -44,10 +44,7 @@
                                 <input  type="text" class="form-control mb-2 mr-sm-2 personal_account_name" placeholder="First name"  value="" id="first_name">
                                 <label for="personal_name" class="mr-sm-2">Last name:</label>
                                 <input  type="text" class="form-control mb-2 mr-sm-2 personal_account_name" placeholder="Last name"  value="" id="last_name">
-                                
-
                             </div>
-                          
                         </div>
                         <div class="row">
                             <div class="col-6">
@@ -112,7 +109,7 @@
                                 <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="Employees" value="" name="employees" >
                             </div>
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-12 mb-2 mt-2">
                                 <div class="bg-light p-3 h6">Address Information</div>
                             </div>
@@ -126,8 +123,8 @@
                                 <label  class="mr-sm-2">Additional Address Street:</label>
                                 <textarea  class="form-control" id="" rows="3" name="address_2_street"></textarea>
                             </div>
-                        </div>
-                        <div class="row">
+                        </div> --}}
+                        {{-- <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Address Country:</label>
                                 <input  type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_1_country" >
@@ -165,7 +162,7 @@
                             <div class="col-6">
                                 <label  class="mr-sm-2">Additional Address zip code:</label>
                                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="" name="address_2_zip_code" >
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
                             <button type="submit" class="btn btn-primary">Submit</button>

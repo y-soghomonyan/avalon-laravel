@@ -11,6 +11,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\NotesController;
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\AddressesController;
+use App\Http\Controllers\CorporateAppointments;
+use App\Http\Controllers\AddressProviderController;
 
 
 Route::get('/', function () {
@@ -26,6 +29,31 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/profile', 'profile')->name('profile')->middleware('auth');
     Route::post('/update-profile', 'update_profile')->name('update_profile')->middleware('auth');
 
+});
+
+Route::controller(AddressProviderController::class)->group(function () {
+    Route::get('/address-providers','index')->name('address_providers')->middleware('auth');
+    Route::post('/add_address_providers', 'add_address_providers')->name('add_address_providers')->middleware('auth');
+    Route::post('/update_address_provider', 'update')->name('update_address_provider')->middleware('auth');
+    Route::get('/delete_address_provider/{id}', 'delete_address_provider')->name('delete_address_provider')->middleware('auth');
+});
+
+Route::controller(CorporateAppointments::class)->group(function () {
+    Route::get('/corporate-appointments','index')->name('corporate_appointments')->middleware('auth');
+    Route::post('/add_corporate_appointments', 'add_corporate_appointments')->name('add_corporate_appointments')->middleware('auth');
+    Route::post('/update_corporate_appointments', 'update')->name('update_corporate_appointments')->middleware('auth');
+    Route::get('/delete_corporate_appointments/{id}', 'delete_corporate_appointments')->name('delete_corporate_appointments')->middleware('auth');
+});
+
+Route::controller(AddressesController::class)->group(function () {
+    Route::get('/addresses','index')->name('addresses')->middleware('auth');
+    Route::post('/add_address', 'add_address')->name('add_address')->middleware('auth');
+    Route::post('/update_address/{id}', 'update')->name('update_address')->middleware('auth');
+    Route::get('/address/{id}', 'edit')->name('edit_address')->middleware('auth');
+    Route::get('/delete_address/{id}', 'delete_address')->name('delete_address')->middleware('auth');
+    Route::post('/get_states', 'get_states')->name('get_states')->middleware('auth');
+    Route::post('/add_relation_address', 'add_relation_address')->name('add_relation_address')->middleware('auth');
+    Route::post('/new_relation_address', 'new_relation_address')->name('new_relation_address')->middleware('auth');
 });
 
 Route::controller(AccountsController::class)->group(function () {
@@ -53,6 +81,9 @@ Route::controller(CompaniesController::class)->group(function () {
     Route::get('/company/{id}', 'edit')->name('edit_company')->middleware('auth');
     Route::get('/destroy_company/{id}', 'destroy')->name('destroy_company')->middleware('auth');
     Route::get('/companies/{id}/account', 'companies_by_account')->name('companies_by_account')->middleware('auth');
+    Route::post('/uploade_file_company', 'uploade_file_company')->name('uploade_file_company')->middleware('auth');
+    Route::post('/update_file_company', 'update_file_company')->name('update_file_company')->middleware('auth');
+    
 });
 
 Route::controller(LogCallController::class)->group(function () {
@@ -85,7 +116,6 @@ Route::controller(NotesController::class)->group(function () {
 
 Route::controller(FilesController::class)->group(function () {
     Route::post('/add_files','add_files')->name('add_files')->middleware('auth');
-    // Route::post('/edit_files/{id}', 'edit_files')->name('edit_files')->middleware('auth');
     Route::post('/edit_files', 'edit_files')->name('edit_files')->middleware('auth');
     Route::get('/delete_files/{id}', 'delete_files')->name('delete_files')->middleware('auth');
     Route::get('/{url}/{id}/files', 'get_files')->name('files')->middleware('auth');

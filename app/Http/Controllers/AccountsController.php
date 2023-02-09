@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use App\Models\CorporateAppointment;
 use App\Mail\AccountEmailSender;
 use App\Models\AccountSendEmail;
+use App\Models\AppointmentsRole;
+use App\Models\AddressRelation;
+use App\Models\AddressProvider;
 use App\Models\IndustriesType;
 use App\Models\FileReations;
 use App\Models\CompanyType;
+use App\Models\Address;
 use App\Models\Account;
 use App\Models\Company;
 use App\Models\Contact;
@@ -20,8 +25,7 @@ use Auth;
 
 class AccountsController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         $id = Auth::user()->id;
 
         return view('user.account.accounts', [
@@ -29,7 +33,6 @@ class AccountsController extends Controller
             'industries_types' => IndustriesType::all(),
             'accounts' => Account::where('user_id', $id)->get(),
             'all_accounts' =>Account::all( 'id', 'name' ),
-         //   'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name']),
             'users'=>User::all(['id', 'first_name', 'last_name']),
             ]);
     }
@@ -106,7 +109,6 @@ class AccountsController extends Controller
 
         $notifications = new NotificationController;
     
-        
         return view('user.account.edit_account', [
             'company_types' => CompanyType::all(),
             'industries_types' => IndustriesType::all(),
@@ -130,16 +132,16 @@ class AccountsController extends Controller
             'notes' => Notes::where('account_id', '=', $id)->get(),
             'files' => FileReations::where('account_id', '=', $id)->where('status', '=', 1)->with('file')->get(),
             'files_data' => FileReations::where('user_id', '=', Auth::user()->id)->with('file')->get(),
-            
+            'addresses' => Address::where('user_id', '=', Auth::user()->id)
+            ->with('country')
+            ->with('state')
+            ->with('addressRelation')
+            ->whereHas('addressRelation', function($q) use($id){$q->where('account_id', $id);})->get(),
+            'all_addresses' => Address::where('user_id', '=', Auth::user()->id)->with('country')->with('state')->with('addressRelation')->get(),
 
-            
-            //'log_calls' => LogCall::where('user_id', '=', Auth::user()->id)->get(),
-            // 'tasks' => Task::where('user_id', '=', Auth::user()->id)->get(),
-            // 'events' => Event::where('user_id', '=', Auth::user()->id)->get(),
-            // 'log_calls_array'=> $this->return_log_calls(),
-            // 'tasks_array' => $this->return_tasks(),
-            // 'events_array' => $this->return_events(),
-            //'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'name']),
+            'corporate_appointments' => CorporateAppointment::where('user_id', '=', Auth::user()->id)->where('account_id', '=', $id)->with('roles')->get(),
+            'appointments_roles' => AppointmentsRole::all(),
+            'address_providers' => AddressProvider::where('user_id', '=', Auth::user()->id)->get(),
         ]);
     }
 
@@ -157,7 +159,7 @@ class AccountsController extends Controller
 
 
 
-    public function get_parent_account_ajax (Request $req) {
+    public function get_parent_account_ajax (Request $req){
         if($req->ajax()){
             $account = Account::query()->where('name', 'like', '%'. $req->parent_account .'%')->get();
             return  $account;

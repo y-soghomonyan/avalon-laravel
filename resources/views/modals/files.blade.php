@@ -136,7 +136,6 @@
               let size = response[res].file.size;
               let name = response[res].file.name;
               let time = response[res].file.created_at;
-              console.log(response[res].name);
               $('.file_form_data').append('<div class="row"><div class="col-4 "><div class="row"><div class="col-3"> <input type="checkbox" class="" value="'+id+'" name="file[]"></div><div class="col-9">'+file+'</div></div></div><div class="col-8"><div class="row"><p class="text-primary">'+name+'</p></div><div class="row"><div class="col-4">'+time+'</div><div class="col-4">'+size+'/b</div><div class="col-4">'+type+'</div></div></div></div>')
             }
           },

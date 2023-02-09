@@ -15,14 +15,10 @@ use Auth;
 
 class EventController extends Controller
 {
-    //
-
+    
     public function add_event(Request $req){
 
         $url = url()->previous();
-//        if(empty($req->input('contact_id')) || $req->input('contact_id') == 0){
-//            return redirect()->to($url)->with('danger',  'You need add New Contact');
-//        }
         $data = new Event();
         $data->user_id = Auth::user()->id;
         $data->contact_id = $req->input('contact_id');
@@ -42,9 +38,7 @@ class EventController extends Controller
         $data->full_day_event = 0; 
 
         if ($data->save()) {
-           
             return redirect()->to($url)->with('success',  'New Event Created');
-           // return redirect()->route($req->input('url'), [$req->input('id')])->with('success',  ' Add ');
         }
         
     }
@@ -77,12 +71,8 @@ class EventController extends Controller
 
     public function edit_event(Request $req, $id){
 
-        //dd($req);
-
         $url = url()->previous();
         $event = Event::whereId($id)->first();
-
-
         $requests = [
             'contact_id',
             'company_id',
@@ -98,31 +88,13 @@ class EventController extends Controller
             'assigned_to',
             'type',
             'reminder_set',
-    ];
+        ];
 
         foreach ($requests as $request){
             if($req->input($request)){
                 $event->{$request} = $req->input($request);
             }
         }
-
-        // $event->user_id = Auth::user()->id;
-        // $event->contact_id = $req->input('contact_id');
-        // $event->company_id = $req->input('company_id');
-        // $event->subject = $req->input('subject');
-        // $event->description = $req->input('description');
-        // $event->related_to = $req->input('related_to');
-        // $event->location = $req->input('location');
-        // $event->start_date = $req->input('start_date');
-        // $event->start_time = $req->input('start_time');
-        // $event->end_date = $req->input('end_date');
-        // $event->end_time = $req->input('end_time');
-        // $event->assigned_to =  $req->input('assigned_to');
-        // $event->type =  $req->input('type');
-        // $event->reminder_set = $req->input('reminder_set');
-        // $event->full_day_event = $req->input('full_day_event');
-
-
 
         if($req->input('end_date') || $req->input('end_time')){
             $event->date = $req->input('end_date').' '.$req->input('end_time'); 
@@ -149,7 +121,6 @@ class EventController extends Controller
             $url_id = $event->{$key};
             $url = 'edit_'.$url;
         }
-
         
         if(empty($event)){
             if (!empty($url_id)){

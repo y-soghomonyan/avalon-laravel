@@ -2060,6 +2060,10 @@ module.exports = {
   \*****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 $(document).ready(function () {
   var collaps_show = $('.collaps_show');
@@ -2137,6 +2141,107 @@ $(document).ready(function () {
           $("#res").html(success);
           $("#profile_btn").attr("disabled", false);
           $("#profile_btn").html("Save Profile");
+        }
+      }
+    });
+  });
+  var copyToClipboard = function copyToClipboard(str) {
+    var el = document.createElement('textarea');
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  };
+  $('.copy_button').on('click', function () {
+    $('.myTooltip').html('Copy to clipboard');
+    var copyText = $(this).parent().find(".file_link");
+    $(this).find('#myTooltip').html('Copied');
+    copyToClipboard(copyText.val());
+  });
+  $(".address_type_select").select2().on("select2:select", function (e) {
+    var _$$ajax;
+    var selected_element = $(e.currentTarget);
+    var select_val = selected_element.val();
+    var type = $(this).parent().parent().parent().parent().find('.chack_relation_address');
+    type.attr("data-address-type", select_val);
+    var page_id = type.data('page-id');
+    var page_url = type.data('page-url');
+    var address_id = type.val();
+    var address_type = type.data('address-type');
+    var _token = $('meta[name="csrf-token"]').attr('content');
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax((_$$ajax = {
+      url: '/add_relation_address',
+      type: "post",
+      datatType: 'json',
+      data: {
+        "page_id": page_id,
+        "page_url": page_url,
+        "address_id": address_id,
+        "address_type": address_type,
+        "_token": _token
+      }
+    }, _defineProperty(_$$ajax, "datatType", 'json'), _defineProperty(_$$ajax, "success", function success(response) {}), _$$ajax));
+  });
+  $('.chack_relation_address').on('change', function () {
+    var _$$ajax2;
+    var page_id = $(this).data('page-id');
+    var page_url = $(this).data('page-url');
+    var address_id = $(this).val();
+    var address_type = $(this).data('address-type');
+    var _token = $('meta[name="csrf-token"]').attr('content');
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax((_$$ajax2 = {
+      url: '/add_relation_address',
+      type: "post",
+      datatType: 'json',
+      data: {
+        "page_id": page_id,
+        "page_url": page_url,
+        "address_id": address_id,
+        "address_type": address_type,
+        "_token": _token
+      }
+    }, _defineProperty(_$$ajax2, "datatType", 'json'), _defineProperty(_$$ajax2, "success", function success(response) {}), _$$ajax2));
+  });
+  $('.create_file').on('change', function () {
+    var _this = this;
+    var company_id = '<?= $company->id?>';
+    var file_data = $(this).prop("files")[0];
+    var form_data = new FormData();
+    form_data.append("file", file_data);
+    form_data.append("file_type", $(this).attr('id'));
+    form_data.append("company_id", company_id);
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type: "POST",
+      // url:'/update_file_company',
+      url: '/uploade_file_company',
+      cache: false,
+      contentType: false,
+      processData: false,
+      data: form_data,
+      success: function success(response) {
+        if (response.code == 400) {} else if (response.code == 200) {
+          var text = response.msg;
+          $(_this).parent().find('.link_file').val(text);
+          // let origin = window.location.origin; 
+          // $(this).parent().find('.file_link').val(origin+'/storage/public/Files/'+text)
+          // $(this).parent().find('p').removeClass('d-none')
+          // $(this).parent().find('p').text(text);
         }
       }
     });

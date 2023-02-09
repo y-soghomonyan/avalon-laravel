@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" account_info_btn collaps_show mt-3 py-2 px-2" data-toggle="collapse" data-target="#address_info" style="">
+                                {{-- <div class=" account_info_btn collaps_show mt-3 py-2 px-2" data-toggle="collapse" data-target="#address_info" style="">
                                     <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
                                     Address Information
                                 </div>
@@ -116,7 +116,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class=" account_info_btn collaps_show mt-3 py-2 px-2" data-toggle="collapse" data-target="#system_info" >
                                     <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
                                     System Information
@@ -126,7 +126,6 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                    
                                                     <div> Created By: {{ Auth::user()->first_name }}. {{$account->created_at}}</div>
                                                 </div>
                                             </div>
@@ -165,7 +164,7 @@
                                 <div class="col-12 sales_blocks">
                                     <span>Cases (0)</span>
                                     <div>
-                                        <button  class="btn btn-outline-primary" >Change Owner</button>
+                                        <button class="btn btn-outline-primary" >Change Owner</button>
                                         <button class="btn btn-outline-primary" >New</button>
                                     </div>
                                 </div>
@@ -180,7 +179,6 @@
             </div>
         </div>
     </div>
-    
     <div class="modal edit_account" id="edit_account">
         <div class="modal-dialog  mt-5 modal-xl">
             <div class="modal-content">
@@ -235,7 +233,10 @@
                                                     @continue
                                                 @endif
                                                 <option value="{{$comp->id}}"
-                                                @if(!empty($account->parentAccount->id) && $comp->id == $account->parentAccount->id) {{'selected'}} @else {{""}} @endif >{{$comp->name}}</option>
+                                                @if(
+                                                    !empty($account->parentAccount->id)
+                                                     && $comp->id == $account->parentAccount->id
+                                                ) {{'selected'}} @else {{""}} @endif >{{$comp->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -301,7 +302,7 @@
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Employees" required value="{{$account->employees}}" name="employees" >
                                 </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address 1 Street:</label>
                                     <textarea class="form-control" id="" rows="3" name="address_1_street" >{{$account->address_1_street}}</textarea>
@@ -349,7 +350,7 @@
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address 2 zip code:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" value="{{$account->address_2_zip_code}}" name="address_2_zip_code" >
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -361,6 +362,8 @@
             </div>
         </div>
     </div>
+    @include('modals.corporate_appointments')
+    @include('modals.address')
     @include('modals.contact')
     @include('modals.company')
     @include('modals.notes')
@@ -390,21 +393,7 @@
           ['clean']                                         // remove formatting button
         ];
 
-          modules: {
-            toolbar: toolbarOptions
-          },
-          theme: 'snow'
-        });
-
         $(document).ready(function() {
-            let editor = $('#editor')
-
-            quill.on('text-change', function(delta, source) {
-               // var justHtml = quill.root.innerHTML;
-               // document.getElementById('output-html').innerHTML = justHtml;
-                $("#hiddenArea").val($("#editor").html());
-                var delta = quill.getContents();
-            });
 
 
             $('#countries').change(function () {

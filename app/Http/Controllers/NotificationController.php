@@ -103,9 +103,8 @@ class NotificationController extends Controller
 
     public function UpcomingOverdue($page_id, $id){
 
-       // $log_calls = LogCall::limit(3)->where('user_id', '=', Auth::user()->id,) ->where($page_id, '=', $id) ->with('contacts')->orderBy('date', 'DESC')->get()->toArray();
-        $tasks = Task::limit(3)->where('user_id', '=', Auth::user()->id,) ->where($page_id, '=', $id) ->with('contacts')->orderBy('date', 'DESC')->get()->toArray();
-        $events = Event::limit(3)->where('user_id', '=', Auth::user()->id,) ->where($page_id, '=', $id) ->with('contacts')->orderBy('date', 'DESC')->get()->toArray();
+        $tasks = Task::limit(3)->where('user_id', '=', Auth::user()->id)->where($page_id, '=', $id) ->with('contacts')->orderBy('date', 'DESC')->get()->toArray();
+        $events = Event::limit(3)->where('user_id', '=', Auth::user()->id)->where($page_id, '=', $id) ->with('contacts')->orderBy('date', 'DESC')->get()->toArray();
 
         $upcoming_overdue = [];
 

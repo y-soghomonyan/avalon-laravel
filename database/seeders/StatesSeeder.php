@@ -81,12 +81,26 @@ class StatesSeeder extends Seeder
 //        'Armed Forces Pacific',
     ];
 
+
+    public $UK_states = [
+        "England & Wales", "Scotland", "Northern Ireland"
+    ];
+
     public function run()
     {
         foreach ($this->states as $state){
             DB::table('country_states')->insert([
                 'country_id' => 4,
                 'name' => $state,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            ]);
+        }
+
+        foreach ($this->UK_states as $UK_state){
+            DB::table('country_states')->insert([
+                'country_id' => 5,
+                'name' => $UK_state,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ]);

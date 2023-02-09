@@ -61,21 +61,20 @@
       </div>
     @include('modals.contact')
     
-@section('js')
-    <script>
-        $(document).ready(function() {
-            $('.data_delete_href_from').on('click',function(){
-                let href = $(this).data('href');
-                $('.data_delete_href_to').attr('href',href);
-            })
-            $('.select2').each(function(){
-                $(this).select2({
-                    dropdownParent:  $(this).parent()
-                });
-            })
-        });
-
-    </script>
-@endsection
+    @section('js')
+        <script>
+            $(document).ready(function() {
+                $('.data_delete_href_from').on('click',function(){
+                    let href = $(this).data('href');
+                    $('.data_delete_href_to').attr('href',href);
+                })
+                $('.select2').each(function(){
+                    $(this).select2({
+                        dropdownParent:  $(this).parent()
+                    });
+                })
+            });
+        </script>
+    @endsection
 
 @endsection

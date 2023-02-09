@@ -1,5 +1,4 @@
     <div class="modal " id="create_contact">
-
         <div class="modal-dialog mt-5 modal-xl">
             <div class="modal-content">
                 <div class="">
@@ -63,7 +62,7 @@
                                     <label for="personal_name" class="mr-sm-2">Title:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="title" value="" id="" required>
                                     <label for="personal_name" class="mr-sm-2">Email:</label>
-                                    <input type="email" class="form-control mb-2 mr-sm-2" placeholder="" name="email" value="{{ Auth::user()->email }}" id="" required>
+                                    <input type="email" class="form-control mb-2 mr-sm-2" placeholder="" name="email" value="" id="" >
                                     <label for="personal_name" class="mr-sm-2">Phone:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="phone" value="" id="" >
                                 </div>

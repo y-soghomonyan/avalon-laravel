@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AccountSendEmail;
+use App\Models\AddressRelation;
+use App\Models\AddressProvider;
 use App\Models\FileReations;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Company;
+use App\Models\Address;
+use App\Models\Country;
 use App\Models\Files;
 use App\Models\Notes;
 use App\Models\User;
@@ -14,8 +18,7 @@ use Auth;
 
 class ContactsController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         $id = Auth::user()->id;
         return view('user.contact.contacts', [
             'contacts' => Contact::where('user_id', $id)->get(),
@@ -119,10 +122,18 @@ class ContactsController extends Controller
             'subject_calls' => [1 => 'Call', 2 => 'Send Letter', 3 => 'Send Quote', 4 => 'Other'],
             'url' => 'contact',
             'id' => $id,
-            'page_title' => $contact->tytle,
+            'page_title' => $contact->title,
             'notes' => Notes::where('contact_id', '=', $id)->get(),
             'files' => FileReations::where('contact_id', '=', $id)->where('status', '=', 1)->with('file')->get(),
             'files_data' => FileReations::where('user_id', '=', Auth::user()->id)->with('file')->get(),
+            'countries' => Country::all(),
+            'address_providers' => AddressProvider::where('user_id', '=', Auth::user()->id)->get(),
+            'addresses' => Address::where('user_id', '=', Auth::user()->id)
+            ->with('country')
+            ->with('state')
+            ->with('addressRelation')
+            ->whereHas('addressRelation', function($q) use($id){$q->where('contact_id', $id);})->get(),
+            'all_addresses' => Address::where('user_id', '=', Auth::user()->id)->with('country')->with('state')->with('addressRelation')->get(),
         ]);
     }
 

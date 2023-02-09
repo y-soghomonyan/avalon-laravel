@@ -9,27 +9,19 @@ class Contact extends Model
 {
     use HasFactory;
 
-    public function ownerUser()
-    {
+    public function ownerUser(){
         return $this->hasOne(User::class, 'id', 'owner_id');
     }
 
-//    public function parentContact()
-//    {
-//        return $this->hasOne(Companies::class, 'id', 'parent_id');
-//    }
-
-    public function parentAccount()
-    {
+    public function parentAccount(){
         return $this->hasOne(Account::class, 'id', 'account_id');
     }
-    public function reportsTo()
-    {
+
+    public function reportsTo(){
         return $this->hasOne(User::class, 'id', 'reports');
     }
 
-    public function mailingAddress()
-    {
+    public function mailingAddress(){
         return $this->hasOne(User::class, 'id', 'mailing_address');
     }
 

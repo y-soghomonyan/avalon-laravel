@@ -16,15 +16,11 @@ class UserController extends Controller
     public $user;
 
     public function __construct(){
-
-      $this->user = Auth::user();
-
+        $this->user = Auth::user();
     }
 
     public function profile(){
-
         return view('user.profile.profile');
-        
     }
 
     public function update_profile(Request $request){
@@ -52,7 +48,6 @@ class UserController extends Controller
                $this->change_password($request->password);
             }else{
                 return response()->json(['code' => 400, 'msg' => 'Old password is not correct']);
-                // return back()->with("error", "Old Password Doesn't match!");
             }
         }
 
@@ -60,9 +55,6 @@ class UserController extends Controller
              $validate_image = Validator::make($request->all(), [
                 'profile_image' => ['required', 'image', 'max:10000']
             ]);
-            // if ($validate_image->fails()) {
-            //     return response()->json(['code' => 400, 'msg' => $validate_image->errors()->first()]);
-            // }
         }
  
         if ($validated->fails()) {
@@ -79,10 +71,6 @@ class UserController extends Controller
 
         $user->avatar = $profile_image ?? $user->avatar ;
 
-        // if($user->save()){
-        
-        // }
-        # update the user info
         $user->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -92,14 +80,7 @@ class UserController extends Controller
     }
         
     public function change_password($password){
-
         $user = Auth::user();
-
-        // if(!Hash::check($request->old_password, $user->password)){
-        //     return response()->json(['code' => 400, 'msg' => 'Old password is not correct']);
-        //     // return back()->with("error", "Old Password Doesn't match!");
-        // }
-
         $user->update([
             'password' => Hash::make($password),
         ]);

@@ -10,10 +10,7 @@ use Auth;
 
 class FilesController extends Controller
 {
-    //
-
     public function search_file (Request $req){
-       
 
         if($req->ajax()){
             $search =  $req->input('value');
@@ -28,8 +25,6 @@ class FilesController extends Controller
             ->get();
 
             return response()->json($files);
-            
-            
         }
 
     }
@@ -37,7 +32,6 @@ class FilesController extends Controller
     public function get_files (Request $req, $url, $id){
         $column = $url.'_id';
         $files = FileReations::where($column, '=', $id )->with('file')->get();
-
        
         $page_title = '';
         $titles = [

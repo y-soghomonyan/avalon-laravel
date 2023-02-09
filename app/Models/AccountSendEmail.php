@@ -9,8 +9,7 @@ class AccountSendEmail extends Model
 {
     use HasFactory;
 
-    public function contacts()
-    {
+    public function contacts(){
         return $this->hasOne(Contact::class,'id', 'contact_id');
     }
 }

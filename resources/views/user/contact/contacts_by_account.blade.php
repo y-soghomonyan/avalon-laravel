@@ -45,19 +45,18 @@
 
     @include('modals.contact')
 
+    @section('js')
+        <script>
 
-@section('js')
-    <script>
+            $(document).ready(function() {
+                $('.select2').each(function(){
+                    $(this).select2({
+                        dropdownParent:  $(this).parent()
+                    });
+                })
+            });
 
-        $(document).ready(function() {
-            $('.select2').each(function(){
-                $(this).select2({
-                    dropdownParent:  $(this).parent()
-                });
-            })
-        });
-
-    </script>
-@endsection
+        </script>
+    @endsection
 
 @endsection
