@@ -25,6 +25,22 @@ use Auth;
 
 class AccountsController extends Controller
 {
+
+    public $months =  array(
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July ',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    );
+
     public function index(){
         $id = Auth::user()->id;
 
@@ -142,6 +158,7 @@ class AccountsController extends Controller
             'corporate_appointments' => CorporateAppointment::where('user_id', '=', Auth::user()->id)->where('account_id', '=', $id)->with('roles')->get(),
             'appointments_roles' => AppointmentsRole::all(),
             'address_providers' => AddressProvider::where('user_id', '=', Auth::user()->id)->get(),
+            'months' => $this->months,
         ]);
     }
 

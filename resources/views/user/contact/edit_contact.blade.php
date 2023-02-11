@@ -296,7 +296,7 @@
                                     <div class="text-info px-2">Notes ({{$notes->count()}})</div>
                                 </div>
                                 <div class=" col-4 text-right">
-                                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#create_notes">New</button>
+                                    <button class="btn btn-outline-primary create_notes clear_notes_form" data-toggle="modal" data-target="#create_notes">New</button>
                                 </div>
                             </div>
                         </div>
@@ -304,16 +304,16 @@
                     <div id="notes" class="collapse bg-white rounded-bottom" style="margin-top: -5px;">
                         <div class="  pt-1 px-2 pb-3">
                             @foreach($notes as $key => $not)
-                            @php if($key > 2)continue; @endphp
-                            <div class="mt-3 px-2 border-bottom">
-                                <a data-toggle="modal" data-target="#create_notes"  class="text-primary notes_title_content" id="">{{$not->title??"Untitled Note"}}</a>
-                                <p>{{$not->created_at}} by <span class="text-primary">{{Auth::user()->first_name}}</span></p>
-                                <p >{!! $not->content !!}</p>
-                                <input type="hidden" value="{{ $not->content }}" class="notes_content">
-                                <input type="hidden" value="{{route('edit_notes', [$not->id])}}" class="notes_action">
-                                <input type="hidden" value="{{ route('delete_notes', [$not->id]) }}" class="notes_delete_hreff">
-                            </div> 
-                        @endforeach
+                                @php if($key > 2)continue; @endphp
+                                <div class="mt-3 px-2 border-bottom">
+                                    <a data-toggle="modal" data-target="#create_notes"  class="text-primary notes_title_content" id="" data-name="{{$not->title??"Untitled Note"}}" data-file="{{$not->note_file}}">{{$not->title??"Untitled Note"}}</a>
+                                    <p>{{$not->created_at}} by <span class="text-primary">{{Auth::user()->first_name}}</span></p>
+                                    <p >{!! $not->content !!}</p>
+                                    <input type="hidden" value="{{ $not->content }}" class="notes_content">
+                                    <input type="hidden" value="{{route('edit_notes', [$not->id])}}" class="notes_action">
+                                    <input type="hidden" value="{{ route('delete_notes', [$not->id]) }}" class="notes_delete_hreff">
+                                </div>
+                            @endforeach
                         </div>
                         <div class="row text-center py-3">
                             <a href="{{ route('notes', [$url, $id]) }}" class=" text-primary">View All</a>
@@ -408,7 +408,7 @@
                     <div id="address" class="collapse bg-white rounded-bottom" style="margin-top: -5px;">
                         <div class="  pt-1 px-3 pb-3">
                             @foreach($addresses as $key => $address)
-                            <div class="mt-3 border-bottom">
+                            <div class="mt-3 border-bottom pb-1">
                                 <div class="row main_address cursor-pointer" data-toggle="modal" data-target="#chose_address" data-all-data="{{$address}}">
                                     <div class="col-8">{{$address->title??"Unknown name"}}</div>
                                     <div class="col-4">

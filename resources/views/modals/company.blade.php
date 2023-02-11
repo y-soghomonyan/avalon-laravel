@@ -24,13 +24,33 @@
                                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="" id="" >
                                 <label for="personal_name" class="mr-sm-2">Incorporation date</label>
                                 <input type="date" class="form-control mb-2 mr-sm-2" placeholder="" name="incorporation_date" value="" id="" >
-                                
+                                <div class="row">
+                                    <div class="col-12"><label for="personal_name" class="mr-sm-2">Accounting Reference Date</label></div>
+                                    <div class="col-6">
+                                        <div>
+                                            <select class="select2  form-control  mr-sm-2" name="month" id="month">
+                                                @foreach($months as $key =>$month)
+                                                    <option value="{{$key+1}}"  >{{$month}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="months_day">
+                                            <select class="select2 custom-select form-control" name="day">
+                                                @for($i=1; $i<= 31; $i++)
+                                                    <option value="{{$i}}"  >{{$i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-6">
                                 <div>
                                     <label for="" class="mr-sm-2">Country</label>
                                     <div>
-                                        <select class="select2  form-control" name="country_id" id="countries">
+                                        <select class="select2  form-control  mr-sm-2" name="country_id" id="countries">
                                             <option selected value="">Select Country</option>
                                             @foreach($countries as $country)
                                                 <option value="{{$country->id}}"  >{{$country->name}}</option>
@@ -42,7 +62,7 @@
                                 <div class="d-none" id="country_state">
                                     <label for="" class="mr-sm-2">State</label>
                                     <div >
-                                        <select class="select2  form-control" name="state_id">
+                                        <select class="select2  form-control  mr-sm-2" name="state_id">
                                             <option selected value="">Select State</option>
                                             @foreach($countries as $country)
                                                 @if($country->states->count())
@@ -59,7 +79,7 @@
                                 <div>
                                     <label for="" class="mr-sm-2">Company Type</label>
                                     <div>
-                                        <select  class="select2 custom-select form-control" name="company_id">
+                                        <select  class="select2 custom-select form-control  mr-sm-2" name="company_id">
                                             <option selected value="">Select Company Type</option>
                                                 @foreach($company_types as  $company_type)
                                                     <option value="{{$company_type->id}}" >{{$company_type->name}}</option>
@@ -70,7 +90,7 @@
                                 <div>
                                     <label for="" class="mr-sm-2">Filing Status</label>
                                     <div>
-                                        <select class="select2  form-control" name="filing_status">
+                                        <select class="select2  form-control  mr-sm-2" name="filing_status">
                                             <option selected value="">Select Filing Status </option>
                                             <option value="1"  >Active</option>
                                             <option value="0"  >Dissolved</option>
@@ -154,7 +174,8 @@
                                 <div>
                                     <label for="" class="mr-sm-2">Sub Status</label>
                                     <div>
-                                        <input type="checkbox" value="1" name="sub_status">
+                                        <input type="checkbox" value="1" name="sub_status" id="sub_status">
+                                        <label for="sub_status">Disengagement Pending</label>
                                     </div>
                                 </div>
                             </div>
@@ -201,24 +222,25 @@
                             </div>
                             <div class="col-6">
                                 <label for="" class="mr-sm-2">Tax ID Type</label>
-                                <input type="text" class="tax_id_type form-control" name="tax_id_type" >
+                                <input type="text" class="tax_id_type form-control" name="" disabled>
+                                <input type="hidden" class="tax_id_type form-control" name="tax_id_type" >
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6"> 
                                 <label for="" class="mr-sm-2">Tax ID</label>
-                                <textarea  class="form-control" id="" rows="3" name="tax_id"></textarea>
+                                <input  class="form-control" id="" rows="3" name="tax_id">
                             </div>
                             <div class="col-6"> 
                                 <label for="" class="mr-sm-2">Status Date</label>
                                 <input type="date" class="status_date form-control" name="status_date" >
-                                <button class="btn btn-primary today_button">Today</button>
+                                <button class="btn btn-primary today_button mt-2">Today</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label for="" class="mr-sm-2">Tax Filing Code</label>
-                                <textarea  class="form-control" id="" rows="3" name="tax_filing_code"></textarea>
+                                <input  class="form-control" id="" rows="3" name="tax_filing_code">
                             </div>
                         </div>
 

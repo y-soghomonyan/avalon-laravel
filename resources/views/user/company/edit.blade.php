@@ -1,6 +1,28 @@
 @extends('user.layout.app')
 @section('title')Edit Company @endsection
 @section('contents')
+    @php
+        $file_1 = '';
+        $file_2 = '';
+        $file_3 = '';
+        $file_4 = '';
+        foreach ($company->companyFiles as $file) {
+            if ($file->file_type == 'file_path_1') {
+                $file_1 = $file->path;
+            }
+            if ($file->file_type == 'file_path_2') {
+                $file_2 = $file->path;
+            }
+            if ($file->file_type == 'file_path_3') {
+                $file_3 = $file->path;
+            }
+            if ($file->file_type == 'file_path_4') {
+                $file_4 = $file->path;
+            }
+        }
+        $company->month = $company->month ?? 1;
+        $data_month = cal_days_in_month(CAL_GREGORIAN, $company->month, date("Y"));
+    @endphp
     <div class="container-fluid mt-5">
         <div class="row-with-float">
             <div class="col-3 px-2 sticky-top">
@@ -117,10 +139,105 @@
                                                     <label for="personal_name" class="mr-sm-2">Status:</label>
                                                     <div>{{$company->status ? "Active" : "Dissolved"}}</div>
                                                 </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Sub Status::</label>
+                                                    <div><span class="{{$company->sub_status ? '' : 'd-none'}}">Disengagement Pending</span></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class=" contact_info_btn mt-3 collaps_show" data-toggle="collapse" data-target="#previous_name">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+                                    Previous Names
+                                </div>
+                                <div id="previous_name" class="collapse">
+                                    <div class=" mt-2 pt-1 px-2 pb-3">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Previous name 1:</label>
+                                                    <div>{{$company->previous_name1}}</div>
+                                                </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Previous name 2:</label>
+                                                    <div>{{$company->previous_name2}}</div>
+                                                </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Previous name 3:</label>
+                                                    <div>{{$company->previous_name3}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Previous name 4:</label>
+                                                    <div>{{$company->previous_name4}}</div>
+                                                </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Previous name 5:</label>
+                                                    <div>{{$company->previous_name5}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" contact_info_btn mt-3 collaps_show" data-toggle="collapse" data-target="#PrimaryTaxRegistration">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+                                    Primary Tax Registration
+                                </div>
+                                <div id="PrimaryTaxRegistration" class="collapse">
+                                    <div class=" mt-2 pt-1 px-2 pb-3">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Registration Status:</label>
+                                                    <div>{{$company->registration_status}}</div>
+                                                </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Tax ID:</label>
+                                                    <div>{{$company->tax_id}}</div>
+                                                </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Tax Filing Code:</label>
+                                                    <div>{{$company->tax_filing_code}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Tax ID Type:</label>
+                                                    <div>{{$company->tax_id_type}}</div>
+                                                </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Status Date:</label>
+                                                    <div>{{$company->status_date}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Link to Tax Registration 1:</label>
+                                                    <div class="break-word">{{$file_1}}</div>
+                                                </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Link to Tax Registration 2:</label>
+                                                    <div class="break-word">{{$file_2}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Link to Tax Registration 3:</label>
+                                                    <div class="break-word">{{$file_3}}</div>
+                                                </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="mr-sm-2">Link to Tax Registration 4:</label>
+                                                    <div class="break-word">{{$file_4}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class=" contact_info_btn mt-3 collaps_show" data-toggle="collapse" data-target="#system_info">
                                     <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
                                     System Information
@@ -234,7 +351,7 @@
                     </div>
                 </div>
                 <div class="col-12 rounded mt-3">
-                    <div class=" account_info_btn collaps_show rounded px-3 py-2 bg-white  " data-toggle="collapse" data-target="#notes" style="cursor:pointer">
+                    <div class=" account_info_btn collaps_show rounded px-3 py-2 bg-white  cursor-pointer" data-toggle="collapse" data-target="#notes" >
                         <div class="col-12 ">
                             <div class="row">
                                 <div class="df_jsfs_amc col-8">
@@ -244,7 +361,7 @@
                                     <div class="text-info px-2">Notes ({{$notes->count()}})</div>
                                 </div>
                                 <div class=" col-4 text-right">
-                                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#create_notes">New</button>
+                                    <button class="btn btn-outline-primary clear_notes_form create_notes" data-toggle="modal" data-target="#create_notes">New</button>
                                 </div>
                             </div>
                         </div>
@@ -254,7 +371,7 @@
                             @foreach($notes as $key => $not)
                                 @php if($key > 2)continue; @endphp
                                 <div class="mt-3 px-2 border-bottom">
-                                    <a data-toggle="modal" data-target="#create_notes"  class="text-primary notes_title_content" id="">{{$not->title??"Untitled Note"}}</a>
+                                    <a data-toggle="modal" data-target="#create_notes"  class="text-primary notes_title_content" id="" data-name="{{$not->title??"Untitled Note"}}" data-file="{{$not->note_file}}">{{$not->title??"Untitled Note"}}</a>
                                     <p>{{$not->created_at}} by <span class="text-primary">{{Auth::user()->first_name}}</span></p>
                                     <p >{!! $not->content !!}</p>
                                     <input type="hidden" value="{{ $not->content }}" class="notes_content">
@@ -360,7 +477,7 @@
                     <div id="address" class="collapse bg-white rounded-bottom" style="margin-top: -5px;">
                         <div class="  pt-1 px-3 pb-3">
                             @foreach($addresses as $key => $address)
-                                <div class="mt-3 border-bottom">
+                                <div class="mt-3 border-bottom pb-1">
                                     <div class="row main_address cursor-pointer" data-toggle="modal" data-target="#chose_address" data-all-data="{{$address}}">
                                         <div class="col-8">{{$address->title??"Unknown name"}}</div>
                                         <div class="col-4">
@@ -405,9 +522,16 @@
                         <div class="  pt-1 px-3 pb-3">
                             @foreach($corporate_appointments as $key => $cor_app)
                                 <div class="mt-3 border-bottom">
-                                    <div class="row">
-                                        <div class="col-9 edit_corporate_appointments cursor-pointer text-primary" data-toggle="modal" data-target="#edit_corporate_appointments" data-corporate_appointments="{{$cor_app}}">{{$cor_app->title}}</div>
-                                        <div class="col-3">
+                                    <div class="row pb-1">
+                                        <div class="col-8 edit_corporate_appointments cursor-pointer text-primary" data-toggle="modal" data-target="#edit_corporate_appointments" data-corporate_appointments="{{$cor_app}}">{{$cor_app->title}}</div>
+                                        <div class="col-2">
+                                            @if(!$cor_app->status)
+                                                <span class="bg-success badge badge-success">Active</span>
+                                            @else
+                                                <span class="bg-danger badge badge-success">Ceased</span>
+                                            @endif
+                                        </div>
+                                        <div class="col-2 text-center">
                                             <a href="{{ route('delete_corporate_appointments', [$cor_app->id]) }}" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="slds-delete__icon" id="Layer_1" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="M10 3v3h9V3a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1z"/><path d="M4 5v1h21V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1zM6 8l1.812 17.209A2 2 0 0 0 9.801 27H19.2a2 2 0 0 0 1.989-1.791L23 8H6zm4.577 16.997a.999.999 0 0 1-1.074-.92l-1-13a1 1 0 0 1 .92-1.074.989.989 0 0 1 1.074.92l1 13a1 1 0 0 1-.92 1.074zM15.5 24a1 1 0 0 1-2 0V11a1 1 0 0 1 2 0v13zm3.997.077a.999.999 0 1 1-1.994-.154l1-13a.985.985 0 0 1 1.074-.92 1 1 0 0 1 .92 1.074l-1 13z"/></svg>
                                             </a>
@@ -422,7 +546,7 @@
         </div>
     </div>
 
-    <div class="modal edit_account" id="edit_account">
+    <div class="modal edit_account " id="edit_account">
         <div class="modal-dialog mt-5 modal-xl">
             <div class="modal-content">
                 <div class="">
@@ -448,6 +572,27 @@
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="{{$company->filing}}" id="" >
                                     <label for="personal_name" class="mr-sm-2">Incorporation date</label>
                                     <input type="date" class="form-control mb-2 mr-sm-2" placeholder="" name="incorporation_date" value="{{$company->incorporation_date}}" id="" >
+                                    <div class="row">
+                                        <div class="col-12"><label for="personal_name" class="mr-sm-2">Accounting Reference Date</label></div>
+                                        <div class="col-6">
+                                            <div>
+                                                <select class="select2  form-control  mr-sm-2" name="month" id="month">
+                                                    @foreach($months as $key =>$month)
+                                                        <option value="{{$key+1}}" {{$company->month == $key+1 ?"selected" : ""}}  >{{$month}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="months_day">
+                                                <select class="select2 custom-select form-control" name="day">
+                                                    @for($i=1; $i<= $data_month; $i++)
+                                                        <option value="{{$i}}"  {{$company->day == $i ?"selected" : ""}}>{{$i}}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-6">
                                     <div>
@@ -525,9 +670,9 @@
                                     <div>
                                         <select class="select2 select_reports_emails form-control"  name="contact_id">
                                             <option selected value="">Select Contact </option>
-                                            @foreach($contacts as $contact)
-                                                <option value="{{$contact->id}}"  {{(!empty($contact->id) && $company->contact_id == $contact->id) ? 'selected' : ''}}>{{$contact->title}}</option>
-                                            @endforeach
+                                                @foreach($contacts as $contact)
+                                                    <option value="{{$contact->id}}"  {{(!empty($contact->id) && $company->contact_id == $contact->id) ? 'selected' : ''}}>{{$contact->title}}</option>
+                                                @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -568,15 +713,16 @@
                                         <div>
                                             <select class="select2 form-control" name="status">
                                                 <option selected value="">Select Status</option>
-                                                <option value="1"  {{$company->status ? 'selected' : ''}}>Active</option>
-                                                <option value="0"  {{!$company->status ? 'selected' : ''}}>Dissolved</option>
+                                                <option value="1" {{$company->status ? 'selected' : ''}}>Active</option>
+                                                <option value="0" {{!$company->status ? 'selected' : ''}}>Dissolved</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div>
                                         <label for="" class="mr-sm-2">Sub Status:</label>
                                         <div>
-                                            <input type="checkbox" value="1" {{$company->sub_status ? 'checked' : ''}} name="sub_status">
+                                            <input type="checkbox" value="1" {{$company->sub_status ? 'checked' : ''}} name="sub_status" id="sub_status">
+                                            <label for="sub_status">Disengagement Pending</label>
                                         </div>
                                     </div>
                                 </div>
@@ -602,8 +748,6 @@
                                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name5" value="{{$company->previous_name5}}" id="" >
                                 </div>
                             </div>
-
-
                             <div class="row mt-3">
                                 <div class="col-12 mb-2">
                                     <div class="bg-light p-3 h6">Primary Tax Registration</div>
@@ -623,46 +767,28 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="" class="mr-sm-2">Tax ID Type</label>
-                                    <input type="text" class="tax_id_type form-control" name="tax_id_type"  value="{{$company->tax_id_type}}">
+                                    <input type="text" class="tax_id_type form-control" name=""  value="{{$company->tax_id_type}}" disabled>
+                                    <input type="hidden" class="tax_id_type form-control" name="tax_id_type"  value="{{$company->tax_id_type}}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6"> 
                                     <label for="" class="mr-sm-2">Tax ID</label>
-                                    <textarea  class="form-control" id="" rows="3" name="tax_id">{{$company->tax_id}}</textarea>
+                                    <input  class="form-control" id="" rows="3" name="tax_id" value="{{$company->tax_id}}">
                                 </div>
                                 <div class="col-6">
                                     <label for="" class="mr-sm-2">Status Date</label>
                                     <input type="date" class="status_date form-control" name="status_date" value="{{substr($company->status_date,0,10)}}">
-                                    <button class="btn btn-primary today_button">Today</button>
+                                    <button class="btn btn-primary today_button mt-2">Today</button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label for="" class="mr-sm-2">Tax Filing Code</label>
-                                    <textarea  class="form-control" id="" rows="3" name="tax_filing_code">{{$company->tax_filing_code}}</textarea>
+                                    <input  class="form-control" id="" rows="3" name="tax_filing_code" value="{{$company->tax_filing_code}}">
                                 </div>
                             </div>
-                            @php 
-                                $file_1 = '';
-                                $file_2 = '';
-                                $file_3 = '';
-                                $file_4 = '';
-                                foreach ($company->companyFiles as $file) {
-                                    if ($file->file_type == 'file_path_1') {
-                                        $file_1 = $file->path;
-                                    }
-                                    if ($file->file_type == 'file_path_2') {
-                                        $file_2 = $file->path;
-                                    }
-                                    if ($file->file_type == 'file_path_3') {
-                                        $file_3 = $file->path;
-                                    }
-                                    if ($file->file_type == 'file_path_4') {
-                                        $file_4 = $file->path;
-                                    }
-                                }
-                            @endphp
+
                             <div class="row mt-3">
                                 <div class="col-6"> 
                                     <label for="" class="mr-sm-2">Link to Tax Registration 1</label>

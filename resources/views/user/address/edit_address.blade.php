@@ -111,17 +111,17 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address 1</label>
-                                    <textarea  class="form-control" id="" rows="3" name="address_1">{{$address->address_1}}</textarea>
+                                    <input class="form-control" id="" rows="3" name="address_1" value="{{$address->address_1}}">
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address 2</label>
-                                    <textarea  class="form-control" id="" rows="3" name="address_2">{{$address->address_2}}</textarea>
+                                    <input class="form-control" id="" rows="3" name="address_2" value="{{$address->address_2}}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Address 3</label>
-                                    <textarea  class="form-control" id="" rows="3" name="address_3">{{$address->address_3}}</textarea>
+                                    <input class="form-control" id="" rows="3" name="address_3" value="{{$address->address_3}}">
                                 </div>
                             </div>
                             <div class="modal-footer bg-light d-flex align-items-center justify-content-center">

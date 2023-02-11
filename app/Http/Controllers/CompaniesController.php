@@ -30,6 +30,22 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public $months =  array(
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July ',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December',
+            );
+
     public function index()
     {
         $id = Auth::user()->id;
@@ -39,7 +55,8 @@ class CompaniesController extends Controller
             'countries' => Country::with(['states'])->get(),
             'accounts' => Account::where('user_id', '=', $id)->get(['id', 'name']),
             'contacts' => Contact::where('user_id', '=', $id)->get(['id', 'title']),
-            'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'first_name', 'last_name']),
+            'users' => User::where('id', '!=', Auth::user()->id)->get(['id', 'first_name', 'last_name']),
+            'months' => $this->months,
         ]);
     }
 
@@ -97,6 +114,8 @@ class CompaniesController extends Controller
         $company->tax_id = $request->input('tax_id');
         $company->tax_filing_code = $request->input('tax_filing_code');
         $company->status_date = $request->input('status_date');
+        $company->month = $request->input('month');
+        $company->day = $request->input('day');
 
         if($company->save()){
 
@@ -197,6 +216,7 @@ class CompaniesController extends Controller
             ->with('addressRelation')
             ->whereHas('addressRelation', function($q) use($id){$q->where('company_id', $id);})->get(),
             'all_addresses' => Address::where('user_id', '=', Auth::user()->id)->with('country')->with('state')->with('addressRelation')->get(),
+            'months' => $this->months,
         ]);
 
     }
@@ -240,6 +260,8 @@ class CompaniesController extends Controller
             $company->tax_id = $request->input('tax_id');
             $company->tax_filing_code = $request->input('tax_filing_code');
             $company->status_date = $request->input('status_date');
+            $company->month = $request->input('month');
+            $company->day = $request->input('day');
 
             $fale_paths = ['file_path_1','file_path_2','file_path_3','file_path_4'];
            

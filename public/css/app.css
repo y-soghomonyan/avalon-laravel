@@ -11568,7 +11568,7 @@ a{
 }
 
 #editor-container{
-    min-height: 100px;
+    min-height: 200px;
 }
 
 .border-right{
@@ -11675,3 +11675,6 @@ a{
   .gap-20 {
     gap: 20px;
   }
+.break-word {
+    word-break: break-all;
+}

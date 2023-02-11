@@ -2246,6 +2246,22 @@ $(document).ready(function () {
       }
     });
   });
+
+  $('#month').on('change', function () {
+    $('.months_day').empty();
+    var days_count = new Date(new Date().getFullYear(), $(this).val(), 0).getDate();
+    var select = '<select  class="select2 custom-select form-control" name="days">';
+    for (var i = 1; i <= days_count; i++) {
+      select += "<option value=\"".concat(i, "\">").concat(i, "</option>");
+    }
+    select += '</select>';
+    $('.months_day').append(select);
+  });
+  $('.create_notes').on('click', function () {
+    setTimeout(function () {
+      $('#notes_title').focus();
+    }, 200);
+  });
 });
 
 /***/ }),

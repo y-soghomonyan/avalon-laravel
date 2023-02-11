@@ -206,6 +206,26 @@ $(document).ready(function(){
         })
 
     })
+
+    $('#month').on('change', function () {
+
+        $('.months_day').empty();
+        let days_count = new Date( new Date().getFullYear(), $(this).val(), 0).getDate();
+        let select = '<select  class="select2 custom-select form-control" name="days">';
+        for (let i = 1; i <= days_count; i++) {
+            select += `<option value="${i}">${i}</option>`
+        }
+        select += '</select>'
+        $('.months_day').append(select);
+
+    })
+
+    $('.create_notes').on('click', function () {
+        setTimeout(function (){
+            $('#notes_title').focus();
+        }, 200);
+    })
+
 })
 
 

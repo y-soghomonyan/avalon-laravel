@@ -26,6 +26,12 @@ class CorporateAppointments extends Controller
         $corporate_appointment->company_id = $req->input('company_id');
         $corporate_appointment->position_1 = $req->input('position_1');
         $corporate_appointment->position_2 = $req->input('position_2');
+        $corporate_appointment->appointed_date = $req->input('appointed_date');
+        $corporate_appointment->appointment_terminated_date = $req->input('appointment_terminated_date');
+        $corporate_appointment->status = 1;
+        if(empty($req->input('appointment_terminated_date'))){
+            $corporate_appointment->status = null;
+        }
         $corporate_appointment->user_id = Auth::user()->id;
 
         if($corporate_appointment->save() ){
@@ -59,6 +65,13 @@ class CorporateAppointments extends Controller
             $corporate_appointment->company_id = $req->input('company_id');
             $corporate_appointment->position_1 = $req->input('position_1');
             $corporate_appointment->position_2 = $req->input('position_2');
+            $corporate_appointment->appointed_date = $req->input('appointed_date');
+            $corporate_appointment->appointment_terminated_date = $req->input('appointment_terminated_date');
+            $corporate_appointment->status = 1;
+            if(!empty($req->input('appointment_terminated_date'))){
+                $corporate_appointment->status = null;
+            }
+
             $corporate_appointment->user_id = Auth::user()->id;
 
             if($corporate_appointment->save() ){

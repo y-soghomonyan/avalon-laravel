@@ -13,7 +13,7 @@
                     <div class="">
                         <div class="row">
                             <div class="col-6">
-                                <label  class="mr-sm-2">Title</label>
+                                <label  class="mr-sm-2">Corporate Title (CEO, COO, CTO etc)</label>
                                 <input type="text" name="title" class="form-control  mr-sm-2" id="">
                             </div>
                             <div class="col-6">
@@ -21,9 +21,9 @@
                                 <div>
                                     <select  class="select2 custom-select form-control" name="account_id">
                                       <option value=""></option>
-                                      @foreach($accounts as $account)
-                                        <option value="{{$account->id}}" {{$url.'_id' == 'account_id' && $id == $account->id ? "selected" : ""}}>{{$account->name}}</option>
-                                      @endforeach
+                                          @foreach($accounts as $account)
+                                            <option value="{{$account->id}}" {{isset($company->account_id) && $company->account_id == $account->id ? "selected" : ""}}>{{$account->name}}</option>
+                                          @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -34,9 +34,9 @@
                                 <div>
                                     <select  class="select2 custom-select form-control" name="company_id">
                                       <option value=""></option>
-                                      @foreach($companies as $company)
-                                        <option value="{{$company->id}}" {{$url.'_id' == 'company_id' && $id == $company->id ? "selected" : ""}}>{{$company->name}}</option>
-                                      @endforeach
+                                          @foreach($companies as $comp)
+                                            <option value="{{$comp->id}}" {{$url.'_id' == 'company_id' && $id == $comp->id ? "selected" : ""}}>{{$comp->name}}</option>
+                                          @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -45,9 +45,9 @@
                                 <div>
                                     <select  class="select2 custom-select form-control" name="contact_id">
                                       <option value=""></option>
-                                      @foreach($contacts as $contact)
-                                        <option value="{{$contact->id}}">{{$contact->title}}</option>
-                                      @endforeach
+                                          @foreach($contacts as $contact)
+                                            <option value="{{$contact->id}}">{{$contact->title}}</option>
+                                          @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -72,6 +72,16 @@
                                     <label for="appointments_role_{{$appointments_role->id}}" class="mr-sm-2">{{$appointments_role->title}}</label>
                                 </div>
                             @endforeach
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="" class="mr-sm-2">Appointed</label>
+                                <input type="date" name="appointed_date" class="form-control  mr-sm-2" id="" max="{{date("Y-m-d")}}" value="{{substr($company->created_at,0,10)}}">
+                            </div>
+                            <div class="col-6">
+                                <label for="" class="mr-sm-2">Appointment Terminated</label>
+                                <input type="date" name="appointment_terminated_date" class="form-control  mr-sm-2" id="" value="" max="{{date("Y-m-d")}}">
+                            </div>
                         </div>
                         <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -100,7 +110,7 @@
                         <div class="">
                             <div class="row">
                                 <div class="col-6">
-                                    <label  class="mr-sm-2">Title</label>
+                                    <label  class="mr-sm-2">Corporate Title (CEO, COO, CTO etc)</label>
                                     <input type="text" name="title" class="form-control  mr-sm-2" id='corporate_appointment_title'>
                                 </div>
                                 <div class="col-6">
@@ -121,8 +131,8 @@
                                     <div>
                                         <select  class="select2 custom-select form-control" name="company_id" id='corporate_appointment_company_id'>
                                           <option value=""></option>
-                                          @foreach($companies as $company)
-                                            <option value="{{$company->id}}">{{$company->name}}</option>
+                                          @foreach($companies as $comp)
+                                            <option value="{{$comp->id}}">{{$comp->name}}</option>
                                           @endforeach
                                         </select>
                                     </div>
@@ -153,13 +163,26 @@
                                 <h5  class="mr-sm-2">Roles</h5>
                             </div>
                             <div class="d-flex gap-20 mt-3 mb-3">
-                                
                                 @foreach($appointments_roles as $appointments_role)
                                     <div>
                                         <input type="checkbox" name="role_id[]" class="appointments_role"  value="{{$appointments_role->id}}" id="cor_appointments_role_{{$appointments_role->id}}">
                                         <label for="cor_appointments_role_{{$appointments_role->id}}" class="mr-sm-2">{{$appointments_role->title}}</label>
                                     </div>
                                 @endforeach
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label for="" class="mr-sm-2">Appointed</label>
+                                    <input type="date" name="appointed_date" class="form-control  mr-sm-2 appointed_date" id="" max="{{date("Y-m-d")}}"
+                                           {{--value="{{substr($appointments_role->appointed_date,0,10)}}"--}}
+                                    >
+                                </div>
+                                <div class="col-6">
+                                    <label for="" class="mr-sm-2">Appointment Terminated</label>
+                                    <input type="date" name="appointment_terminated_date" class="form-control  mr-sm-2 appointment_terminated_date" id=""
+                                           {{--value="{{substr($appointments_role->appointment_terminated_date,0,10)}}" max="{{date("Y-m-d")}}"--}}
+                                    >
+                                </div>
                             </div>
                             <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -177,6 +200,22 @@
 
         $(".edit_corporate_appointments").on("click", function (e) {
 
+            $('.appointed_date').val('');
+            $('#corporate_appointment_title').val('');
+            $('#corporate_appointment_id').val('');
+            $('.appointment_terminated_date').val('');
+            $('#corporate_appointment_position_1').removeAttr('checked')
+            $('#corporate_appointment_position_2').removeAttr('checked')
+
+            let $account =  $('#corporate_appointment_account_id');
+            let $contact =  $('#corporate_appointment_contact_id');
+            let $company =  $('#corporate_appointment_company_id');
+
+            $account.val(1).trigger('change.select2');
+            $contact.val(1).trigger('change.select2');
+            $company.val(1).trigger('change.select2');
+
+
             let data = $(this).data('corporate_appointments'); 
             let appointments_roles = $('.appointments_role');
             let corporate_appointment_title = $('#corporate_appointment_title').val(data.title); 
@@ -186,6 +225,14 @@
                 $('#cor_appointments_role_'+ data.roles[id].id).attr('checked', 'checked');
             }
 
+            if(data.appointed_date){
+                $('.appointed_date').val(data.appointed_date.slice(0, 10));
+            }
+
+            if(data.appointment_terminated_date){
+                $('.appointment_terminated_date').val(data.appointment_terminated_date.slice(0, 10));
+            }
+
             if(data.position_1 == 1){
                 $('#corporate_appointment_position_1').attr('checked', 'checked')
             }
@@ -193,14 +240,24 @@
                 $('#corporate_appointment_position_2').attr('checked', 'checked')
             }
 
-            let $account =  $('#corporate_appointment_account_id');
-            $account.val(data.account_id).trigger('change.select2');
+            if(data.account_id){
+               $account.val(data.account_id).trigger('change.select2');
+            }
 
-            let $contact =  $('#corporate_appointment_contact_id');
-            $contact.val(data.contact_id).trigger('change.select2');
+            if(data.contact_id){
+                $contact.val(data.contact_id).trigger('change.select2');
+            }
 
-            let $company =  $('#corporate_appointment_company_id');
-            $company.val(data.company_id).trigger('change.select2');
+            if(data.company_id){
+                $company.val(data.company_id).trigger('change.select2');
+            }
+
+
+
+
+
+
+
             
         });
     })

@@ -120,7 +120,7 @@
                     <div class="text-info px-2">Notes ({{$notes->count()}})</div>
                 </div>
                 <div class=" col-4 text-right">
-                    <button class="btn btn-outline-primary clear_notes_form" data-toggle="modal" data-target="#create_notes">New</button>
+                    <button class="btn btn-outline-primary clear_notes_form create_notes" data-toggle="modal" data-target="#create_notes">New</button>
                 </div>
             </div>
         </div>
@@ -129,14 +129,14 @@
         <div class="  pt-1 px-2 pb-3">
             @foreach($notes as $key => $not)
             @php if($key > 2)continue; @endphp
-            <div class="mt-3 px-2 border-bottom">
-                <a data-toggle="modal" data-target="#create_notes"  class="text-primary notes_title_content" id="">{{$not->title??"Untitled Note"}}</a>
-                <p>{{$not->created_at}} by <span class="text-primary">{{Auth::user()->first_name}}</span></p>
-                <p >{!! $not->content !!}</p>
-                <input type="hidden" value="{{ $not->content }}" class="notes_content">
-                <input type="hidden" value="{{route('edit_notes', [$not->id])}}" class="notes_action">
-                <input type="hidden" value="{{ route('delete_notes', [$not->id]) }}" class="notes_delete_hreff">
-            </div> 
+                <div class="mt-3 px-2 border-bottom">
+                    <a data-toggle="modal" data-target="#create_notes"  class="text-primary notes_title_content" id="" data-name="{{$not->title??"Untitled Note"}}" data-file="{{$not->note_file}}">{{$not->title??"Untitled Note"}}</a>
+                    <p>{{$not->created_at}} by <span class="text-primary">{{Auth::user()->first_name}}</span></p>
+                    <p >{!! $not->content !!}</p>
+                    <input type="hidden" value="{{ $not->content }}" class="notes_content">
+                    <input type="hidden" value="{{route('edit_notes', [$not->id])}}" class="notes_action">
+                    <input type="hidden" value="{{ route('delete_notes', [$not->id]) }}" class="notes_delete_hreff">
+                </div>
         @endforeach
         </div>
         <div class="row text-center py-3">
@@ -250,39 +250,39 @@
         </div>
     </div>
 </div>
-<div class="col-12 rounded mt-3">
-    <div class=" account_info_btn collaps_show rounded px-3 py-2 bg-white  " data-toggle="collapse" data-target="#corporate_appointments" style="cursor:pointer">
-        <div class="col-12 ">
-            <div class="row">
-                <div class="df_jsfs_amc col-8">
-                    {{-- <div  class="icon_small bg_c_campaign" >
-                        <img src="{{url('image/campaign_120.png')}}" alt="">
-                    </div> --}}
-                    <div  class="icon_small bg_c_tag" >
-                        <img src="{{url('image/opportunity_120.png')}}" alt="">
-                    </div>
-                    <div class="text-info px-2">Corporate Appointments ({{$corporate_appointments->count()}})</div>
-                </div>
-                <div class=" col-4 text-right">
-                    <button class="btn btn-outline-primary " data-toggle="modal" data-target="#create_corporate_appointments">New</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="corporate_appointments" class="collapse bg-white rounded-bottom" style="margin-top: -5px;">
-        <div class="  pt-1 px-3 pb-3">
-            @foreach($corporate_appointments as $key => $cor_app)
-                <div class="mt-3 border-bottom">
-                    <div class="row">
-                        <div class="col-9 edit_corporate_appointments cursor-pointer text-primary" data-toggle="modal" data-target="#edit_corporate_appointments" data-corporate_appointments="{{$cor_app}}">{{$cor_app->title}}</div>
-                        <div class="col-3">
-                            <a href="{{ route('delete_corporate_appointments', [$cor_app->id]) }}" >
-                                <svg xmlns="http://www.w3.org/2000/svg" class="slds-delete__icon" id="Layer_1" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="M10 3v3h9V3a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1z"/><path d="M4 5v1h21V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1zM6 8l1.812 17.209A2 2 0 0 0 9.801 27H19.2a2 2 0 0 0 1.989-1.791L23 8H6zm4.577 16.997a.999.999 0 0 1-1.074-.92l-1-13a1 1 0 0 1 .92-1.074.989.989 0 0 1 1.074.92l1 13a1 1 0 0 1-.92 1.074zM15.5 24a1 1 0 0 1-2 0V11a1 1 0 0 1 2 0v13zm3.997.077a.999.999 0 1 1-1.994-.154l1-13a.985.985 0 0 1 1.074-.92 1 1 0 0 1 .92 1.074l-1 13z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div> 
-            @endforeach
-        </div>
-    </div>
-</div>
+{{--<div class="col-12 rounded mt-3">--}}
+    {{--<div class=" account_info_btn collaps_show rounded px-3 py-2 bg-white  " data-toggle="collapse" data-target="#corporate_appointments" style="cursor:pointer">--}}
+        {{--<div class="col-12 ">--}}
+            {{--<div class="row">--}}
+                {{--<div class="df_jsfs_amc col-8">--}}
+                    {{-- <div  class="icon_small bg_c_campaign" >--}}
+                        {{--<img src="{{url('image/campaign_120.png')}}" alt="">--}}
+                    {{--</div> --}}
+                    {{--<div  class="icon_small bg_c_tag" >--}}
+                        {{--<img src="{{url('image/opportunity_120.png')}}" alt="">--}}
+                    {{--</div>--}}
+                    {{--<div class="text-info px-2">Corporate Appointments ({{$corporate_appointments->count()}})</div>--}}
+                {{--</div>--}}
+                {{--<div class=" col-4 text-right">--}}
+                    {{--<button class="btn btn-outline-primary " data-toggle="modal" data-target="#create_corporate_appointments">New</button>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+    {{--<div id="corporate_appointments" class="collapse bg-white rounded-bottom" style="margin-top: -5px;">--}}
+        {{--<div class="  pt-1 px-3 pb-3">--}}
+            {{--@foreach($corporate_appointments as $key => $cor_app)--}}
+                {{--<div class="mt-3 border-bottom">--}}
+                    {{--<div class="row">--}}
+                        {{--<div class="col-9 edit_corporate_appointments cursor-pointer text-primary" data-toggle="modal" data-target="#edit_corporate_appointments" data-corporate_appointments="{{$cor_app}}">{{$cor_app->title}}</div>--}}
+                        {{--<div class="col-3">--}}
+                            {{--<a href="{{ route('delete_corporate_appointments', [$cor_app->id]) }}" >--}}
+                                {{--<svg xmlns="http://www.w3.org/2000/svg" class="slds-delete__icon" id="Layer_1" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="M10 3v3h9V3a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1z"/><path d="M4 5v1h21V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1zM6 8l1.812 17.209A2 2 0 0 0 9.801 27H19.2a2 2 0 0 0 1.989-1.791L23 8H6zm4.577 16.997a.999.999 0 0 1-1.074-.92l-1-13a1 1 0 0 1 .92-1.074.989.989 0 0 1 1.074.92l1 13a1 1 0 0 1-.92 1.074zM15.5 24a1 1 0 0 1-2 0V11a1 1 0 0 1 2 0v13zm3.997.077a.999.999 0 1 1-1.994-.154l1-13a.985.985 0 0 1 1.074-.92 1 1 0 0 1 .92 1.074l-1 13z"/></svg>--}}
+                            {{--</a>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div> --}}
+            {{--@endforeach--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</div>--}}

@@ -53,6 +53,12 @@ class NotesController extends Controller
                 $notes->{$request} = $req->input($request);
             }
         }
+        $file = $req->file('note_file');
+        if($file){
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('storage/public/Files'), $filename);
+            $notes['note_file'] = $filename;
+        }
 
         $notes->user_id = Auth::user()->id; 
         $url = url()->previous();
@@ -75,6 +81,12 @@ class NotesController extends Controller
             }
         }
 
+        $file = $req->file('note_file');
+        if($file){
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('storage/public/Files'), $filename);
+            $notes['note_file'] = $filename;
+        }
         $notes->user_id = Auth::user()->id; 
         $url = url()->previous();
         if ($notes->save()) {
