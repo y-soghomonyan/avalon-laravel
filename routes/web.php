@@ -14,7 +14,14 @@ use App\Http\Controllers\FilesController;
 use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\CorporateAppointments;
 use App\Http\Controllers\AddressProviderController;
+use App\Http\Controllers\TestEmailController;
 
+Route::controller(TestEmailController::class)->group(function () {
+
+    Route::get('/test', 'index')->name('test');
+//    Route::post('/update-profile', 'update_profile')->name('update_profile');
+
+});
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -54,6 +61,7 @@ Route::controller(AddressesController::class)->group(function () {
     Route::post('/get_states', 'get_states')->name('get_states')->middleware('auth');
     Route::post('/add_relation_address', 'add_relation_address')->name('add_relation_address')->middleware('auth');
     Route::post('/new_relation_address', 'new_relation_address')->name('new_relation_address')->middleware('auth');
+    Route::get('/{url}/{id}/addresses', 'address_by_url')->name('address_by_url')->middleware('auth');
 });
 
 Route::controller(AccountsController::class)->group(function () {

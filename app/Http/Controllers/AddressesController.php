@@ -153,11 +153,19 @@ class AddressesController extends Controller
         }
         return redirect()->to($url)->with('danger',  'Address some error');
 
-        
-       
      }
 
-
+     public function address_by_url($url, $id){
+         $user_id = Auth::user()->id;
+         return view('user.address.by_page', [
+             'addresses' => AddressRelation::where('user_id', $user_id)->where($url."_id", $id)->with('addresses.addressProvider')->get(),
+             'countries' => Country::all(),
+             'stateis' => CountryState::all(),
+             'address_providers' => AddressProvider::where('user_id', '=', Auth::user()->id)->get(),
+             'url' => $url,
+             'id' => $id
+         ]);
+     }
 
     //  public function add_relation_address(Request $req){
     //     $data_id =  $req->input('page_url').'_id';

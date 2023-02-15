@@ -326,3 +326,48 @@ a{
 .break-word {
     word-break: break-all;
 }
+
+.dropdown-submenu{
+    padding: 10px 0px!important;
+    position: relative;
+}
+
+.dropdown-submenu:before {
+    display: block;
+    content: " ";
+    float: left;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 6px 6px 6px 6px;
+    border-left-color: #ccc;
+    margin-top: 8px;
+    margin-left: 5px;
+    margin-right: -10px;
+    transform: rotatey(180deg);
+}
+
+.dropdown-submenu >a {
+    margin-left: 24px;
+    color: #212529;;
+}
+
+.dropdown-submenu >a:hover {
+    color: #212529;;
+}
+
+.drop_settings{
+    display: none;
+    position: absolute;
+    top: -2px;
+    right: 158px;
+}
+
+.dropdown-submenu:hover > .drop_settings{
+    display:block;
+}
+
+.active_item > span{
+    border-bottom: 2px solid blue;
+}

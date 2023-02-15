@@ -82,7 +82,8 @@
     </div>
 </div>
 
-@if(!Route::currentRouteNamed('addresses'))
+@if(
+!Route::currentRouteNamed('addresses') && !Route::currentRouteNamed('address_by_url'))
     <div class="modal " id="chose_address">
         <div class="modal-dialog mt-5 modal-sm">
             <div class="modal-content">

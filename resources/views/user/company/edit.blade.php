@@ -380,9 +380,11 @@
                                 </div> 
                             @endforeach
                         </div>
-                        <div class="row text-center py-3">
-                            <a href="{{ route('notes', [$url, $id]) }}" class=" text-primary">View All</a>
-                        </div>
+                        @if($notes->count())
+                            <div class="row text-center py-3">
+                                <a href="{{ route('notes', [$url, $id]) }}" class=" text-primary">View All</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -447,9 +449,11 @@
                                 </div> 
                             @endforeach
                         </div>
-                        <div class="row text-center py-3">
-                            <a href="{{ route('files', [$url,$id]) }}" class=" text-primary">View All</a>
-                        </div>
+                        @if($files->count())
+                            <div class="row text-center py-3">
+                                <a href="{{ route('files', [$url,$id]) }}" class=" text-primary">View All</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -491,9 +495,11 @@
                                 </div> 
                             @endforeach
                         </div>
-                        <div class="row text-center py-3">
-                            <a href="{{ route('addresses') }}" class=" text-primary">View All</a>
-                        </div>
+                        @if($addresses->count())
+                            <div class="row text-center py-3">
+                                <a href="{{ route('address_by_url', [$url,$id]) }}" class=" text-primary">View All</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
