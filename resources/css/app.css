@@ -371,3 +371,10 @@ a{
 .active_item > span{
     border-bottom: 2px solid blue;
 }
+
+.f-w-bold{
+    font-weight: bold;
+}
+.p-events-n{
+    pointer-events: none;
+}

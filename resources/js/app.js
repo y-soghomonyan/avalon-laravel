@@ -226,6 +226,99 @@ $(document).ready(function(){
         }, 200);
     })
 
+       
+    $('.create_new_tax_returns').on('click', function(){
+        // let company_id = $('#company_id').val();
+        let tax_end = $('#tax_returns_years_block').find('.select2').val();
+        // let _token = $('meta[name="csrf-token"]').attr('content');
+        let incorporation_date_for_tax = $('.incorporation_date_for_tax').val();
+        let company_country_for_tax_returns = $('.company_country_for_tax_returns').val()
+        let tax_returns_start_date = $('#tax_returns_start_date');
+
+        $('.tax_returns_tax_end').val(tax_end)
+       
+        // $('#tax_returns_id').val(response.msg)
+
+        let company_type =  $('.company_type_for_tax_returns').val();
+        let company_types = ['2','5','6'];
+        if(jQuery.inArray(company_type, company_types) !== -1 && company_country_for_tax_returns == 5){
+            const date = new Date(tax_end);
+            const newDateaddOneYear = addOneYear(date);
+            $('.tax_returns_due_date').val(newDateaddOneYear)
+        } 
+
+  
+        let tax_returns_due_date = '';
+        let UK2 = [3,4];
+        
+        if(company_country_for_tax_returns == 4){
+            tax_returns_due_date = tax_end.slice(0, 4)+'-04-15';
+            $('.tax_returns_due_date').val(tax_returns_due_date)
+        }else if (company_country_for_tax_returns == 5 && jQuery.inArray(company_type, UK2) !== -1) {
+            tax_returns_due_date = tax_end.slice(0, 4)+'-01-31';
+            $('.tax_returns_due_date').val(tax_returns_due_date)
+        }
+
+
+
+        let star_date = removeOneYear(tax_end)
+        tax_returns_start_date.val(star_date)
+        if(incorporation_date_for_tax > star_date){
+            tax_returns_start_date.val(incorporation_date_for_tax)
+        }
+        $('.close_modal_tax_returns').trigger('click');
+        $('.newtax_returns_modal_open').trigger('click');
+
+
+        // $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+
+        // $.ajax({
+        //     type:"POST",
+        //     url:'/create_tax_returns',
+        //     data: {
+        //         "company_id":company_id,
+        //         "tax_end":tax_end,
+        //         "_token": _token
+        //     }, 
+        //     datatType : 'json', 
+        //     success: (response) => {
+        //         if (response.code == 400) {
+        //         }else if(response.code == 200){
+        //             $('.close_modal_tax_returns').trigger('click');
+        //             $('.newtax_returns_modal_open').trigger('click');
+        //             $('#tax_returns_id').val(response.msg)
+
+        //             let company_type =  $('.company_type_for_tax_returns').val();
+        //             let company_types = ['2','5','6'];
+        //             if(jQuery.inArray(company_type, company_types) !== -1 && company_country_for_tax_returns == 5){
+        //                 const date = new Date(tax_end);
+        //                 const newDateaddOneYear = addOneYear(date);
+        //                 $('.tax_returns_due_date').val(newDateaddOneYear)
+        //             } 
+
+        //             let star_date = removeOneYear(tax_end)
+        //             tax_returns_start_date.val(star_date)
+        //             if(incorporation_date_for_tax > star_date){
+        //                 tax_returns_start_date.val(incorporation_date_for_tax)
+        //             }
+        //         }
+        //     }
+        // })
+
+    })
+
+    function removeOneYear(date) {
+        const dateCopy = new Date(date);
+        dateCopy.setFullYear(dateCopy.getFullYear() - 1, dateCopy.getMonth(), dateCopy.getDate() + 1);
+        return dateCopy.toISOString().slice(0, 10);
+    }
+   
+    function addOneYear(date) {
+        const dateCopy = new Date(date);
+        dateCopy.setFullYear(dateCopy.getFullYear() + 1);
+        return dateCopy.toISOString().slice(0, 10);
+    }
+
 })
 
 

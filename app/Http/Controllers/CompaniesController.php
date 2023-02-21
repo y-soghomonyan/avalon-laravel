@@ -12,6 +12,7 @@ use App\Models\TypeOfCompaneis;
 use App\Models\FileReations;
 use App\Models\CompanyType;
 use App\Models\CompanyFile;
+use App\Models\TaxReturns;
 use App\Models\Address;
 use App\Models\Account;
 use App\Models\Company;
@@ -45,6 +46,9 @@ class CompaniesController extends Controller
                 'November',
                 'December',
             );
+
+
+    public $taxYears = [];
 
     public function index()
     {
@@ -184,6 +188,12 @@ class CompaniesController extends Controller
         if(empty($company)){
             return redirect()->route('companies')->with('danger', "Not Found");
         }
+        
+        $incorporationTime = $company->incorporation_date;
+        $incorporationYear = date('Y', strtotime($incorporationTime));
+        $all_tax_years = TaxReturns::where('company_id', $id)->get(['tax_end'])->toArray();
+        $this->get_tax_years($company, $incorporationYear, $all_tax_years);
+
         $notifications = new NotificationController;
         return view('user.company.edit', [
             'company' => $company,
@@ -217,8 +227,37 @@ class CompaniesController extends Controller
             ->whereHas('addressRelation', function($q) use($id){$q->where('company_id', $id);})->get(),
             'all_addresses' => Address::where('user_id', '=', Auth::user()->id)->with('country')->with('state')->with('addressRelation')->get(),
             'months' => $this->months,
+            'tax_returns' => TaxReturns::where('company_id', $id)->get(),
+            // 'tax_returns_end_date' => $all_tax_years,
+            'tax_years' => $this->taxYears,
         ]);
 
+    }
+
+    public function get_tax_years($company, $year, $all_tax_years)
+    {
+        $month = $company->month;
+        $month = $month < 10 ? "0$month" : $month;
+        $day = $company->day;
+        $day = $day < 10 ? "0$day" : $day;
+        $taxDate = strtotime("$year-$month-$day");
+        $flag = 1;
+
+        foreach ($all_tax_years as $all_tax_year){
+            if("$year-$month-$day" == $all_tax_year['tax_end']){
+                $flag = 0;
+            }
+        }
+
+        if($taxDate < time() && $taxDate > strtotime($company->incorporation_date) && $flag) {
+            $this->taxYears[] = date('Y-m-d', $taxDate);
+            $year = $year + 1;
+            return $this->get_tax_years($company, $year, $all_tax_years);
+        }elseif(($year + 1) < date('Y')) {
+            $year = $year + 1;
+            return $this->get_tax_years($company, $year, $all_tax_years);
+        }
+        return;
     }
 
     /**
@@ -356,5 +395,60 @@ class CompaniesController extends Controller
 
         $files->save();
         return response()->json(['code' => 200, 'msg' => $filename]);
+    }
+
+    // public function create_tax_returns(Request $req){
+    //     $tax_returns = new TaxReturns();
+
+    //     if( !empty($req->input('tax_end'))){
+    //         $tax_returns->user_id = Auth::user()->id; 
+    //         $tax_returns->company_id = $req->input('company_id');
+    //         $tax_returns->tax_end = $req->input('tax_end');
+           
+    //         if($tax_returns->save()){
+    //             return response()->json(['code' => 200, 'msg' => $tax_returns->id]);
+    //         }
+    //         return response()->json(['code' => 400, 'msg' => 'error']);
+    //     }
+    //     return response()->json(['code' => 400, 'msg' => 'error']);
+    // }
+
+    public function create_tax_returns(Request $req){
+        $url = url()->previous();
+        $tax_returns = new TaxReturns();
+        // dd($req);
+
+        $file = $req->file('file');
+
+        if($file){
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('storage/public/Files'), $filename);
+            $tax_returns['file_path'] = asset('storage/public/Files/'.$filename);
+        }elseif($req->input('file_link')){
+            $tax_returns->file_path = $req->input('file_link');
+        }
+        $tax_returns->user_id = Auth::user()->id; 
+        $tax_returns->company_id = $req->input('company_id');
+        $tax_returns->tax_end = $req->input('tax_end');
+        $tax_returns->tax_start = $req->input('start_date');
+        $tax_returns->due_date = $req->input('due_date');
+        $tax_returns->status = $req->input('status');
+        $tax_returns->company_status = $req->input('company_status');
+
+        if($tax_returns->save()){
+            return redirect()->to($url)->with('success',  'Tax Returns Creades');
+        } 
+        return redirect()->to($url)->with('danger',  'Tax Returns is not created');
+    }
+
+    public function delete_tax_returns ($id){
+        $url = url()->previous();
+        $data = TaxReturns::find($id);
+        if(empty($data)){
+            return redirect()->to($url)->with('success',  'Tax Returns is deleted');
+        }
+        if($data->delete()){
+            return redirect()->to($url)->with('danger',  'Tax Returns is not deleted');
+        }
     }
 }

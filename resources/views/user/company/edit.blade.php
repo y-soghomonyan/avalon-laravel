@@ -22,6 +22,30 @@
         }
         $company->month = $company->month ?? 1;
         $data_month = cal_days_in_month(CAL_GREGORIAN, $company->month, date("Y"));
+
+        $month = $company->month;
+        if (strlen($month)<2) {
+            $month ="0".$month; 
+        }
+       
+        $day = '';
+        if(!empty($company->day)){
+            $day = $company->day;
+            if(strlen($day)<2){
+                $day = "0".$day;
+            }
+        }else{
+            $day = '01';   
+        }
+
+        $tax_status = ['1'=>'Not Filed', '2'=>'Filed'];
+        $tax_company_status = [
+            '1' => 'Dormant (never traded)',
+            '2' => 'Non trading (but traded before)',
+            '3' => 'Trading',
+            '4' => 'Disregarded Entity',
+
+        ];
     @endphp
     <div class="container-fluid mt-5">
         <div class="row-with-float">
@@ -68,6 +92,10 @@
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label  class="mr-sm-2">Incorporation date:</label>
                             <div>{{$company->incorporation_date ?? ''}} </div>
+                        </div>
+                        <div class="border-bottom mt-2 pt-1 px-2">
+                            <label  class="mr-sm-2"> Accounting Reference Date:</label>
+                            <div>{{$company->day ??''}}, {{$company->month ? $months[$company->month -1] :''}}  </div>
                         </div>
                     </div>
                 </div>
@@ -483,7 +511,15 @@
                             @foreach($addresses as $key => $address)
                                 <div class="mt-3 border-bottom pb-1">
                                     <div class="row main_address cursor-pointer" data-toggle="modal" data-target="#chose_address" data-all-data="{{$address}}">
-                                        <div class="col-8">{{$address->title??"Unknown name"}}</div>
+                                        <div class="col-8">{{$address->title??"Unknown name"}} 
+                                            {{$address->address_1?$address->address_1."," :""}} 
+                                            {{$address->address_2?$address->address_2."," :""}} 
+                                            {{$address->address_3? $address->address_3.",":""}}
+                                            {{$address->post_code_zip? $address->post_code_zip." ":""}}
+                                            {{$address->city? $address->city.",":""}}
+                                            {{$address->state && $address->state->name? $address->state->name.',':""}}
+                                            {{$address->country && $address->country->name?$address->country->name.",":""}}
+                                        </div>
                                         <div class="col-4">
                                             @foreach($address->addressRelation as $add_rel)
                                                 @if($add_rel->company_id == $id && !empty($add_rel->address_type))
@@ -544,6 +580,47 @@
                                         </div>
                                     </div>
                                 </div> 
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 rounded mt-3">
+                    <div class=" account_info_btn collaps_show rounded px-3 py-2 bg-white  " data-toggle="collapse" data-target="#tax_returns" style="cursor:pointer">
+                        <div class="col-12 ">
+                            <div class="row">
+                                <div class="df_jsfs_amc col-8">
+                                    <div class="icon_small bg_c_cases">
+                                        <img src="{{url('image/case_120.png')}}" alt="">
+                                    </div>
+                                    <div class="text-info px-2">Tax Returns
+                                        ({{$tax_returns->count()}})
+                                    </div>
+                                </div>
+                                <div class=" col-4 text-right">
+                                    <button class="btn btn-outline-primary newtax_returns" data-toggle="modal" data-target="#tax_returns_modal">New</button>
+                                    <input type="hidden" name="" value="{{'-'.$month.'-'.$day}}" class="accounting_reference_date">
+                                    <input type="hidden" name="" value="{{$company->incorporation_date}}" class="incorporation_date_for_tax">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tax_returns" class="collapse bg-white rounded-bottom" style="margin-top: -5px;">
+                        <div class="  pt-1 px-3 pb-3"> 
+                            @foreach($tax_returns as $key => $tax_return)
+                                <div class="row mt-2">
+                                    <div 
+                                        class="col-10 show_tax_returns cursor-pointer text-primary"
+                                        data-toggle="modal"
+                                        data-target="#show_tax_returns"
+                                        data-tax_returns="{{ $tax_return}}">
+                                        {{$tax_return->tax_start?? ''}} - {{$tax_return->tax_end?? ''}}
+                                    </div>                                        
+                                    <div class="col-2 text-center">
+                                        <a href="{{ route('delete_tax_returns', [$tax_return->id]) }}" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="slds-delete__icon" id="Layer_1" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="M10 3v3h9V3a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1z"/><path d="M4 5v1h21V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1zM6 8l1.812 17.209A2 2 0 0 0 9.801 27H19.2a2 2 0 0 0 1.989-1.791L23 8H6zm4.577 16.997a.999.999 0 0 1-1.074-.92l-1-13a1 1 0 0 1 .92-1.074.989.989 0 0 1 1.074.92l1 13a1 1 0 0 1-.92 1.074zM15.5 24a1 1 0 0 1-2 0V11a1 1 0 0 1 2 0v13zm3.997.077a.999.999 0 1 1-1.994-.154l1-13a.985.985 0 0 1 1.074-.92 1 1 0 0 1 .92 1.074l-1 13z"/></svg>
+                                        </a>
+                                    </div>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -838,6 +915,7 @@
             </div>
         </div>
     </div>
+    @include('modals.tax_returns')
     @include('modals.corporate_appointments')
     @include('modals.address')
     @include('modals.notes')

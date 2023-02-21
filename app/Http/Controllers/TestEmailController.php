@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// use Webklex\IMAP\Client;
+// use Webklex\IMAP\Facades\Client;
+use Keensoen\CPanelApi\CPanel;
 
 class TestEmailController extends Controller
 {
@@ -105,6 +108,33 @@ class TestEmailController extends Controller
  }
 
     public function index(){
+        
+        $cpanel = new CPanel(
+            $cpanel_domain='avalon.enterprises',
+            $cpanel_api_token='92923MMLMJ9PHIUHCTR5X970AAN2SWEJ',
+            $cpanel_username='texasrea',
+            $protocol='https',
+            $port=2083
+            );
+        
+        // $cpanel = new CPanel();  
+// $response = $cpanel->getEmailAccounts();
+// dump($response);
+
+// $cpanel = new Cpanel();
+$username = 'test1@avalon.enterprises';
+// $password = 'ideaHeals@#12';
+// $response = $cpanel->createEmailAccount($username, $password);
+$email = $username;
+$quota = 1024;
+$response1 = $cpanel->increaseQuota($email,$quota);
+$response = $cpanel->getDiskUsage($username);
+dump($response);
+dump($response1);
+
+// $cpanel = new Cpanel();
+// $response = $cpanel->deleteEmailAccount('tttt@texasrealfood.com');
+dd('testpro');
 //        $username = 'test@dmosk.ru';
 //        $password = 'test_test123';
 //
@@ -129,6 +159,49 @@ class TestEmailController extends Controller
 //                // It can also be a range eg 1:5, which would be the same as 1,2,3,4,5
 //                imap_setflag_full($mailbox, implode(',', $unseenMessages), '\Seen');
 //            }
+
+
+        // $oClient = new Client([
+        //     'host'          => 'imap.gmail.com',
+        //     'port'          => 993,
+        //     'encryption'    => 'ssl',
+        //     'validate_cert' => true,
+        //     'username'      => 'ParuyrKirakosyan160695@gmail.com',
+        //     'password'      => 'artpa123698745',
+        //     'protocol'      => 'imap'
+        // ]);
+
+    
+
+        $url = "{imap.gmail.com:993/imap/ssl/novalidate-cert}INBOX";
+        $id = "tutorialspoint.testsdcsdcsdcd@gmail.com";
+        $pwd = "cohondob_123";
+        $mailbox = imap_open($url, $id, $pwd);
+        print("Connection established....");
+        print("<br>");
+
+        //Creating a mailbox
+        $newmailbox = "{imap.gmail.com:993/imap/ssl/novalidate-cert}INBOX.new_mail_box";
+        $res = imap_createmailbox($mailbox, imap_utf7_encode($newmailbox));
+        
+        if($res){
+           print("Mailbox created successfully");
+        } else {
+           print("Error occurred");
+        }
+
+     die;
+
+
+        $oClient = Client::account('gmail');
+     
+        $oClient->connect();
+        $oFolder = $oClient->getFolder('INBOX.read'); 
+
+        $aMessage = $oFolder->query()->all()->get();
+
+           echo "<pre>";
+         print_r($aMessage);
     }
 
 

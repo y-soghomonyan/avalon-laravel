@@ -8,7 +8,7 @@
                 <a href="{{route('edit_'.$url, $id)}}">{{$page_title}}</a>
             </div>
             <div class="col-2 text-end">
-                <button class="btn btn-light " data-toggle="modal" data-target="#create_files">New</button>
+                <button class="btn btn-light clear_notes_form create_notes" data-toggle="modal" data-target="#create_files">New</button>
             </div>
         </div>
     </div>

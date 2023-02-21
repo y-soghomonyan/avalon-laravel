@@ -91,6 +91,12 @@ Route::controller(CompaniesController::class)->group(function () {
     Route::get('/companies/{id}/account', 'companies_by_account')->name('companies_by_account')->middleware('auth');
     Route::post('/uploade_file_company', 'uploade_file_company')->name('uploade_file_company')->middleware('auth');
     Route::post('/update_file_company', 'update_file_company')->name('update_file_company')->middleware('auth');
+    Route::post('/create_tax_returns', 'create_tax_returns')->name('create_tax_returns')->middleware('auth');
+    Route::post('/create_tax_returnspull2', 'create_tax_returnspull2')->name('create_tax_returnspull2')->middleware('auth');
+    Route::get('/delete_tax_returns/{id}', 'delete_tax_returns')->name('delete_tax_returns')->middleware('auth');
+
+    
+
     
 });
 

@@ -33,4 +33,8 @@ class Company extends Model
         return $this->hasMany(CompanyFile::class, 'company_id', 'id');
     }
 
+    public function taxReturns(){
+        return $this->hasMany(TaxReturns::class, 'company_id', 'id');
+    }
+
 }
