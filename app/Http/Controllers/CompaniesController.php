@@ -120,6 +120,12 @@ class CompaniesController extends Controller
         $company->status_date = $request->input('status_date');
         $company->month = $request->input('month');
         $company->day = $request->input('day');
+        $company->company_activity = $request->input('company_activity');
+        $company->address1 = $request->input('address1');
+        $company->address2 = $request->input('address2');
+        $company->city = $request->input('city');
+        $company->zip = $request->input('zip');
+        $company->correspondence_state = $request->input('correspondence_state');
 
         if($company->save()){
 
@@ -200,6 +206,7 @@ class CompaniesController extends Controller
             'company_types' => TypeOfCompaneis::all(),
             'countries' => Country::with(['states'])->get(),
             'accounts' => Account::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
+            'individual_accounts'=> Account::where('user_id', '=', Auth::user()->id)->where('account_personality_type', '=', 0)->get(['id', 'name']),
             'contacts' => Contact::where('user_id', '=', Auth::user()->id)->get(['id', 'title']),
             'users'=>User::where('id', '!=', Auth::user()->id)->get(['id', 'email', 'first_name', 'last_name']),
             'companies' =>Company::where('user_id', '=', Auth::user()->id)->get(['id', 'name']),
@@ -217,17 +224,14 @@ class CompaniesController extends Controller
             'notes' => Notes::where('company_id', '=', $id)->get(),
             'files' => FileReations::where('company_id', '=', $id)->where('status', '=', 1)->with('file')->get(),
             'files_data' => FileReations::where('user_id', '=', Auth::user()->id)->with('file')->get(),
-            'corporate_appointments' => CorporateAppointment::where('user_id', '=', Auth::user()->id)->where('company_id', '=', $id)->with('roles')->get(),
+            'corporate_appointments' => CorporateAppointment::where('user_id', '=', Auth::user()->id)->where('company_id', '=', $id)->with('roles')->with('company')->get(),
             'appointments_roles' => AppointmentsRole::all(),
             'address_providers' => AddressProvider::where('user_id', '=', Auth::user()->id)->get(),
-            'addresses' => Address::where('user_id', '=', Auth::user()->id)
-            ->with('country')
-            ->with('state')
-            ->with('addressRelation')
-            ->whereHas('addressRelation', function($q) use($id){$q->where('company_id', $id);})->get(),
+            'addresses' => Address::where('user_id', '=', Auth::user()->id)->with('country')->with('state')->with('addressRelation')->whereHas('addressRelation', function($q) use($id){$q->where('company_id', $id);})->get(),
             'all_addresses' => Address::where('user_id', '=', Auth::user()->id)->with('country')->with('state')->with('addressRelation')->get(),
             'months' => $this->months,
-            'tax_returns' => TaxReturns::where('company_id', $id)->get(),
+            'tax_returns' => TaxReturns::where('company_id', $id)->with('pdfFile')->get(),
+            // 'pdf_files' =>
             // 'tax_returns_end_date' => $all_tax_years,
             'tax_years' => $this->taxYears,
         ]);
@@ -237,8 +241,12 @@ class CompaniesController extends Controller
     public function get_tax_years($company, $year, $all_tax_years)
     {
         $month = $company->month;
-        $month = $month < 10 ? "0$month" : $month;
         $day = $company->day;
+        // dd([$month, $day]);
+        if(!$month || !$day || !$company->incorporation_date){
+            return $this->taxYears = "wrong";
+        }
+        $month = $month < 10 ? "0$month" : $month;
         $day = $day < 10 ? "0$day" : $day;
         $taxDate = strtotime("$year-$month-$day");
         $flag = 1;
@@ -301,17 +309,30 @@ class CompaniesController extends Controller
             $company->status_date = $request->input('status_date');
             $company->month = $request->input('month');
             $company->day = $request->input('day');
+            $company->company_activity = $request->input('company_activity');
+            $company->address1 = $request->input('address1');
+            $company->address2 = $request->input('address2');
+            $company->city = $request->input('city');
+            $company->zip = $request->input('zip');
+            $company->correspondence_state = $request->input('correspondence_state');
 
             $fale_paths = ['file_path_1','file_path_2','file_path_3','file_path_4'];
            
             foreach($fale_paths as $fale_path){
+                $CompanyFile = CompanyFile::where('company_id', '=', $id)->where('file_type', '=', $fale_path)->get()->first();
+
                 if( !empty($request->input($fale_path))){
-                    $CompanyFile = new CompanyFile;
-                    $CompanyFile->user_id = Auth::user()->id; 
-                    $CompanyFile->company_id = $id;
-                    $CompanyFile->file_type = $fale_path;
-                    $CompanyFile->path = $request->input($fale_path);;
-                    $CompanyFile->save();
+                    if(empty($CompanyFile)){
+                        $CompanyFile = new CompanyFile;
+                        $CompanyFile->user_id = Auth::user()->id; 
+                        $CompanyFile->company_id = $id;
+                        $CompanyFile->file_type = $fale_path;
+                        $CompanyFile->path = $request->input($fale_path);
+                        $CompanyFile->save();
+                    }else{
+                        $CompanyFile->path = $request->input($fale_path);
+                        $CompanyFile->save();
+                    }
                 }
             }
 
@@ -397,58 +418,5 @@ class CompaniesController extends Controller
         return response()->json(['code' => 200, 'msg' => $filename]);
     }
 
-    // public function create_tax_returns(Request $req){
-    //     $tax_returns = new TaxReturns();
 
-    //     if( !empty($req->input('tax_end'))){
-    //         $tax_returns->user_id = Auth::user()->id; 
-    //         $tax_returns->company_id = $req->input('company_id');
-    //         $tax_returns->tax_end = $req->input('tax_end');
-           
-    //         if($tax_returns->save()){
-    //             return response()->json(['code' => 200, 'msg' => $tax_returns->id]);
-    //         }
-    //         return response()->json(['code' => 400, 'msg' => 'error']);
-    //     }
-    //     return response()->json(['code' => 400, 'msg' => 'error']);
-    // }
-
-    public function create_tax_returns(Request $req){
-        $url = url()->previous();
-        $tax_returns = new TaxReturns();
-        // dd($req);
-
-        $file = $req->file('file');
-
-        if($file){
-            $filename = date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('storage/public/Files'), $filename);
-            $tax_returns['file_path'] = asset('storage/public/Files/'.$filename);
-        }elseif($req->input('file_link')){
-            $tax_returns->file_path = $req->input('file_link');
-        }
-        $tax_returns->user_id = Auth::user()->id; 
-        $tax_returns->company_id = $req->input('company_id');
-        $tax_returns->tax_end = $req->input('tax_end');
-        $tax_returns->tax_start = $req->input('start_date');
-        $tax_returns->due_date = $req->input('due_date');
-        $tax_returns->status = $req->input('status');
-        $tax_returns->company_status = $req->input('company_status');
-
-        if($tax_returns->save()){
-            return redirect()->to($url)->with('success',  'Tax Returns Creades');
-        } 
-        return redirect()->to($url)->with('danger',  'Tax Returns is not created');
-    }
-
-    public function delete_tax_returns ($id){
-        $url = url()->previous();
-        $data = TaxReturns::find($id);
-        if(empty($data)){
-            return redirect()->to($url)->with('success',  'Tax Returns is deleted');
-        }
-        if($data->delete()){
-            return redirect()->to($url)->with('danger',  'Tax Returns is not deleted');
-        }
-    }
 }

@@ -21,8 +21,14 @@ class CorporateAppointments extends Controller
         $corporate_appointment = new CorporateAppointment();
 
         $corporate_appointment->title = $req->input('title');
-        $corporate_appointment->account_id = $req->input('account_id');
-        $corporate_appointment->contact_id = $req->input('contact_id');
+
+        if(strstr($req->input('contact_id')," ", true) == 'account'){
+            $account_id = trim(strstr($req->input('contact_id')," "));
+            $corporate_appointment->account_id = $account_id;
+        }else{
+            $corporate_appointment->contact_id = $req->input('contact_id');
+        }
+
         $corporate_appointment->company_id = $req->input('company_id');
         $corporate_appointment->position_1 = $req->input('position_1');
         $corporate_appointment->position_2 = $req->input('position_2');
@@ -60,8 +66,14 @@ class CorporateAppointments extends Controller
        
         if(!empty($corporate_appointment)){
             $corporate_appointment->title = $req->input('title');
-            $corporate_appointment->account_id = $req->input('account_id');
-            $corporate_appointment->contact_id = $req->input('contact_id');
+            if(strstr($req->input('contact_id')," ", true) === 'account'){
+                $account_id = trim(strstr($req->input('contact_id')," "));
+                $corporate_appointment->account_id = $account_id;
+                $corporate_appointment->contact_id = null;
+            }else{
+                $corporate_appointment->account_id = null;
+                $corporate_appointment->contact_id = $req->input('contact_id');
+            }
             $corporate_appointment->company_id = $req->input('company_id');
             $corporate_appointment->position_1 = $req->input('position_1');
             $corporate_appointment->position_2 = $req->input('position_2');
@@ -71,7 +83,7 @@ class CorporateAppointments extends Controller
             if(!empty($req->input('appointment_terminated_date'))){
                 $corporate_appointment->status = null;
             }
-
+            // dd($corporate_appointment->status);
             $corporate_appointment->user_id = Auth::user()->id;
 
             if($corporate_appointment->save() ){

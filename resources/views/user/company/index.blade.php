@@ -17,7 +17,7 @@
                     <th>Name</th>
                     <th>Account</th>
                     <th>Filing</th>
-                    <th>Division</th>
+                    {{-- <th>Division</th> --}}
                     <th class="text-end">Status</th>
                     <th></th>
                 </tr>

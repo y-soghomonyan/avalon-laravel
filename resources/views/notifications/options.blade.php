@@ -1,6 +1,6 @@
 <div class="col-12 rounded bg-white py-3 px-3">
     <div class="row mt-3">
-        <div class="col-5  df_jsfs_amc">
+        <div class="col-5  df_jsfs_amc {{$account->account_personality_type == 1 ? "" : "d-none"}}">
             <div  class="icon_small bg_c_contact" >
                 <img src="{{url('image/contact_120.png')}}" alt="">
             </div>
@@ -57,7 +57,7 @@
         </div>
     </div>
 </div>
-<div class="col-12 rounded mt-3">
+<div class="col-12 rounded mt-3 {{$account->account_personality_type == 1 ? "" : "d-none"}}">
     <div class=" account_info_btn collaps_show rounded px-3 py-2 bg-white  " data-toggle="collapse" data-target="#contacts" style="cursor:pointer">
         <div class="col-12 ">
             <div class="row">
@@ -237,13 +237,14 @@
             @foreach($addresses as $key => $address)
                 <div class="mt-3 border-bottom">
                     <div class="row main_address cursor-pointer" data-toggle="modal" data-target="#chose_address" data-all-data="{{$address}}">
-                        <div class="col-8">{{$address->title??"Unknown name"}} 
+                        <div class="col-8">
+                            {{$address->title??"Unknown name"}} 
                             {{$address->address_1?$address->address_1."," :""}} 
                             {{$address->address_2?$address->address_2."," :""}} 
                             {{$address->address_3? $address->address_3.",":""}}
-                            {{$address->post_code_zip? $address->post_code_zip." ":""}}
                             {{$address->city? $address->city.",":""}}
-                            {{$address->state && $address->state->name? $address->state->name.',':""}}
+                            {{$address->state && $address->state->name? $address->state->name.'':""}}
+                            {{$address->post_code_zip? $address->post_code_zip." ":""}}
                             {{$address->country && $address->country->name?$address->country->name.",":""}}
                         </div>
                         <div class="col-4">

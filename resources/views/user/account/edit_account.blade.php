@@ -20,24 +20,33 @@
                     </div>
                     <div id="account_info_btn" class="collapse show">
                         <div class="border-bottom mt-2 pt-1 px-2">
+                            <label for="personal_name" class="mr-sm-2">Account Classification:</label>
+                            <div>{{$account->account_personality_type == 1 ? "Business" : "Individual"}}</div>
+                        </div>
+                        <div class="border-bottom mt-2 pt-1 px-2">
                             <label for="personal_name" class="mr-sm-2">Account name:</label>
                             <div>{{$account->name}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label  class="mr-sm-2">Account owner:</label>
-                            <div>{{$account->ownerUser->name}}</div>
+                            
+                            <div>{{$account->ownerUser->first_name??""}} {{$account->ownerUser->last_name??""}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
                             <label  class="mr-sm-2">Phone:</label>
                             <div>{{$account->account_phone}}</div>
                         </div>
-                        <div class="border-bottom mt-2 pt-1 px-2">
+                        <div class="border-bottom mt-2 pt-1 px-2 {{$account->account_personality_type == 1 ? "" : "d-none"}}">
                             <label for="parent_account" class="mr-sm-2">Parent account:</label>
-                            <div>{{$account->accountTypes->name}}</div>
+                            <div>{{$account->parentAccount->name ?? ""}}</div>
                         </div>
-                        <div class="border-bottom mt-2 pt-1 px-2">
+                        <div class="border-bottom mt-2 pt-1 px-2 {{$account->account_personality_type == 1 ? "" : "d-none"}}">
                             <label  class="mr-sm-2">Industry:</label>
                             <div>{{$account->industriesTypes->name}}</div>
+                        </div>
+                        <div class="border-bottom mt-2 pt-1 px-2 {{$account->account_personality_type == 0 ? "" : "d-none"}}">
+                            <label  class="mr-sm-2">Email:</label>
+                            <div>{{$account->email}}</div>
                         </div>
                     </div>
                 </div>
@@ -77,17 +86,17 @@
                                                     <label for="personal_name" class="mr-sm-2">Website:</label>
                                                     <div>{{$account->website}}</div>
                                                 </div>
-                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                {{-- <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Description:</label>
                                                     <div>{{$account->description}}</div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
                                                     <label for="personal_name" class="mr-sm-2">Phone</label>
                                                     <div>{{$account->additional_phone}}</div>
                                                 </div>
-                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                <div class="border-bottom mt-2 pt-1 px-2 {{$account->account_personality_type == 1 ? "" : "d-none"}}">
                                                     <label for="personal_name" class="mr-sm-2">Employees:</label>
                                                     <div>{{$account->employees}}</div>
                                                 </div>
@@ -214,8 +223,8 @@
                                 <div class="col-6  {{$account->account_personality_type == 0 ? "" : "d-none"}}" id="personal_account_name">
                                     @php
                                         if($account->account_personality_type == 0){
-                                            $first_name = substr($account->name, 0, strpos($account->name, ',')); 
-                                            $last_name = substr($account->name, strpos($account->name, ",") + 2);
+                                            $last_name = substr($account->name, 0, strpos($account->name, ',')); 
+                                            $first_name = substr($account->name, strpos($account->name, ",") + 2);
                                         }
                                     @endphp
                                     <label for="personal_name" class="mr-sm-2">First name:</label>
@@ -223,7 +232,7 @@
                                     <label for="personal_name" class="mr-sm-2">Last name:</label>
                                     <input  type="text" class="form-control mb-2 mr-sm-2 personal_account_name" placeholder="Last name"  value="{{$last_name ?? ""}}" id="last_name">
                                 </div>
-                                <div class="col-6" id="parent_id_select_2">
+                                <div class="col-6 account_classification_bisnes {{$account->account_personality_type == 1 ? "" : "d-none"}}" id="parent_id_select_2">
                                     <label for="parent_account" class="mr-sm-2">Parent account:</label>
                                     <div>
                                         <select class="select2 form-control select2_styles" name="parent_id" >
@@ -241,12 +250,16 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-6 d-flex flex-column account_classification_indevidual {{$account->account_personality_type == 1 ? "d-none" : ""}}">
+                                    <label for="parent_account w-100" class="mr-sm-2">Email:</label>
+                                    <input type="email" name="email" id="" class="form-control" value="{{$account->email}}">
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label  class="mr-sm-2">Account owner:</label>
+                                    <label class="mr-sm-2">Account owner:</label>
                                     <div>
-                                        <select required class="select2 custom-select form-control" required name="owner_id">
+                                        <select class="select2 custom-select form-control"  name="owner_id">
                                             @if($users)
                                                 @foreach($users as $user)
                                                     <option value="{{$user->id}}" @if($user->id == $account->ownerUser->id) {{'selected'}} @else {{""}} @endif>{{$user->first_name}}</option>
@@ -258,7 +271,7 @@
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Type:</label>
                                     <div>
-                                        <select  class="select2 custom-select form-control" name="account_type_id" required>
+                                        <select class="select2 custom-select form-control" name="account_type_id" >
                                             @foreach($company_types as  $account_type)
                                                 <option value="{{$account_type->id}}" @if($account_type->id == $account->accountTypes->id) {{'selected'}} @else {{""}} @endif>{{$account_type->name}}</option>
                                             @endforeach
@@ -268,13 +281,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label  class="mr-sm-2">Phone:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="phone" value="{{$account->account_phone}}" name="account_phone" required>
+                                    <label class="mr-sm-2">Phone:</label>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="phone" value="{{$account->account_phone}}" name="account_phone" >
                                 </div>
-                                <div class="col-6">
-                                    <label  class="mr-sm-2">Industry:</label>
+                                <div class="col-6 account_classification_bisnes {{$account->account_personality_type == 1 ? "" : "d-none"}}">
+                                    <label class="mr-sm-2">Industry:</label>
                                     <div>
-                                        <select  class="select2 custom-select form-control" name="industry_id" required>
+                                        <select class="select2 custom-select form-control" name="industry_id" >
                                             @foreach($industries_types as  $industries_type)
                                                 <option value="{{$industries_type->id}}" @if($industries_type->id == $account->industriesTypes->id) {{'selected'}} @else {{""}} @endif>{{$industries_type->name}}</option>
                                             @endforeach
@@ -289,17 +302,17 @@
                                 </div>
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Phone:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" required placeholder="Phone" value="{{$account->additional_phone}}" name="additional_phone" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2"  placeholder="Phone" value="{{$account->additional_phone}}" name="additional_phone" >
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <label  class="mr-sm-2">Description:</label>
                                     <textarea class="form-control" id="" rows="3"  name="description">{{$account->description}}</textarea>
-                                </div>
-                                <div class="col-6">
+                                </div> --}}
+                                <div class="col-6 account_classification_bisnes {{$account->account_personality_type == 1 ? "" : "d-none"}}">
                                     <label  class="mr-sm-2">Employees:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Employees" required value="{{$account->employees}}" name="employees" >
+                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Employees"  value="{{$account->employees}}" name="employees" >
                                 </div>
                             </div>
                             {{-- <div class="row">
@@ -414,24 +427,23 @@
                     dropdownParent:  $(this).parent()
                 });
             })
-
             $('.account_personality_type').change(()=>{
-                if( $('#personal_account').is(':checked') ){
-                    $('#business_account_name').addClass('d-none');
-                    $('#personal_account_name').removeClass('d-none');
-
-                }else{
-
-                    $('#business_account_name').removeClass('d-none');
-                    $('#personal_account_name').addClass('d-none');
-                    $('#account_name').val('');
-                }
-            })
+                    if( $('#personal_account').is(':checked') ){
+                        $('#business_account_name').addClass('d-none');
+                        $('#personal_account_name').removeClass('d-none');
+                        $('.account_classification_indevidual').removeClass('d-none');
+                        $('.account_classification_bisnes').addClass('d-none');
+                    }else{
+                        $('.account_classification_indevidual').addClass('d-none');
+                        $('.account_classification_bisnes').removeClass('d-none');
+                        $('#business_account_name').removeClass('d-none');
+                        $('#personal_account_name').addClass('d-none'); 
+                        $('#account_name').val('');
+                    }
+                })
             $('.personal_account_name').change(()=>{
                 $('#account_name').val('');
-
-                $('#account_name').val($('#first_name').val() + ", " + $('#last_name').val());
-
+                $('#account_name').val($('#last_name').val() + ", " + $('#first_name').val());
             })
 
             $('#active_show_button').click(()=>{

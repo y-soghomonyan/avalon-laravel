@@ -85,7 +85,7 @@
 @if(
 !Route::currentRouteNamed('addresses') && !Route::currentRouteNamed('address_by_url'))
     <div class="modal " id="chose_address">
-        <div class="modal-dialog mt-5 modal-sm">
+        <div class="modal-dialog mt-5 modal-md">
             <div class="modal-content">
                 <div class="">
                     <div class="text-end pt-3 px-3">
@@ -248,7 +248,7 @@
             let data_city = $(this).find(':selected').attr('data-city');
             let data_state = $(this).find(':selected').attr('data-state');
             let data_country = $(this).find(':selected').attr('data-country');
-            let data = data_address_1+data_address_2+data_address_3+data_post_code_zip+data_city+data_state+data_country;
+            let data = data_address_1+" "+data_address_2+" "+data_address_3+" "+data_city+" "+data_state+" "+data_post_code_zip+" "+data_country;
 
             $('.address_all_data_show').empty();
             $('.address_all_data_show').append('<p>'+data+'</p>');
@@ -256,6 +256,7 @@
 
         $('.main_address').on('click',function(){
             let data =  $(this).data('all-data');
+            console.log(data);
             let page_id = $('#page_id').val();
             let page_url = $('#page_url').val()+'_id';
             let address = $('#address_id');
@@ -279,6 +280,18 @@
                     }
                 })
             }
+            let state_name = '';
+            if(data.state && data.state.name){
+                state_name = data.state.name+" ";
+            }
+            let country_name = '';
+            if(data.country && data.country.name){
+                country_name = data.country.name
+            }
+
+            let dataa = data.address_1+" "+data.address_2+" "+data.address_3+" "+data.city+" "+state_name+" "+data.post_code_zip+" "+country_name;
+            $('.address_all_data_show').empty();
+            $('.address_all_data_show').append('<p>'+dataa+'</p>');
         })
 
         $("#address_countries").on("change", function (e) {

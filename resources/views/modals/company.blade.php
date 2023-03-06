@@ -18,19 +18,25 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label for="personal_name" class="mr-sm-2"> Name</label>
-                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="name" value="" id="" required>
-                                <label for="personal_name" class="mr-sm-2"> Filing No</label>
-                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="" id="" >
-                                <label for="personal_name" class="mr-sm-2">Incorporation date</label>
-                                <input type="date" class="form-control mb-2 mr-sm-2" placeholder="" name="incorporation_date" value="" id="" >
+                                <div class="col-12">
+                                    <label for="personal_name" class=""> Name</label>
+                                    <input type="text" class="form-control mb-2 " placeholder="" name="name" value="" id="" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="personal_name" class=""> Filing No</label>
+                                    <input type="text" class="form-control mb-2 " placeholder="" name="filing" value="" id="" >
+                                </div>
+                                <div class="col-12">
+                                    <label for="personal_name" class="">Incorporation date</label>
+                                    <input type="date" class="form-control mb-2 " placeholder="" name="incorporation_date" value="" id="" >
+                                </div>
                                 <div class="row">
-                                    <div class="col-12"><label for="personal_name" class="mr-sm-2">Accounting Reference Date</label></div>
+                                    <div class="col-12"><label for="personal_name" class="">Accounting Reference Date</label></div>
                                     <div class="col-6">
                                         <div>
-                                            <select class="select2  form-control  mr-sm-2" name="month" id="month">
+                                            <select class="select2  form-control  " name="month" id="month">
                                                 @foreach($months as $key =>$month)
-                                                    <option value="{{$key+1}}"  >{{$month}}</option>
+                                                    <option value="{{$key+1}}" {{$key == 11 ? "selected" : ""}} >{{$month}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -39,7 +45,7 @@
                                         <div class="months_day">
                                             <select class="select2 custom-select form-control" name="day">
                                                 @for($i=1; $i<= 31; $i++)
-                                                    <option value="{{$i}}"  >{{$i}}</option>
+                                                    <option value="{{$i}}"   {{$i == 31 ? "selected" : ""}}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -48,9 +54,9 @@
                             </div>
                             <div class="col-6">
                                 <div>
-                                    <label for="" class="mr-sm-2">Country</label>
+                                    <label for="" class="">Country</label>
                                     <div>
-                                        <select class="select2  form-control  mr-sm-2" name="country_id" id="countries">
+                                        <select class="select2  form-control  " name="country_id" id="countries">
                                             <option selected value="">Select Country</option>
                                             @foreach($countries as $country)
                                                 <option value="{{$country->id}}"  >{{$country->name}}</option>
@@ -58,11 +64,10 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="d-none" id="country_state">
-                                    <label for="" class="mr-sm-2">State</label>
+                                <div class="d-none mt-2" id="country_state">
+                                    <label for="" class="">State</label>
                                     <div >
-                                        <select class="select2  form-control  mr-sm-2" name="state_id">
+                                        <select class="select2  form-control" name="state_id">
                                             <option selected value="">Select State</option>
                                             @foreach($countries as $country)
                                                 @if($country->states->count())
@@ -76,10 +81,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div>
-                                    <label for="" class="mr-sm-2">Company Type</label>
+                                <div class="mt-2 ">
+                                    <label for="" class="">Company Type</label>
                                     <div>
-                                        <select  class="select2 custom-select form-control  mr-sm-2" name="company_id">
+                                        <select  class="select2 custom-select form-control  " name="company_id">
                                             <option selected value="">Select Company Type</option>
                                                 @foreach($company_types as  $company_type)
                                                     <option value="{{$company_type->id}}" >{{$company_type->name}}</option>
@@ -87,16 +92,26 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div>
-                                    <label for="" class="mr-sm-2">Filing Status</label>
+                                <div class="mt-2 ">
+                                    <label for="" class="">Filing Status</label>
                                     <div>
-                                        <select class="select2  form-control  mr-sm-2" name="filing_status">
+                                        <select class="select2  form-control  " name="filing_status">
                                             <option selected value="">Select Filing Status </option>
-                                            <option value="1"  >Active</option>
-                                            <option value="0"  >Dissolved</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Dissolved</option>
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-2 mt-3">
+                                <div class="bg-light p-3 h6">Company Activity</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <textarea name="company_activity"class="form-control" ></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -107,7 +122,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <div>
-                                    <label for="" class="mr-sm-2">Account</label>
+                                    <label for="" class="">Account</label>
                                     <div>
                                         <select  class="select2 custom-select form-control" name="account_id">
                                             <option selected value="">Select Account</option>
@@ -118,8 +133,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <label for="personal_name" class="mr-sm-2">Contact</label>
+                            {{-- <div class="col-6">
+                                <label for="personal_name" class="">Contact</label>
                                 <div>
                                     <select class="select2 select_reports_emails form-control"  name="contact_id">
                                         <option selected value="">Select Contact </option>
@@ -128,7 +143,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="row mt-3">
                             <div class="col-12 mb-2">
@@ -138,7 +153,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <div>
-                                    <label for="" class="mr-sm-2">Type</label>
+                                    <label for="" class="">Type</label>
                                     <div>
                                         <select class="select2 form-control" name="type">
                                             <option selected value="">Select Types</option>
@@ -149,7 +164,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="" class="mr-sm-2">Division </label>
+                                    <label for="" class="">Division </label>
                                     <div>
                                         <select class="select2 form-control" name="division">
                                             <option selected value="">Select Division</option>
@@ -162,7 +177,7 @@
                             </div>
                             <div class="col-6">
                                 <div>
-                                    <label for="" class="mr-sm-2">Status</label>
+                                    <label for="" class="">Status</label>
                                     <div>
                                         <select class="select2 form-control" name="status">
                                             <option selected value="">Select Status</option>
@@ -172,7 +187,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="" class="mr-sm-2">Sub Status</label>
+                                    <label for="" class="">Sub Status</label>
                                     <div>
                                         <input type="checkbox" value="1" name="sub_status" id="sub_status">
                                         <label for="sub_status">Disengagement Pending</label>
@@ -187,18 +202,18 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label for="personal_name" class="mr-sm-2"> Previous name 1</label>
-                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name1" value="" id="" >
-                                <label for="personal_name" class="mr-sm-2"> Previous name 2</label>
-                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name2" value="" id="" >
+                                <label for="personal_name" class=""> Previous name 1</label>
+                                <input type="text" class="form-control mb-2 " placeholder="" name="previous_name1" value="" id="" >
+                                <label for="personal_name" class=""> Previous name 2</label>
+                                <input type="text" class="form-control mb-2 " placeholder="" name="previous_name2" value="" id="" >
                             </div>
                             <div class="col-6">
-                                <label for="personal_name" class="mr-sm-2"> Previous name 3</label>
-                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name3" value="" id="" >
-                                <label for="personal_name" class="mr-sm-2"> Previous name 4</label>
-                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name4" value="" id="" >
-                                <label for="personal_name" class="mr-sm-2"> Previous name 5</label>
-                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name5" value="" id="" >
+                                <label for="personal_name" class=""> Previous name 3</label>
+                                <input type="text" class="form-control mb-2 " placeholder="" name="previous_name3" value="" id="" >
+                                <label for="personal_name" class=""> Previous name 4</label>
+                                <input type="text" class="form-control mb-2 " placeholder="" name="previous_name4" value="" id="" >
+                                <label for="personal_name" class=""> Previous name 5</label>
+                                <input type="text" class="form-control mb-2 " placeholder="" name="previous_name5" value="" id="" >
                             </div>
                         </div>
 
@@ -210,7 +225,7 @@
 
                         <div class="row">
                             <div class="col-6">
-                                <label for="" class="mr-sm-2">Registration Status</label>
+                                <label for="" class="">Registration Status</label>
                                 <div>
                                     <select class="select2 form-control" name="registration_status">
                                         <option selected value="">Select Registration Status</option>
@@ -221,39 +236,39 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <label for="" class="mr-sm-2">Tax ID Type</label>
+                                <label for="" class="">Tax ID Type</label>
                                 <input type="text" class="tax_id_type form-control" name="" disabled>
                                 <input type="hidden" class="tax_id_type form-control" name="tax_id_type" >
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6"> 
-                                <label for="" class="mr-sm-2">Tax ID</label>
+                                <label for="" class="">Tax ID</label>
                                 <input  class="form-control" id="" rows="3" name="tax_id">
                             </div>
                             <div class="col-6"> 
-                                <label for="" class="mr-sm-2">Status Date</label>
+                                <label for="" class="">Status Date</label>
                                 <input type="date" class="status_date form-control" name="status_date" >
                                 <button class="btn btn-primary today_button mt-2">Today</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label for="" class="mr-sm-2">Tax Filing Code</label>
+                                <label for="" class="">Tax Filing Code</label>
                                 <input  class="form-control" id="" rows="3" name="tax_filing_code">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-6"> 
-                                <label for="" class="mr-sm-2">Link to Tax Registration 1</label>
+                                <label for="" class="">Link to Tax Registration 1</label>
                                 <input type="file" name="file_1" id="file_1" class="create_file form-control">
                                 <p class=" text-primary">Upload the file or paste the link below</p>
                                 <input name="file_path_1" class=" form-control link_file" id="" >
                                 <input type="hidden" class="file_link" value="">
                             </div>
                             <div class="col-6"> 
-                                <label for="" class="mr-sm-2">Link to Tax Registration 2</label>
+                                <label for="" class="">Link to Tax Registration 2</label>
                                 <input type="file" name="file_2" id="file_2" class="create_file form-control">
                                 <p class=" text-primary">Upload the file or paste the link below</p>
                                 <input name="file_path_2" class=" form-control link_file" id="">
@@ -263,18 +278,47 @@
 
                         <div class="row mt-3 mb-3">
                             <div class="col-6"> 
-                                <label for="" class="mr-sm-2">Link to Tax Registration 3</label>
+                                <label for="" class="">Link to Tax Registration 3</label>
                                 <input type="file" name="file_3" id="file_3" class="create_file form-control">
                                 <p class=" text-primary">Upload the file or paste the link below</p>
                                 <input name="file_path_3" class=" form-control link_file" id="">
                                 <input type="hidden" class="file_link" value="">
                             </div>
                             <div class="col-6"> 
-                                <label for="" class="mr-sm-2">Link to Tax Registration 4</label>
+                                <label for="" class="">Link to Tax Registration 4</label>
                                 <input type="file" name="file_4" id="file_4" class="create_file form-control">
                                 <p class=" text-primary">Upload the file or paste the link below</p>
                                 <input name="file_path_4" class=" form-control link_file" id="">
                                 <input type="hidden" class="file_link" value="">
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="bg-light p-3 h6">IRS Standard Correspondence Address</div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6"> 
+                                <label for="" class="">Address 1</label>
+                                <input type="text" name="address1" id="" class=" form-control" >
+                            </div>
+                            <div class="col-6"> 
+                                <label for="" class="">Address 2</label>
+                                <input type="text" name="address2" id="" class=" form-control" >
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6"> 
+                                <label for="" class="">City</label>
+                                <input type="text" name="city" id="" class=" form-control" >
+                            </div>
+                            <div class="col-6"> 
+                                <label for="" class="">ZIP</label>
+                                <input type="text" name="zip" id="" class=" form-control" >
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-6"> 
+                                <label for="" class="">State </label>
+                                <textarea name="correspondence_state" class="form-control"></textarea>
                             </div>
                         </div>
 

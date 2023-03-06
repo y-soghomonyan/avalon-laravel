@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTaxReturnsTable extends Migration
+class CreateTaxReturnPdfsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,16 @@ class CreateTaxReturnsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tax_returns', function (Blueprint $table) {
+        Schema::create('tax_return_pdfs', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('company_id')->unsigned()->index()->nullable();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->string('due_date')->nullable();
-            $table->string('tax_start')->nullable();
-            $table->string('tax_end')->nullable();
-            $table->text('file_path')->nullable();
-            $table->string('status')->nullable();
-            $table->string('company_status')->nullable();
+            $table->bigInteger('tax_return_id')->unsigned()->index()->nullable();
+            $table->foreign('tax_return_id')->references('id')->on('tax_returns')->onDelete('cascade');
+            $table->string('year')->nullable();
+            $table->text('path')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +34,6 @@ class CreateTaxReturnsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tax_returns');
+        Schema::dropIfExists('tax_return_pdfs');
     }
 }

@@ -18,7 +18,7 @@ class Contact extends Model
     }
 
     public function reportsTo(){
-        return $this->hasOne(User::class, 'id', 'reports');
+        return $this->hasOne(Contact::class, 'id', 'reports');
     }
 
     public function mailingAddress(){

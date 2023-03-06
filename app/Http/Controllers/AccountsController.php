@@ -63,6 +63,7 @@ class AccountsController extends Controller
         $data->account_personality_type = $req->input('account_personality_type');
         $data->account_type_id = $req->input('account_type_id');
         $data->parent_id = $req->input('parent_id') ? $req->input('parent_id') : 0 ;
+        $data->email = $req->input('email');
         $data->industry_id = $req->input('industry_id');
         $data->account_phone = $req->input('account_phone');
         $data->website = $req->input('website');
@@ -100,6 +101,7 @@ class AccountsController extends Controller
                 $account->owner_id = $req->input('owner_id');
                 $account->account_type_id = $req->input('account_type_id');
                 $account->parent_id = $req->input('parent_id') ? $req->input('parent_id') : 0;
+                $account->email = $req->input('email');
                 $account->industry_id = $req->input('industry_id');
                 $account->account_phone = $req->input('account_phone');
                 $account->website = $req->input('website');

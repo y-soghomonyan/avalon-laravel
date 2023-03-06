@@ -66,36 +66,36 @@
                     </div>
                     <div id="contact_info_btn" class="collapse show">
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label for="personal_name" class="mr-sm-2">Company name:</label>
+                            <label for="personal_name" class="">Company name:</label>
                             <div>{{$company->name}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label for="personal_name" class="mr-sm-2">Filing:</label>
+                            <label for="personal_name" class="">Filing:</label>
                             <div>{{$company->filing}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label for="personal_name" class="mr-sm-2">Filing Status:</label>
+                            <label for="personal_name" class="">Filing Status:</label>
                             <div>{{$company->filing_status ? 'Active' : 'Dissolved'}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label for="personal_name" class="mr-sm-2">Country:</label>
+                            <label for="personal_name" class="">Country:</label>
                             <div>{{$company->country->name ?? ''}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2 {{empty($company->state->name) ? 'd-none' : ''}}">
-                            <label for="personal_name" class="mr-sm-2">State:</label>
+                            <label for="personal_name" class="">State:</label>
                             <div>{{$company->state->name ?? ''}} </div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label  class="mr-sm-2">Company Type:</label>
+                            <label  class="">Company Type:</label>
                             <div>{{$company->companyTypes->name ?? ''}} </div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label  class="mr-sm-2">Incorporation date:</label>
+                            <label  class="">Incorporation date:</label>
                             <div>{{$company->incorporation_date ?? ''}} </div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label  class="mr-sm-2"> Accounting Reference Date:</label>
-                            <div>{{$company->day ??''}}, {{$company->month ? $months[$company->month -1] :''}}  </div>
+                            <label  class=""> Accounting Reference Date:</label>
+                            <div>{{$company->day ? $company->day :'1'}}, {{$company->month ? $months[$company->month -1] :''}}  </div>
                         </div>
                     </div>
                 </div>
@@ -132,15 +132,33 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Account:</label>
-                                                    <div>{{$company->parentAccount->name ?? ''}}</div>
+                                                    <label for="personal_name" class="">Account:</label>
+                                                    <div>
+                                                        <a href="/account/{{$company->parentAccount->id ?? ''}}"> {{$company->parentAccount->name ?? ''}}</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
+                                            {{-- <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Contact:</label>
-                                                    <div>{{$company->contacts->title ?? ''}}</div>
+                                                    <label for="personal_name" class="">Contact:</label>
+                                                    <div>
+                                                        <a href="/contact/{{$company->contacts->id ?? ''}}">{{$company->contacts->title ?? ''}}</a>
+                                                    </div>
                                                 </div>
+                                            </div> --}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" contact_info_btn collaps_show" data-toggle="collapse" data-target="#company_activity">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small " focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+                                    Company Activity
+                                </div>
+                                <div id="company_activity" class="collapse ">
+                                    <div class=" mt-2 pt-1 px-2 pb-3">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                {{$company->company_activity ?? ''}}
                                             </div>
                                         </div>
                                     </div>
@@ -154,21 +172,21 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Type:</label>
+                                                    <label for="personal_name" class="">Type:</label>
                                                     <div>{{$company->type}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Division:</label>
+                                                    <label for="personal_name" class="">Division:</label>
                                                     <div>{{$company->division}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Status:</label>
+                                                    <label for="personal_name" class="">Status:</label>
                                                     <div>{{$company->status ? "Active" : "Dissolved"}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Sub Status::</label>
+                                                    <label for="personal_name" class="">Sub Status::</label>
                                                     <div><span class="{{$company->sub_status ? '' : 'd-none'}}">Disengagement Pending</span></div>
                                                 </div>
                                             </div>
@@ -184,25 +202,25 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Previous name 1:</label>
+                                                    <label for="personal_name" class="">Previous name 1:</label>
                                                     <div>{{$company->previous_name1}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Previous name 2:</label>
+                                                    <label for="personal_name" class="">Previous name 2:</label>
                                                     <div>{{$company->previous_name2}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Previous name 3:</label>
+                                                    <label for="personal_name" class="">Previous name 3:</label>
                                                     <div>{{$company->previous_name3}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Previous name 4:</label>
+                                                    <label for="personal_name" class="">Previous name 4:</label>
                                                     <div>{{$company->previous_name4}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Previous name 5:</label>
+                                                    <label for="personal_name" class="">Previous name 5:</label>
                                                     <div>{{$company->previous_name5}}</div>
                                                 </div>
                                             </div>
@@ -218,25 +236,25 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Registration Status:</label>
+                                                    <label for="personal_name" class="">Registration Status:</label>
                                                     <div>{{$company->registration_status}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Tax ID:</label>
+                                                    <label for="personal_name" class="">Tax ID:</label>
                                                     <div>{{$company->tax_id}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Tax Filing Code:</label>
+                                                    <label for="personal_name" class="">Tax Filing Code:</label>
                                                     <div>{{$company->tax_filing_code}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Tax ID Type:</label>
+                                                    <label for="personal_name" class="">Tax ID Type:</label>
                                                     <div>{{$company->tax_id_type}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Status Date:</label>
+                                                    <label for="personal_name" class="">Status Date:</label>
                                                     <div>{{$company->status_date}}</div>
                                                 </div>
                                             </div>
@@ -244,27 +262,90 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Link to Tax Registration 1:</label>
+                                                    <label for="personal_name" class="">Link to Tax Registration 1:</label>
                                                     <div class="break-word">{{$file_1}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Link to Tax Registration 2:</label>
+                                                    <label for="personal_name" class="">Link to Tax Registration 2:</label>
                                                     <div class="break-word">{{$file_2}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Link to Tax Registration 3:</label>
+                                                    <label for="personal_name" class="">Link to Tax Registration 3:</label>
                                                     <div class="break-word">{{$file_3}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Link to Tax Registration 4:</label>
+                                                    <label for="personal_name" class="">Link to Tax Registration 4:</label>
                                                     <div class="break-word">{{$file_4}}</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class=" contact_info_btn mt-3 collaps_show" data-toggle="collapse" data-target="#IRS_standard">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+                                    IRS Standard Correspondence Address
+                                </div>
+                                <div id="IRS_standard" class="collapse">
+                                    <div class=" mt-2 pt-1 px-2 pb-3">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="">Address 1:</label>
+                                                    <div>{{$company->address1??""}}</div>
+                                                </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="">Address 2:</label>
+                                                    <div>{{$company->address2??""}}</div>
+                                                </div>
+                                               
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="">City:</label>
+                                                    <div>{{$company->city?? ""}}</div>
+                                                </div>
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="">ZIP:</label>
+                                                    <div>{{$company->zip?? ""}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="border-bottom mt-2 pt-1 px-2">
+                                                    <label for="personal_name" class="">State:</label>
+                                                    <div class="break-word">{{$company->correspondence_state?? ""}}</div>
+                                                </div>
+                                              
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" contact_info_btn mt-3 collaps_show" data-toggle="collapse" data-target="#forms_7004">
+                                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
+                                    Form 7004
+                                </div>
+                                
+                                <div id="forms_7004" class="collapse">
+                                    <div class=" mt-2 pt-1 px-2 pb-3">
+                                        <div class="row">
+                                            @if($company->pdf_fils)
+                                                @foreach($company->pdf_fils as $pdf_fils)
+                                                <div class="col-12">
+                                                    <a class="text-succsess" target="_blank" href="{{$pdf_fils->path}}">{{$pdf_fils->year}}</a>
+                                                </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+
 
                                 <div class=" contact_info_btn mt-3 collaps_show" data-toggle="collapse" data-target="#system_info">
                                     <svg class="slds-icon slds-icon-text-default slds-icon_x-small  slds-icon_x-small_rotate" focusable="false" data-key="switch" aria-hidden="true" viewBox="0 0 52 52"><g><path d="M47.6 17.8L27.1 38.5c-.6.6-1.6.6-2.2 0L4.4 17.8c-.6-.6-.6-1.6 0-2.2l2.2-2.2c.6-.6 1.6-.6 2.2 0l16.1 16.3c.6.6 1.6.6 2.2 0l16.1-16.3c.6-.6 1.6-.6 2.2 0l2.2 2.2c.5.7.5 1.6 0 2.2z"></path></g></svg>
@@ -515,9 +596,9 @@
                                             {{$address->address_1?$address->address_1."," :""}} 
                                             {{$address->address_2?$address->address_2."," :""}} 
                                             {{$address->address_3? $address->address_3.",":""}}
-                                            {{$address->post_code_zip? $address->post_code_zip." ":""}}
                                             {{$address->city? $address->city.",":""}}
-                                            {{$address->state && $address->state->name? $address->state->name.',':""}}
+                                            {{$address->state && $address->state->name? $address->state->name.'':""}}
+                                            {{$address->post_code_zip? $address->post_code_zip." ":""}}
                                             {{$address->country && $address->country->name?$address->country->name.",":""}}
                                         </div>
                                         <div class="col-4">
@@ -607,22 +688,28 @@
                     <div id="tax_returns" class="collapse bg-white rounded-bottom" style="margin-top: -5px;">
                         <div class="  pt-1 px-3 pb-3"> 
                             @foreach($tax_returns as $key => $tax_return)
-                                <div class="row mt-2">
+                                <div class="row mt-2 border-bottom">
                                     <div 
-                                        class="col-10 show_tax_returns cursor-pointer text-primary"
+                                        class="col-12 show_tax_returns cursor-pointer text-primary"
                                         data-toggle="modal"
                                         data-target="#show_tax_returns"
                                         data-tax_returns="{{ $tax_return}}">
-                                        {{$tax_return->tax_start?? ''}} - {{$tax_return->tax_end?? ''}}
+                                        {{$tax_return->tax_end? substr($tax_return->tax_end,0,4)  : ''}} 
                                     </div>                                        
-                                    <div class="col-2 text-center">
+                                    {{-- <div class="col-2 text-center">
                                         <a href="{{ route('delete_tax_returns', [$tax_return->id]) }}" >
                                             <svg xmlns="http://www.w3.org/2000/svg" class="slds-delete__icon" id="Layer_1" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><path d="M10 3v3h9V3a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1z"/><path d="M4 5v1h21V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1zM6 8l1.812 17.209A2 2 0 0 0 9.801 27H19.2a2 2 0 0 0 1.989-1.791L23 8H6zm4.577 16.997a.999.999 0 0 1-1.074-.92l-1-13a1 1 0 0 1 .92-1.074.989.989 0 0 1 1.074.92l1 13a1 1 0 0 1-.92 1.074zM15.5 24a1 1 0 0 1-2 0V11a1 1 0 0 1 2 0v13zm3.997.077a.999.999 0 1 1-1.994-.154l1-13a.985.985 0 0 1 1.074-.92 1 1 0 0 1 .92 1.074l-1 13z"/></svg>
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             @endforeach
                         </div>
+                        @if($tax_returns->count())
+                            <div class="row text-center py-3">
+                                <a href="{{ route('tax_returns_by_url', [$url,$id]) }}" class=" text-primary">View All</a>
+                            </div>
+                         @endif
+
                     </div>
                 </div>
             </div>
@@ -649,17 +736,23 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2"> Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="name" value="{{$company->name}}" id="" required>
-                                    <label for="personal_name" class="mr-sm-2"> Filing No:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="filing" value="{{$company->filing}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2">Incorporation date</label>
-                                    <input type="date" class="form-control mb-2 mr-sm-2" placeholder="" name="incorporation_date" value="{{$company->incorporation_date}}" id="" >
+                                    <div class="col-12">
+                                        <label for="personal_name" class=""> Name:</label>
+                                        <input type="text" class="form-control mb-2 " placeholder="" name="name" value="{{$company->name}}" id="" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="personal_name" class=""> Filing No:</label>
+                                        <input type="text" class="form-control mb-2 " placeholder="" name="filing" value="{{$company->filing}}" id="" >
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="personal_name" class="">Incorporation date</label>
+                                        <input type="date" class="form-control mb-2 " placeholder="" name="incorporation_date" value="{{$company->incorporation_date}}" id="" > 
+                                    </div>
                                     <div class="row">
-                                        <div class="col-12"><label for="personal_name" class="mr-sm-2">Accounting Reference Date</label></div>
+                                        <div class="col-12"><label for="personal_name" class="">Accounting Reference Date</label></div>
                                         <div class="col-6">
                                             <div>
-                                                <select class="select2  form-control  mr-sm-2" name="month" id="month">
+                                                <select class="select2  form-control  " name="month" id="month">
                                                     @foreach($months as $key =>$month)
                                                         <option value="{{$key+1}}" {{$company->month == $key+1 ?"selected" : ""}}  >{{$month}}</option>
                                                     @endforeach
@@ -679,7 +772,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div>
-                                        <label for="" class="mr-sm-2">Country:</label>
+                                        <label for="" class="">Country:</label>
                                         <div>
                                             <select class="select2  form-control" name="country_id" id="countries" >
                                                 <option selected value="">Select Country</option>
@@ -689,8 +782,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class=" {{(empty($company->state_id)) ? 'd-none' : ''}}  " id="country_state">
-                                        <label for="" class="mr-sm-2">State:</label>
+                                    <div class="mt-2 {{(empty($company->state_id)) ? 'd-none' : ''}}  " id="country_state">
+                                        <label for="" class="">State:</label>
                                         <div >
                                             <select class="select2  form-control" name="state_id">
                                                 <option selected value="">Select State</option>
@@ -706,8 +799,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div>
-                                        <label for="" class="mr-sm-2">Company Type:</label>
+                                    <div class="mt-2">
+                                        <label for="" class="">Company Type:</label>
                                         <div>
                                             <select  class="select2 custom-select form-control" name="company_id">
                                                 <option selected value="">Select Company Type</option>
@@ -718,7 +811,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label for="" class="mr-sm-2">Filing Status:</label>
+                                        <label for="" class="mt-2">Filing Status:</label>
                                         <div>
                                             <select class="select2  form-control" name="filing_status">
                                                 <option selected value="">Select Filing Status </option>
@@ -731,13 +824,23 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 mb-2 mt-3">
+                                    <div class="bg-light p-3 h6">Company Activity</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <textarea name="company_activity"class="form-control" >{{$company->company_activity ?? ''}}</textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-2 mt-3">
                                     <div class="bg-light p-3 h6">Account Details</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <div>
-                                        <label for="" class="mr-sm-2">Account:</label>
+                                        <label for="" class="">Account:</label>
                                         <div>
                                             <select  class="select2 custom-select form-control" name="account_id">
                                                 <option selected value="">Select Account </option>
@@ -748,8 +851,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2">Contact:</label>
+                                {{-- <div class="col-6">
+                                    <label for="personal_name" class="">Contact:</label>
                                     <div>
                                         <select class="select2 select_reports_emails form-control"  name="contact_id">
                                             <option selected value="">Select Contact </option>
@@ -758,17 +861,17 @@
                                                 @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="row mt-3">
                                 <div class="col-12 mb-2">
                                     <div class="bg-light p-3 h6">Engagement</div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-6">
                                     <div>
-                                        <label for="" class="mr-sm-2">Type:</label>
+                                        <label for="" class="">Type:</label>
                                         <div>
                                             <select class="select2 form-control" name="type">
                                                 <option selected value="">Select Types</option>
@@ -778,8 +881,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div>
-                                        <label for="" class="mr-sm-2">Division :</label>
+                                    <div class="mt-2">
+                                        <label for="" class="">Division :</label>
                                         <div>
                                             <select class="select2 form-control" name="division">
                                                 <option selected value="" >Select Division</option>
@@ -792,7 +895,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div>
-                                        <label for="" class="mr-sm-2">Status:</label>
+                                        <label for="" class="">Status:</label>
                                         <div>
                                             <select class="select2 form-control" name="status">
                                                 <option selected value="">Select Status</option>
@@ -801,8 +904,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div>
-                                        <label for="" class="mr-sm-2">Sub Status:</label>
+                                    <div class="mt-2">
+                                        <label for="" class="">Sub Status:</label>
                                         <div>
                                             <input type="checkbox" value="1" {{$company->sub_status ? 'checked' : ''}} name="sub_status" id="sub_status">
                                             <label for="sub_status">Disengagement Pending</label>
@@ -817,18 +920,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2"> Previous name 1:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name1" value="{{$company->previous_name1}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2"> Previous name 2:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name2" value="{{$company->previous_name2}}" id="" >
+                                    <label for="personal_name" class=""> Previous name 1:</label>
+                                    <input type="text" class="form-control mb-2 " placeholder="" name="previous_name1" value="{{$company->previous_name1}}" id="" >
+                                    <label for="personal_name" class=""> Previous name 2:</label>
+                                    <input type="text" class="form-control mb-2 " placeholder="" name="previous_name2" value="{{$company->previous_name2}}" id="" >
                                 </div>
                                 <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2"> Previous name 3:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name3" value="{{$company->previous_name3}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2"> Previous name 4:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name4" value="{{$company->previous_name4}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2"> Previous name 5:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="previous_name5" value="{{$company->previous_name5}}" id="" >
+                                    <label for="personal_name" class=""> Previous name 3:</label>
+                                    <input type="text" class="form-control mb-2 " placeholder="" name="previous_name3" value="{{$company->previous_name3}}" id="" >
+                                    <label for="personal_name" class=""> Previous name 4:</label>
+                                    <input type="text" class="form-control mb-2 " placeholder="" name="previous_name4" value="{{$company->previous_name4}}" id="" >
+                                    <label for="personal_name" class=""> Previous name 5:</label>
+                                    <input type="text" class="form-control mb-2 " placeholder="" name="previous_name5" value="{{$company->previous_name5}}" id="" >
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -838,7 +941,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label for="" class="mr-sm-2">Registration Status</label>
+                                    <label for="" class="">Registration Status</label>
                                     <div>
                                         <select class="select2 form-control" name="registration_status">
                                             <option selected value="">Select Registration Status</option>
@@ -849,39 +952,39 @@
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <label for="" class="mr-sm-2">Tax ID Type</label>
+                                    <label for="" class="">Tax ID Type</label>
                                     <input type="text" class="tax_id_type form-control" name=""  value="{{$company->tax_id_type}}" disabled>
                                     <input type="hidden" class="tax_id_type form-control" name="tax_id_type"  value="{{$company->tax_id_type}}">
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-6"> 
-                                    <label for="" class="mr-sm-2">Tax ID</label>
+                                    <label for="" class="">Tax ID</label>
                                     <input  class="form-control" id="" rows="3" name="tax_id" value="{{$company->tax_id}}">
                                 </div>
                                 <div class="col-6">
-                                    <label for="" class="mr-sm-2">Status Date</label>
+                                    <label for="" class="">Status Date</label>
                                     <input type="date" class="status_date form-control" name="status_date" value="{{substr($company->status_date,0,10)}}">
                                     <button class="btn btn-primary today_button mt-2">Today</button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label for="" class="mr-sm-2">Tax Filing Code</label>
+                                    <label for="" class="">Tax Filing Code</label>
                                     <input  class="form-control" id="" rows="3" name="tax_filing_code" value="{{$company->tax_filing_code}}">
                                 </div>
                             </div>
 
                             <div class="row mt-3">
                                 <div class="col-6"> 
-                                    <label for="" class="mr-sm-2">Link to Tax Registration 1</label>
+                                    <label for="" class="">Link to Tax Registration 1</label>
                                     <input type="file" name="file_1" id="file_path_1" class="create_file form-control">
                                     <p class=" text-primary">Upload the file or paste the link below</p>
                                     <input name="file_path_1" class=" form-control link_file" id="" value="{{$file_1??''}}">
                                     <input type="hidden" class="file_link" value="{{ asset("storage/public/Files/$file_1") }}">
                                 </div>
                                 <div class="col-6"> 
-                                    <label for="" class="mr-sm-2">Link to Tax Registration 2</label>
+                                    <label for="" class="">Link to Tax Registration 2</label>
                                     <input type="file" name="file_2" id="file_path_2" class="create_file form-control">
                                     <p class=" text-primary">Upload the file or paste the link below</p>
                                     <input name="file_path_2" class=" form-control link_file" id="" value="{{$file_2??''}}">
@@ -890,18 +993,47 @@
                             </div>
                             <div class="row mt-3 mb-3">
                                 <div class="col-6"> 
-                                    <label for="" class="mr-sm-2">Link to Tax Registration 3</label>
+                                    <label for="" class="">Link to Tax Registration 3</label>
                                     <input type="file" name="file_3" id="file_path_3" class="create_file form-control">
                                     <p class=" text-primary">Upload the file or paste the link below</p>
                                     <input name="file_path_3" class=" form-control link_file" id="" value="{{$file_3??''}}">
                                     <input type="hidden" class="file_link" value="{{ asset("storage/public/Files/$file_3") }}">
                                 </div>
                                 <div class="col-6"> 
-                                    <label for="" class="mr-sm-2">Link to Tax Registration 4</label>
+                                    <label for="" class="">Link to Tax Registration 4</label>
                                     <input type="file" name="file_4" id="file_path_4" class="create_file form-control">
                                     <p class=" text-primary">Upload the file or paste the link below</p>
                                     <input name="file_path_4" class=" form-control link_file" id="" value="{{$file_4??''}}">
                                     <input type="hidden" class="file_link" value="{{ asset("storage/public/Files/$file_4") }}">
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="bg-light p-3 h6">IRS Standard Correspondence Address</div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-6"> 
+                                    <label for="" class="">Address 1</label>
+                                    <input type="text" name="address1" id="" class=" form-control" value="{{$company->address1}}">
+                                </div>
+                                <div class="col-6"> 
+                                    <label for="" class="">Address 2</label>
+                                    <input type="text" name="address2" id="" class=" form-control" value="{{$company->address2}}">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-6"> 
+                                    <label for="" class="">City</label>
+                                    <input type="text" name="city" id="" class=" form-control" value="{{$company->city}}">
+                                </div>
+                                <div class="col-6"> 
+                                    <label for="" class="">ZIP</label>
+                                    <input type="text" name="zip" id="" class=" form-control" value="{{$company->zip}}">
+                                </div>
+                            </div>
+                            <div class="row mt-3 mb-3">
+                                <div class="col-6"> 
+                                    <label for="" class="">State </label>
+                                    <textarea name="correspondence_state" class="form-control">{{$company->correspondence_state}}</textarea>
                                 </div>
                             </div>
 

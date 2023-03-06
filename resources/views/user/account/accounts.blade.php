@@ -121,7 +121,7 @@
                                         <input type="text" class="form-control mb-2 mr-sm-2" required placeholder="Phone" value="{{$value->additional_phone}}" name="additional_phone" >
                                     </div>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-6">
                                         <label  class="mr-sm-2">Description:</label>
                                         <textarea class="form-control" id="" rows="3"  name="description">{{$value->description}}</textarea>
@@ -130,7 +130,7 @@
                                         <label  class="mr-sm-2">Employees:</label>
                                         <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Employees" required value="{{$value->employees}}" name="employees" >
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row">
                                     <div class="col-6">
                                         <label  class="mr-sm-2">Address 1 Street:</label>
@@ -221,8 +221,11 @@
                     if( $('#personal_account').is(':checked') ){
                         $('#business_account_name').addClass('d-none');
                         $('#personal_account_name').removeClass('d-none');
+                        $('.account_classification_indevidual').removeClass('d-none');
+                        $('.account_classification_bisnes').addClass('d-none');
                     }else{
-                    
+                        $('.account_classification_indevidual').addClass('d-none');
+                        $('.account_classification_bisnes').removeClass('d-none');
                         $('#business_account_name').removeClass('d-none');
                         $('#personal_account_name').addClass('d-none'); 
                         $('#account_name').val('');
@@ -231,7 +234,7 @@
             
                 $('.personal_account_name').change(()=>{
                     $('#account_name').val('');
-                    $('#account_name').val($('#first_name').val() + ", " + $('#last_name').val());
+                    $('#account_name').val($('#last_name').val() + ", " + $('#first_name').val());
                 })
             })
             $(document).ready(function() {

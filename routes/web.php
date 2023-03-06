@@ -14,11 +14,19 @@ use App\Http\Controllers\FilesController;
 use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\CorporateAppointments;
 use App\Http\Controllers\AddressProviderController;
+use App\Http\Controllers\TaxReturnController;
 use App\Http\Controllers\TestEmailController;
+use App\Http\Controllers\PDFController;
+
 
 Route::controller(TestEmailController::class)->group(function () {
 
     Route::get('/test', 'index')->name('test');
+    
+    Route::get('/create-email', 'create_email')->name('create_email');
+    Route::get('/emails', 'all_emails')->name('all_emails');
+    Route::get('/email', 'email')->name('email');
+    Route::post('/delete_mailbox_email', 'delete_email')->name('delete_mailbox_email');
 //    Route::post('/update-profile', 'update_profile')->name('update_profile');
 
 });
@@ -28,6 +36,25 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::controller(PDFController::class)->group(function () {
+
+    // Route::get('pdfview',array('as'=>'pdfview','uses'=>'pdfview'));
+    Route::get('/pdfview', 'pdfview')->name('pdfview')->middleware('auth');
+    Route::get('/create_pdf', 'create_pdf')->name('create_pdf')->middleware('auth');
+    Route::get('/pdf2', 'pdf2')->name('pdf2')->middleware('auth');
+    
+    Route::post('/edit_pdf', 'edit_pdf')->name('edit_pdf')->middleware('auth');
+
+    
+    
+    
+
+
+    // Route::post('/pdfview', 'pdfview')->name('pdfview')->middleware('auth');
+
+});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -94,11 +121,19 @@ Route::controller(CompaniesController::class)->group(function () {
     Route::post('/create_tax_returns', 'create_tax_returns')->name('create_tax_returns')->middleware('auth');
     Route::post('/create_tax_returnspull2', 'create_tax_returnspull2')->name('create_tax_returnspull2')->middleware('auth');
     Route::get('/delete_tax_returns/{id}', 'delete_tax_returns')->name('delete_tax_returns')->middleware('auth');
-
-    
-
     
 });
+
+Route::controller(TaxReturnController::class)->group(function () {
+
+    Route::post('/create_tax_returns', 'create_tax_returns')->name('create_tax_returns')->middleware('auth');
+    Route::post('/create_tax_returnspull2', 'create_tax_returnspull2')->name('create_tax_returnspull2')->middleware('auth');
+    Route::post('/edit_tax_returns', 'edit_tax_returns')->name('edit_tax_returns')->middleware('auth');
+    Route::get('/delete_tax_returns/{id}', 'delete_tax_returns')->name('delete_tax_returns')->middleware('auth');
+    Route::get('/{url}/{id}/tax-return', 'tax_returns_by_url')->name('tax_returns_by_url')->middleware('auth');
+    
+});
+
 
 Route::controller(LogCallController::class)->group(function () {
     Route::get('/log-call/{id}/{url}', 'get_call')->name('log_call')->middleware('auth');

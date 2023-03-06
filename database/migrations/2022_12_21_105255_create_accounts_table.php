@@ -24,7 +24,8 @@ class CreateAccountsTable extends Migration
             $table->foreign('account_type_id')->references('id')->on('company_types')->onDelete('cascade');
             $table->bigInteger('industry_id')->unsigned()->index()->nullable();
             $table->foreign('industry_id')->references('id')->on('industries_types')->onDelete('cascade');
-            $table->integer('parent_id')->nullable();
+            $table->integer('email')->nullable();
+            $table->string('account_phone')->nullable();
             $table->integer('account_personality_type')->nullable();
             $table->string('account_phone')->nullable();
             $table->string('website')->nullable();

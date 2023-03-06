@@ -12,11 +12,24 @@
                     @csrf
                     <div class="">
                         <div class="row">
+                            <div class="col-12 mb-2">
+                                <div class="bg-light p-3 h6">Corporate Title</div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Corporate Title (CEO, COO, CTO etc)</label>
                                 <input type="text" name="title" class="form-control  mr-sm-2" id="">
                             </div>
-                            <div class="col-6">
+                          
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 mb-2">
+                                <div class="bg-light p-3 h6">Appointee</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {{-- <div class="col-6">
                                 <label  class="mr-sm-2">Account</label>
                                 <div>
                                     <select  class="select2 custom-select form-control" name="account_id">
@@ -26,9 +39,25 @@
                                           @endforeach
                                     </select>
                                 </div>
+                            </div> --}}
+                            <div class="col-6">
+                                <label  class="mr-sm-2">Contact</label>
+                                <div>
+                                    <select  class="select2 custom-select form-control" name="contact_id">
+                                      <option value=""></option>
+                                            @foreach($contacts as $contact)
+                                                <option value="{{$contact->id}}">{{$contact->title}}</option>
+                                            @endforeach
+                                            @foreach($individual_accounts as $individual_account)
+                                                <option value="account {{$individual_account->id}}">{{$individual_account->name}}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <input type="hidden" name="company_id" value="{{$id}}">
+
+                        {{-- <div class="row">
                             <div class="col-6">
                                 <label  class="mr-sm-2">Company</label>
                                 <div>
@@ -40,16 +69,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <label  class="mr-sm-2">Contact</label>
-                                <div>
-                                    <select  class="select2 custom-select form-control" name="contact_id">
-                                      <option value=""></option>
-                                          @foreach($contacts as $contact)
-                                            <option value="{{$contact->id}}">{{$contact->title}}</option>
-                                          @endforeach
-                                    </select>
-                                </div>
+                        </div> --}}
+                        
+                        <div class="row mt-3">
+                            <div class="col-12 mb-2">
+                                <div class="bg-light p-3 h6">Directorship</div>
                             </div>
                         </div>
                         <div class="d-flex gap-20 mt-3">
@@ -62,8 +86,13 @@
                                 <label for="position_2" class="mr-sm-2">Is Manager</label>
                             </div>
                         </div>
-                        <div class="col-12 mt-3">
+                        {{-- <div class="col-12 mt-3">
                             <h5 class="mr-sm-2">Roles</h5>
+                        </div> --}}
+                        <div class="row mt-3">
+                            <div class="col-12 mb-2">
+                                <div class="bg-light p-3 h6">Roles</div>
+                            </div>
                         </div>
                         <div class="d-flex gap-20 mt-3 mb-3">
                             @foreach($appointments_roles as $appointments_role)
@@ -72,6 +101,11 @@
                                     <label for="appointments_role_{{$appointments_role->id}}" class="mr-sm-2">{{$appointments_role->title}}</label>
                                 </div>
                             @endforeach
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 mb-2">
+                                <div class="bg-light p-3 h6">Appointment Dates</div>
+                            </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -109,11 +143,23 @@
                         <input type="hidden" name="id" id="corporate_appointment_id" value="">
                         <div class="">
                             <div class="row">
+                                <div class="col-12 mb-2">
+                                    <div class="bg-light p-3 h6">Corporate Title</div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Corporate Title (CEO, COO, CTO etc)</label>
                                     <input type="text" name="title" class="form-control  mr-sm-2" id='corporate_appointment_title'>
                                 </div>
-                                <div class="col-6">
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 mb-2">
+                                    <div class="bg-light p-3 h6">Appointee</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{-- <div class="col-6">
                                     <label  class="mr-sm-2">Account</label>
                                     <div>
                                         <select  class="select2 custom-select form-control" name="account_id" id='corporate_appointment_account_id'>
@@ -123,30 +169,26 @@
                                           @endforeach
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label  class="mr-sm-2">Company</label>
-                                    <div>
-                                        <select  class="select2 custom-select form-control" name="company_id" id='corporate_appointment_company_id'>
-                                          <option value=""></option>
-                                          @foreach($companies as $comp)
-                                            <option value="{{$comp->id}}">{{$comp->name}}</option>
-                                          @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-6">
                                     <label  class="mr-sm-2">Contact</label>
                                     <div>
                                         <select  class="select2 custom-select form-control" name="contact_id" id='corporate_appointment_contact_id'>
-                                          <option value=""></option>
-                                          @foreach($contacts as $contact)
-                                            <option value="{{$contact->id}}">{{$contact->title}}</option>
-                                          @endforeach
+                                            <option value=""></option>
+                                            @foreach($contacts as $contact)
+                                                <option value="{{$contact->id}}">{{$contact->title}}</option>
+                                            @endforeach
+                                            @foreach($individual_accounts as $individual_account)
+                                                <option value="account {{$individual_account->id}}">{{$individual_account->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="company_id" value="{{$id}}">
+                            <div class="row mt-3">
+                                <div class="col-12 mb-2">
+                                    <div class="bg-light p-3 h6">Directorship</div>
                                 </div>
                             </div>
                             <div class="d-flex gap-20 mt-3">
@@ -159,8 +201,10 @@
                                     <label for="corporate_appointment_position_2" class="mr-sm-2">Is Manager</label>
                                 </div>
                             </div>
-                            <div class="col-12 mt-3">
-                                <h5  class="mr-sm-2">Roles</h5>
+                            <div class="row mt-3">
+                                <div class="col-12 mb-2">
+                                    <div class="bg-light p-3 h6">Roles</div>
+                                </div>
                             </div>
                             <div class="d-flex gap-20 mt-3 mb-3">
                                 @foreach($appointments_roles as $appointments_role)
@@ -169,6 +213,11 @@
                                         <label for="cor_appointments_role_{{$appointments_role->id}}" class="mr-sm-2">{{$appointments_role->title}}</label>
                                     </div>
                                 @endforeach
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 mb-2">
+                                    <div class="bg-light p-3 h6">Appointment Dates</div>
+                                </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-6">
@@ -182,6 +231,12 @@
                                     <input type="date" name="appointment_terminated_date" class="form-control  mr-sm-2 appointment_terminated_date" id=""
                                            {{--value="{{substr($appointments_role->appointment_terminated_date,0,10)}}" max="{{date("Y-m-d")}}"--}}
                                     >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="" class="mr-sm-2">Relates to</label>
+                                    <p id="appointments_company_name"></p>
                                 </div>
                             </div>
                             <div class="modal-footer bg-light d-flex align-items-center justify-content-center">
@@ -209,14 +264,15 @@
 
             let $account =  $('#corporate_appointment_account_id');
             let $contact =  $('#corporate_appointment_contact_id');
-            let $company =  $('#corporate_appointment_company_id');
+            // let $company =  $('#corporate_appointment_company_id');
 
-            $account.val(1).trigger('change.select2');
+            // $account.val(1).trigger('change.select2');
             $contact.val(1).trigger('change.select2');
-            $company.val(1).trigger('change.select2');
+            // $company.val(1).trigger('change.select2');
 
 
             let data = $(this).data('corporate_appointments'); 
+            console.log(data);
             let appointments_roles = $('.appointments_role');
             let corporate_appointment_title = $('#corporate_appointment_title').val(data.title); 
             let corporate_appointment_id = $('#corporate_appointment_id').val(data.id);
@@ -241,15 +297,16 @@
             }
 
             if(data.account_id){
-               $account.val(data.account_id).trigger('change.select2');
+               $contact.val('account'+' '+data.account_id).trigger('change.select2');
             }
 
             if(data.contact_id){
                 $contact.val(data.contact_id).trigger('change.select2');
             }
 
-            if(data.company_id){
-                $company.val(data.company_id).trigger('change.select2');
+            if(data.company_id && data.company){
+                $('#appointments_company_name').html(data.company.name)
+                // $company.val(data.company_id).trigger('change.select2');
             }
 
 

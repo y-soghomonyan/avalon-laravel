@@ -12,4 +12,8 @@ class CorporateAppointment extends Model
     public function roles(){
         return $this->belongsToMany(AppointmentsRole::class, 'appointments_role_relations', 'appointment_id', 'appointments_roles_id');
     }
+    
+    public function company(){
+        return $this->hasOne(Company::class,'id', 'company_id');
+    }
 }

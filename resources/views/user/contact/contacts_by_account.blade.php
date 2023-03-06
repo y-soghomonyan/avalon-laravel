@@ -29,7 +29,7 @@
                         <td>{{ $value->parentAccount->name ?? '' }}</td>
                         <td>{{ $value->phone }}</td>
                         <td>{{ $value->email }}</td>
-                        <td>{{ $value->ownerUser->name ?? '' }}</td>
+                        <td>{{ $value->ownerUser->first_name ?? '' }}</td>
                         <td>
                             <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Edit</button>
                             <div class="dropdown-menu">

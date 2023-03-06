@@ -26,7 +26,7 @@ class Company extends Model
     }
 
     public function companyTypes(){
-        return $this->hasOne(CompanyType::class, 'id', 'company_id');
+        return $this->hasOne(TypeOfCompaneis::class, 'id', 'company_id');
     }
 
     public function companyFiles(){
@@ -35,6 +35,10 @@ class Company extends Model
 
     public function taxReturns(){
         return $this->hasMany(TaxReturns::class, 'company_id', 'id');
+    }
+
+    public function pdf_fils(){
+        return $this->hasMany(TaxReturnPdf::class, 'company_id', 'id');
     }
 
 }

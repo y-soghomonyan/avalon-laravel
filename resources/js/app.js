@@ -211,7 +211,7 @@ $(document).ready(function(){
 
         $('.months_day').empty();
         let days_count = new Date( new Date().getFullYear(), $(this).val(), 0).getDate();
-        let select = '<select  class="select2 custom-select form-control" name="days">';
+        let select = '<select  class="select2 custom-select form-control" name="day">';
         for (let i = 1; i <= days_count; i++) {
             select += `<option value="${i}">${i}</option>`
         }

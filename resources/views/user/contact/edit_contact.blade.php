@@ -20,24 +20,24 @@
                     </div>
                     <div id="contact_info_btn" class="collapse show">
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label for="personal_name" class="mr-sm-2">Account name:</label>
+                            <label for="personal_name" class="">Account name:</label>
                             <div>{{$contact->parentAccount->name ?? ''}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label for="personal_name" class="mr-sm-2">Contact name:</label>
+                            <label for="personal_name" class="">Contact name:</label>
                             <div>{{$contact->title}}</div>
                         </div>
 
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label  class="mr-sm-2">Contact owner:</label>
-                            <div>{{$contact->ownerUser->name ?? ""}}</div>
+                            <label  class="">Contact owner:</label>
+                            <div>{{$contact->ownerUser->first_name ?? ""}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label  class="mr-sm-2">Email:</label>
+                            <label  class="">Email:</label>
                             <div>{{$contact->email}}</div>
                         </div>
                         <div class="border-bottom mt-2 pt-1 px-2">
-                            <label  class="mr-sm-2">Phone:</label>
+                            <label  class="">Phone:</label>
                             <div>{{$contact->phone}}</div>
                         </div>
                     </div>
@@ -76,21 +76,21 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Mobile:</label>
+                                                    <label for="personal_name" class="">Mobile:</label>
                                                     <div>{{$contact->mobile}}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Fax:</label>
+                                                    <label for="personal_name" class="">Fax:</label>
                                                     <div>{{$contact->fax}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Reports to</label>
-                                                    <div>{{$contact->reportsTo->email ?? '' }}</div>
+                                                    <label for="personal_name" class="">Reports to</label>
+                                                    <div>{{$contact->reportsTo->title ?? '' }}</div>
                                                 </div>
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Department</label>
+                                                    <label for="personal_name" class="">Department</label>
                                                     <div>{{$contact->department}}</div>
                                                 </div>
                                             </div>
@@ -107,7 +107,7 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="border-bottom mt-2 pt-1 px-2">
-                                                    <label for="personal_name" class="mr-sm-2">Mailing Address:</label>
+                                                    <label for="personal_name" class="">Mailing Address:</label>
                                                     <div>{{$contact->mailingAddress->email ?? ''  }}</div>
                                                 </div>
                                             </div>
@@ -414,13 +414,14 @@
                             @foreach($addresses as $key => $address)
                             <div class="mt-3 border-bottom pb-1">
                                 <div class="row main_address cursor-pointer" data-toggle="modal" data-target="#chose_address" data-all-data="{{$address}}">
-                                    <div class="col-8">{{$address->title??"Unknown name"}} 
+                                    <div class="col-8">
+                                        {{$address->title??"Unknown name"}} 
                                         {{$address->address_1?$address->address_1."," :""}} 
                                         {{$address->address_2?$address->address_2."," :""}} 
                                         {{$address->address_3? $address->address_3.",":""}}
-                                        {{$address->post_code_zip? $address->post_code_zip." ":""}}
                                         {{$address->city? $address->city.",":""}}
-                                        {{$address->state && $address->state->name? $address->state->name.',':""}}
+                                        {{$address->state && $address->state->name? $address->state->name.'':""}}
+                                        {{$address->post_code_zip? $address->post_code_zip." ":""}}
                                         {{$address->country && $address->country->name?$address->country->name.",":""}}
                                     </div>
                                     <div class="col-4">
@@ -465,8 +466,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <div>
-                                        <label for="" class="mr-sm-2">Account Name:</label>
+                                    <div class="mt-2">
+                                        <label for="" class="">Account Name:</label>
                                         <div>
                                             <select class="select2 select_contact form-control" name="account_id" >
                                                 <option  value="">Select contact</option>
@@ -476,8 +477,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div>
-                                        <label for="" class="mr-sm-2">Contact Owner:</label>
+                                    <div class="mt-2">
+                                        <label for="" class="">Contact Owner:</label>
                                         <div>
                                             <select class="select2 select_owner form-control" name="owner_id" >
                                                 <option selected value="">Select Contact Owner</option>
@@ -487,34 +488,47 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <label for="" class="mr-sm-2">Solution:</label>
+                                    <div class="mt-2">
+                                    <label for="" class="">Salutation:</label>
                                     <select class=" form-control" name="solution">
-                                        <option selected value="">Select Solution</option>
+                                        <option selected value="">Select Salutation</option>
                                         <option  value="Mr"  @if($contact->solution == 'Mr') {{'selected'}} @else {{""}} @endif>Mr.</option>
                                         <option  value="Ms" @if($contact->solution == 'Ms') {{'selected'}} @else {{""}} @endif>Ms.</option>
                                         <option  value="Mrs" @if($contact->solution == 'Mrs') {{'selected'}} @else {{""}} @endif>Mrs.</option>
                                         <option  value="Dr" @if($contact->solution == 'Dr') {{'selected'}} @else {{""}} @endif>Dr.</option>
                                         <option  value="Prof" @if($contact->solution == 'Prof') {{'selected'}} @else {{""}} @endif>Prof.</option>
                                     </select>
-
-                                    <label for="personal_name" class="mr-sm-2">First Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="first_name" value="{{$contact->first_name}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2">Middle Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="middle_name" value="{{$contact->middle_name}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2">Last Name:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="last_name" value="{{$contact->last_name}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2">Suffix:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="suffix" value="{{$contact->suffix}}" id="" >
-
-
+                                    </div>
+                                    <div class="mt-2">
+                                        <label for="personal_name" class="">First Name:</label>
+                                        <input type="text" class="form-control mb-2 " placeholder="" name="first_name" value="{{$contact->first_name}}" id="" >
+                                    </div>
+                                    <div class="mt-2">
+                                        <label for="personal_name" class="">Middle Name:</label>
+                                        <input type="text" class="form-control mb-2 " placeholder="" name="middle_name" value="{{$contact->middle_name}}" id="" >
+                                    </div>
+                                    <div class="mt-2">
+                                        <label for="personal_name" class="">Last Name:</label>
+                                        <input type="text" class="form-control mb-2 " placeholder="" name="last_name" value="{{$contact->last_name}}" id="" >
+                                    </div>
+                                    <div class="mt-2">
+                                        <label for="personal_name" class="">Suffix:</label>
+                                        <input type="text" class="form-control mb-2 " placeholder="" name="suffix" value="{{$contact->suffix}}" id="" >
+                                    </div>
                                 </div>
                                 <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2">Title:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="title" value="{{$contact->title}}" id="" required>
-                                    <label for="personal_name" class="mr-sm-2">Email:</label>
-                                    <input type="email" class="form-control mb-2 mr-sm-2" placeholder="" name="email" value="{{$contact->email}}" id="" required>
-                                    <label for="personal_name" class="mr-sm-2">Phone:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="phone" value="{{$contact->phone}}" id="" >
+                                    <div class="mt-2">
+                                        <label for="personal_name" class="">Title:</label>
+                                        <input type="text" class="form-control mb-2 " placeholder="" name="title" value="{{$contact->title}}" id="" required>
+                                    </div>
+                                    <div class="mt-2">
+                                        <label for="personal_name" class="">Email:</label>
+                                        <input type="email" class="form-control mb-2 " placeholder="" name="email" value="{{$contact->email}}" id="">
+                                    </div>
+                                    <div class="mt-2">
+                                        <label for="personal_name" class="">Phone:</label>
+                                        <input type="text" class="form-control mb-2 " placeholder="" name="phone" value="{{$contact->phone}}" id="" >
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -524,24 +538,24 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2">Mobile:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mobile" value="{{$contact->mobile}}" id="" >
-                                    <label for="personal_name" class="mr-sm-2">Fax:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="fax" value="{{$contact->fax}}" id="" >
+                                    <label for="personal_name" class="">Mobile:</label>
+                                    <input type="text" class="form-control mb-2 " placeholder="" name="mobile" value="{{$contact->mobile}}" id="" >
+                                    <label for="personal_name" class="">Fax:</label>
+                                    <input type="text" class="form-control mb-2 " placeholder="" name="fax" value="{{$contact->fax}}" id="" >
                                 </div>
                                 <div class="col-6">
-                                    <label for="personal_name" class="mr-sm-2">Reports To:</label>
+                                    <label for="personal_name" class="">Reports To:</label>
                                     <div>
                                         <select class="select2 select_reports_emails form-control" name="reports" >
                                             <option selected value="">Select Reports address</option>
-                                            @foreach($users as $user1)
-                                                <option value="{{$user1->id}}" @if($user1->id == $contact->reports) {{'selected'}} @else {{""}} @endif>{{$user1->email}}</option>
+                                            @foreach($contacts as $conta)
+                                                <option value="{{$conta->id}}" @if($conta->id == $contact->reports) {{'selected'}} @else {{""}} @endif>{{$conta->title}}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
-                                    <label for="personal_name" class="mr-sm-2">Department:</label>
-                                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="department" value="{{$contact->department}}" id="" >
+                                    <label for="personal_name" class="">Department:</label>
+                                    <input type="text" class="form-control mb-2 " placeholder="" name="department" value="{{$contact->department}}" id="" >
                                 </div>
                             </div>
                             <div class="row">
@@ -552,7 +566,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div>
-                                        <label for="" class="mr-sm-2">Mailing address:</label>
+                                        <label for="" class="">Mailing address:</label>
                                         <div>
                                             <select class="select2 select_emails form-control" name="mailing_address">
                                                 <option selected value="">Select Mailing address</option>
@@ -562,26 +576,26 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <label  class="mr-sm-2">Mailing Street:</label>
+                                    <label  class="">Mailing Street:</label>
                                     <textarea  class="form-control" id="" rows="3" name="mailing_street">{{$contact->mailing_street}}</textarea>
                                     <div class="row">
                                         <div class="col-8">
-                                            <label for="personal_name" class="mr-sm-2">Mailing City:</label>
-                                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_city" value="{{$contact->mailing_city}}" id="" >
+                                            <label for="personal_name" class="">Mailing City:</label>
+                                            <input type="text" class="form-control mb-2 " placeholder="" name="mailing_city" value="{{$contact->mailing_city}}" id="" >
                                         </div>
                                         <div class="col-4">
-                                            <label for="personal_name" class="mr-sm-2">Mailing State:</label>
-                                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_state" value="{{$contact->mailing_state}}" id="" >
+                                            <label for="personal_name" class="">Mailing State:</label>
+                                            <input type="text" class="form-control mb-2 " placeholder="" name="mailing_state" value="{{$contact->mailing_state}}" id="" >
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-8">
-                                            <label for="personal_name" class="mr-sm-2">Mailing Country:</label>
-                                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing_country" value="{{$contact->mailing_country}}" id="" >
+                                            <label for="personal_name" class="">Mailing Country:</label>
+                                            <input type="text" class="form-control mb-2 " placeholder="" name="mailing_country" value="{{$contact->mailing_country}}" id="" >
                                         </div>
                                         <div class="col-4">
-                                            <label for="personal_name" class="mr-sm-2">Mailing Zip :</label>
-                                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" name="mailing__zip_code" value="{{$contact->mailing__zip_code}}" id="" >
+                                            <label for="personal_name" class="">Mailing Zip :</label>
+                                            <input type="text" class="form-control mb-2 " placeholder="" name="mailing__zip_code" value="{{$contact->mailing__zip_code}}" id="" >
                                         </div>
                                     </div>
                                 </div>
